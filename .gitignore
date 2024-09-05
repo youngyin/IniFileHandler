@@ -1,3 +1,7 @@
+# Created by https://www.toptal.com/developers/gitignore/api/c++
+# Edit at https://www.toptal.com/developers/gitignore?templates=c++
+
+### C++ ###
 # Prerequisites
 *.d
 
@@ -30,3 +34,61 @@
 *.exe
 *.out
 *.app
+
+# End of https://www.toptal.com/developers/gitignore/api/c++
+
+# history
+**/__history/*
+
+# 빌드 결과물
+**/bin/
+**/obj/
+**/Debug/
+**/Release/
+
+# IDE 관련 파일
+*.sdf
+*.suo
+*.user
+*.ncb
+*.aps
+*.opendb
+*.idb
+*.pdb
+*.ilk
+*.log
+
+# Visual Studio 관련
+.vs/
+*.vcxproj.user
+*.vcxproj.filters
+
+# CMake 관련
+CMakeFiles/
+CMakeCache.txt
+Makefile
+cmake_install.cmake
+
+# 기타 무시할 파일
+*.exe
+*.out
+*.o
+*.a
+*.so
+*.dll
+*.dSYM/
+*.class
+*.jar
+*.class
+*.pyc
+*.pyo
+*.DS_Store
+
+# 사용자 정의 설정 파일
+*.config
+*.ini
+*.local
+
+# 패키지 매니저
+node_modules/
+venv/
