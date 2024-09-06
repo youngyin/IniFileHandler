@@ -6,6 +6,7 @@
 #pragma hdrstop
 
 #include "Main.h"
+#include "scheduler/TFileMoverThread.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
@@ -14,11 +15,9 @@ TFormMain *FormMain;
 __fastcall TFormMain::TFormMain(TComponent* Owner)
 	: TForm(Owner)
 {
-	FnsettingMmResult();
 }
+
 //---------------------------------------------------------------------------
-
-
 void __fastcall TFormMain::btnSaveClick(TObject *Sender)
 {
 	UnicodeString strFolderPath = EdtFolderPath->Text; // 사용자 입력값을 가져옴
@@ -129,4 +128,14 @@ void TFormMain::FnsettingMmResult() {
 }
 //---------------------------------------------------------------------------
 
+
+
+void __fastcall TFormMain::FormCreate(TObject *Sender)
+{
+	TFileMoverThread *fileMoverThread = new TFileMoverThread(true);
+	fileMoverThread->Start();
+
+	FnsettingMmResult();
+}
+//---------------------------------------------------------------------------
 

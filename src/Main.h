@@ -25,6 +25,7 @@ __published:	// IDE-managed Components
 	void __fastcall btnOpenFolderVclClick(TObject *Sender);
 	void __fastcall BtnOpenFileClick(TObject *Sender);
 	void __fastcall BtnReadClick(TObject *Sender);
+	void __fastcall FormCreate(TObject *Sender);
 private:	// User declarations
     void FnsettingMmResult();
 public:		// User declarations
