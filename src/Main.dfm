@@ -1,7 +1,7 @@
-object Form1: TForm1
+object FormMain: TFormMain
   Left = 0
   Top = 0
-  Caption = 'Form1'
+  Caption = 'FormMain'
   ClientHeight = 466
   ClientWidth = 624
   Color = clBtnFace
@@ -11,29 +11,60 @@ object Form1: TForm1
   Font.Name = 'Segoe UI'
   Font.Style = []
   TextHeight = 15
-  object btnSave: TButton
-    Left = 64
-    Top = 224
+  object BtnSave: TButton
+    Left = 489
+    Top = 40
     Width = 75
     Height = 25
     Caption = 'SAVE'
     TabOrder = 0
-    OnClick = btnSaveClick
   end
-  object edtFilePath: TEdit
+  object EdtFolderPath: TEdit
     Left = 64
-    Top = 185
-    Width = 121
+    Top = 41
+    Width = 338
     Height = 23
     TabOrder = 1
   end
-  object btnOpenFolderVcl: TButton
-    Left = 208
-    Top = 184
+  object BtnOpenFolderVcl: TButton
+    Left = 408
+    Top = 40
     Width = 75
     Height = 25
-    Caption = 'Button1'
+    Caption = 'OPEN(VCL)'
     TabOrder = 2
-    OnClick = btnOpenFolderVclClick
+    OnClick = BtnOpenFolderVclClick
+  end
+  object BtnRead: TButton
+    Left = 489
+    Top = 153
+    Width = 75
+    Height = 25
+    Caption = 'READ'
+    TabOrder = 3
+    OnClick = BtnReadClick
+  end
+  object MmResult: TMemo
+    Left = 64
+    Top = 184
+    Width = 499
+    Height = 241
+    TabOrder = 4
+  end
+  object EdtFilePath: TEdit
+    Left = 64
+    Top = 155
+    Width = 338
+    Height = 23
+    TabOrder = 5
+  end
+  object BtnOpenFile: TButton
+    Left = 408
+    Top = 153
+    Width = 75
+    Height = 25
+    Caption = 'OPEN(VCL)'
+    TabOrder = 6
+    OnClick = BtnOpenFileClick
   end
 end

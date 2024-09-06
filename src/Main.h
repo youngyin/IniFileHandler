@@ -8,20 +8,28 @@
 #include <Vcl.StdCtrls.hpp>
 #include <Vcl.Forms.hpp>
 #include <Vcl.Menus.hpp>
+#include <Vcl.ComCtrls.hpp>
 //---------------------------------------------------------------------------
-class TForm1 : public TForm
+class TFormMain : public TForm
 {
 __published:	// IDE-managed Components
-	TButton *btnSave;
-	TEdit *edtFilePath;
-	TButton *btnOpenFolderVcl;
+	TButton *BtnSave;
+	TEdit *EdtFolderPath;
+	TButton *BtnOpenFolderVcl;
+	TButton *BtnRead;
+	TMemo *MmResult;
+	TEdit *EdtFilePath;
+	TButton *BtnOpenFile;
 	void __fastcall btnSaveClick(TObject *Sender);
 	void __fastcall btnOpenFolderVclClick(TObject *Sender);
+	void __fastcall BtnOpenFileClick(TObject *Sender);
+	void __fastcall BtnReadClick(TObject *Sender);
 private:	// User declarations
+    void FnsettingMmResult();
 public:		// User declarations
-	__fastcall TForm1(TComponent* Owner);
+	__fastcall TFormMain(TComponent* Owner);
 };
 //---------------------------------------------------------------------------
-extern PACKAGE TForm1 *Form1;
+extern PACKAGE TFormMain *FormMain;
 //---------------------------------------------------------------------------
 #endif

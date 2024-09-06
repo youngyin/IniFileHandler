@@ -187,7 +187,7 @@
             <PCH>true</PCH>
         </PCHCompile>
         <CppCompile Include="src\Main.cpp">
-            <Form>Form1</Form>
+            <Form>FormMain</Form>
             <FormType>dfm</FormType>
             <DependentOn>src\Main.h</DependentOn>
             <BuildOrder>2</BuildOrder>
