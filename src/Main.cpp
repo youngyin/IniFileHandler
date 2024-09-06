@@ -97,18 +97,19 @@ void __fastcall TFormMain::BtnReadClick(TObject *Sender)
     LblStatus->Caption = "";
 	if (EdtFilePath->Text.IsEmpty())
     {
-        ShowMessage("파일 경로가 비어 있습니다.");
+		ShowMessage("파일 경로가 비어 있습니다.");
         return;
     }
 
     TStringList *FileContent = new TStringList();
-    try
+	try
 	{
-        LblStatus->Caption = "파일을 읽는 중...";
+		LblStatus->Caption = "파일을 읽는 중...";
         FileContent->LoadFromFile(EdtFilePath->Text);
 		MmResult->Lines->Assign(FileContent);
+		LblStatus->Caption = "ccomplete!!";
     }
-    catch (const Exception &e)
+	catch (const Exception &e)
     {
         LblStatus->Caption = "오류 발생: " + e.Message;
 		ShowMessage("파일을 읽는 데 오류가 발생했습니다: " + e.Message);
