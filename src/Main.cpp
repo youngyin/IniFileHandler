@@ -6,15 +6,39 @@
 #pragma hdrstop
 
 #include "Main.h"
-#include "scheduler/TFileMoverThread.h"
+
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
-TFormMain *FormMain;
 //---------------------------------------------------------------------------
+
+TFormMain *FormMain;
 __fastcall TFormMain::TFormMain(TComponent* Owner)
 	: TForm(Owner)
 {
+}
+
+void __fastcall TFormMain::FormCreate(TObject *Sender)
+{
+	initThread();
+	initStyleComponet();
+}
+
+void TFormMain::initThread(){
+
+	TFileMoverThread *fileMoverThread = new TFileMoverThread(true);
+	fileMoverThread->Resume();
+}
+
+void TFormMain::initStyleComponet(){
+	/**
+	ssNone: 스크롤 바 없음
+	ssVertical: 수직 스크롤 바만 표시
+	ssHorizontal: 수평 스크롤 바만 표시
+	ssBoth: 수직 및 수평 스크롤 바 모두 표시
+	*/
+	MmResult->ScrollBars = System::Uitypes::TScrollStyle::ssBoth;
+	MmResultMove->ScrollBars = System::Uitypes::TScrollStyle::ssBoth;
 }
 
 //---------------------------------------------------------------------------
@@ -28,18 +52,21 @@ void __fastcall TFormMain::btnSaveClick(TObject *Sender)
 		return;
 	}
 
-	UnicodeString strFilePath = TPath::Combine(strFolderPath, "sample.ini");
-    TIniFile* pIniFile = new TIniFile(strFilePath);
-    try {
-        UnicodeString strSection = "Settings";
+	UnicodeString strFilePath = TPath::Combine(strFolderPath, "sample.ini");  //파일 이름 및 경로 생성
+	TIniFile* pIniFile = new TIniFile(strFilePath);
+	try {
+		UnicodeString strSection = "Settings";
+		UnicodeString strTestString = "TestString";
 
-        // INI 파일에 값 쓰기
-        pIniFile->WriteBool(strSection, "testFalse", false);
-        pIniFile->WriteBool(strSection, "testTrue", true);
-        pIniFile->WriteDate(strSection, "testDate", TDateTime::CurrentDateTime());
-        pIniFile->WriteDateTime(strSection, "testDateTime", TDateTime::CurrentDateTime());
-        pIniFile->WriteTime(strSection, "testTime", TDateTime::CurrentDateTime());
-        pIniFile->WriteFloat(strSection, "testFloat", 2.13111999999999999999999); //반올림처리됨.
+		// INI 파일에 값 쓰기
+		pIniFile->WriteBool(strSection, "testFalse", false);
+		pIniFile->WriteBool(strSection, "testTrue", true);
+		pIniFile->WriteDate(strSection, "testDate", TDateTime::CurrentDateTime());
+		pIniFile->WriteDateTime(strSection, "testDateTime", TDateTime::CurrentDateTime());
+		pIniFile->WriteTime(strSection, "testTime", TDateTime::CurrentDateTime());
+		pIniFile->WriteFloat(strSection, "testFloat", 2.13111999999999999999999); //반올림처리됨.
+		pIniFile->WriteString(strSection, "testString", strTestString);
+
 
         ShowMessage("INI 파일이 성공적으로 저장되었습니다.");
 
@@ -49,6 +76,7 @@ void __fastcall TFormMain::btnSaveClick(TObject *Sender)
 	}
 
 	delete pIniFile; // 항상 메모리 해제
+	pIniFile = nullptr;
 }
 //---------------------------------------------------------------------------
 
@@ -87,7 +115,8 @@ void __fastcall TFormMain::BtnOpenFileClick(TObject *Sender)
         EdtFilePath->Text = OpenDialog->FileName;
     }
 
-    delete OpenDialog;
+	delete OpenDialog;
+    OpenDialog = nullptr;
 }
 //---------------------------------------------------------------------------
 
@@ -95,7 +124,7 @@ void __fastcall TFormMain::BtnReadClick(TObject *Sender)
 {
     LblStatus->Caption = "";
 	if (EdtFilePath->Text.IsEmpty())
-    {
+	{
 		ShowMessage("파일 경로가 비어 있습니다.");
         return;
     }
@@ -114,28 +143,55 @@ void __fastcall TFormMain::BtnReadClick(TObject *Sender)
 		ShowMessage("파일을 읽는 데 오류가 발생했습니다: " + e.Message);
     }
 
-    delete FileContent;
+	delete FileContent;
+    FileContent = nullptr;
 }
 
-void TFormMain::FnsettingMmResult() {
-	/**
-	ssNone: 스크롤 바 없음
-	ssVertical: 수직 스크롤 바만 표시
-	ssHorizontal: 수평 스크롤 바만 표시
-	ssBoth: 수직 및 수평 스크롤 바 모두 표시
-	*/
-	MmResult->ScrollBars = System::Uitypes::TScrollStyle::ssBoth;
-}
 //---------------------------------------------------------------------------
 
-
-
-void __fastcall TFormMain::FormCreate(TObject *Sender)
+void __fastcall TFormMain::BtnResumeMoveThreadClick(TObject *Sender)
 {
-	TFileMoverThread *fileMoverThread = new TFileMoverThread(true);
-	fileMoverThread->Start();
+    int spinnerValue = StrToInt(SpinEditInterval->Text);
 
-	FnsettingMmResult();
+	if (spinnerValue <= 0)
+    {
+        ShowMessage("스피너의 값이 0보다 커야 합니다.");
+        return;
+    }
+
+	if (m_logThread )
+	{
+        ShowMessage("logThread is running!!");
+        return;
+    }
+
+	m_logThread = new TLogThread(MmResultMove, spinnerValue * 60 * 1000);
+	try
+    {
+		m_logThread->Start();
+        m_logThread->WaitFor();
+	}
+    catch (const Exception &e)
+    {
+		delete m_logThread;
+		m_logThread = nullptr;
+        ShowMessage("스레드 시작 중 오류 발생: " + e.Message);
+    }
 }
 //---------------------------------------------------------------------------
 
+void __fastcall TFormMain::BtnStopMoveThreadClick(TObject *Sender)
+{
+    if (m_logThread)
+	{
+		m_logThread->Stop();
+		m_logThread->WaitFor();
+		delete m_logThread;
+		m_logThread = nullptr;
+    }
+    else
+    {
+        ShowMessage("The thread is already stopped.");
+	}
+}
+//---------------------------------------------------------------------------
