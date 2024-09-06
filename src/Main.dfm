@@ -11,6 +11,12 @@ object FormMain: TFormMain
   Font.Name = 'Segoe UI'
   Font.Style = []
   TextHeight = 15
+  object LblStatus: TLabel
+    Left = 64
+    Top = 184
+    Width = 3
+    Height = 15
+  end
   object BtnSave: TButton
     Left = 489
     Top = 40
@@ -46,9 +52,9 @@ object FormMain: TFormMain
   end
   object MmResult: TMemo
     Left = 64
-    Top = 184
+    Top = 216
     Width = 499
-    Height = 241
+    Height = 209
     TabOrder = 4
   end
   object EdtFilePath: TEdit

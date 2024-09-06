@@ -94,7 +94,8 @@ void __fastcall TFormMain::BtnOpenFileClick(TObject *Sender)
 
 void __fastcall TFormMain::BtnReadClick(TObject *Sender)
 {
-    if (EdtFilePath->Text.IsEmpty())
+    LblStatus->Caption = "";
+	if (EdtFilePath->Text.IsEmpty())
     {
         ShowMessage("파일 경로가 비어 있습니다.");
         return;
@@ -102,13 +103,15 @@ void __fastcall TFormMain::BtnReadClick(TObject *Sender)
 
     TStringList *FileContent = new TStringList();
     try
-    {
+	{
+        LblStatus->Caption = "파일을 읽는 중...";
         FileContent->LoadFromFile(EdtFilePath->Text);
 		MmResult->Lines->Assign(FileContent);
     }
     catch (const Exception &e)
     {
-        ShowMessage("파일을 읽는 데 오류가 발생했습니다: " + e.Message);
+        LblStatus->Caption = "오류 발생: " + e.Message;
+		ShowMessage("파일을 읽는 데 오류가 발생했습니다: " + e.Message);
     }
 
     delete FileContent;
@@ -124,4 +127,5 @@ void TFormMain::FnsettingMmResult() {
 	MmResult->ScrollBars = System::Uitypes::TScrollStyle::ssBoth;
 }
 //---------------------------------------------------------------------------
+
 

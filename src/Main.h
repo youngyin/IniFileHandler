@@ -20,6 +20,7 @@ __published:	// IDE-managed Components
 	TMemo *MmResult;
 	TEdit *EdtFilePath;
 	TButton *BtnOpenFile;
+	TLabel *LblStatus;
 	void __fastcall btnSaveClick(TObject *Sender);
 	void __fastcall btnOpenFolderVclClick(TObject *Sender);
 	void __fastcall BtnOpenFileClick(TObject *Sender);
