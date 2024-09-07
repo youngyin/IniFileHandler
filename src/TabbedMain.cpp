@@ -4,8 +4,8 @@
 #include <vector>
 
 // 사용자 정의 class
-# include "src\frame\First.h"
-# include "src\frame\Second.h"
+#include "src\frame\First.h"
+#include "src\frame\Second.h"
 
 #pragma hdrstop
 
@@ -19,32 +19,40 @@ TTabControl* m_pTabControl;
 std::vector<TFrame*> m_frameVector;
 
 //---------------------------------------------------------------------------
-__fastcall TFormTabbed::TFormTabbed(TComponent* Owner) : TForm(Owner)
-{
-    m_pTabControl = new TTabControl(this);
-    m_pTabControl->Parent = this; // 메인 폼에 추가
-    m_pTabControl->Align = alClient; // 클라이언트 영역에 맞추기
+__fastcall TFormTabbed::TFormTabbed(TComponent* Owner) : TForm(Owner) {}
 
-    // 탭 추가
-	m_pTabControl->Tabs->Add("first_Tab");
+void __fastcall TFormTabbed::FormCreate(TObject* Sender)
+{
+    InitComponet();
+}
+
+void __fastcall TFormTabbed::InitComponet()
+{
+	m_pTabControl = new TTabControl(this);
+	m_pTabControl->Parent = this;
+    m_pTabControl->Align = alClient;
+
+    // add tab
+    m_pTabControl->Tabs->Add("first_Tab");
     m_pTabControl->Tabs->Add("second_Tab");
 
-	// 프레임 추가.
-	m_frameVector.push_back(new TFrameFirst(this));
-	m_frameVector.push_back(new TFrameSecond(this));
+    // add frame
+    m_frameVector.push_back(new TFrameFirst(this));
+    m_frameVector.push_back(new TFrameSecond(this));
 
-	for (int i = 0; i < m_frameVector.size(); ++i) {
-		m_frameVector[i]->Parent = m_pTabControl;
-		m_frameVector[i]->Align = alClient; // 탭에 맞추기
-		m_frameVector[i]->Visible = (i == 0); // 첫 번째 탭만 보이도록 설정
+    for (int i = 0; i < m_frameVector.size(); ++i) {
+        m_frameVector[i]->Parent = m_pTabControl;
+		m_frameVector[i]->Align = alClient;
+        m_frameVector[i]->Visible = (i == 0); // 첫 번째 탭만 보이도록 설정
     }
 
-	//
-	m_pTabControl->OnChange = fnChangeTab;
+    // evnet
+    m_pTabControl->OnChange = fnChangeTab;
 }
+
 //---------------------------------------------------------------------------
 
-void __fastcall TFormTabbed::fnChangeTab(TObject *Sender)
+void __fastcall TFormTabbed::fnChangeTab(TObject* Sender)
 {
     // 현재 선택된 탭의 인덱스를 가져옵니다.
     int selectedIndex = m_pTabControl->TabIndex;
@@ -59,4 +67,5 @@ void __fastcall TFormTabbed::fnChangeTab(TObject *Sender)
         m_frameVector[selectedIndex]->Visible = true; // 선택된 프레임 보이기
     }
 }
+//---------------------------------------------------------------------------
 

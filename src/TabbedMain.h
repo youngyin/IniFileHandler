@@ -11,7 +11,9 @@
 class TFormTabbed : public TForm
 {
 __published:	// IDE-managed Components
+	void __fastcall FormCreate(TObject *Sender);
 private:	// User declarations
+    void __fastcall TFormTabbed::InitComponet();
     void __fastcall fnChangeTab(TObject* Sender);
 public:		// User declarations
 	__fastcall TFormTabbed(TComponent* Owner);
