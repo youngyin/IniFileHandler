@@ -94,8 +94,8 @@
         <Icon_MainIcon>$(BDS)\bin\cbuilder_PROJECTICON.ico</Icon_MainIcon>
         <UWP_CppLogo44>$(BDS)\bin\Artwork\Windows\UWP\cppreg_UwpDefault_44.png</UWP_CppLogo44>
         <UWP_CppLogo150>$(BDS)\bin\Artwork\Windows\UWP\cppreg_UwpDefault_150.png</UWP_CppLogo150>
-        <IncludePath>src\scheduler\;src\;sampleApp\;sampleApp\src\;$(IncludePath)</IncludePath>
-        <ILINK_LibraryPath>src\scheduler\;src\;sampleApp\;sampleApp\src\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+        <IncludePath>src\frame\;src\scheduler\;src\;sampleApp\;sampleApp\src\;$(IncludePath)</IncludePath>
+        <ILINK_LibraryPath>src\frame\;src\scheduler\;src\;sampleApp\;sampleApp\src\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
         <SanitizedProjectName>Sample</SanitizedProjectName>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
@@ -186,6 +186,20 @@
             <BuildOrder>1</BuildOrder>
             <PCH>true</PCH>
         </PCHCompile>
+        <CppCompile Include="src\frame\First.cpp">
+            <Form>FrameFirst</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+            <DependentOn>src\frame\First.h</DependentOn>
+            <BuildOrder>6</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="src\frame\Second.cpp">
+            <Form>FrameSecond</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+            <DependentOn>src\frame\Second.h</DependentOn>
+            <BuildOrder>7</BuildOrder>
+        </CppCompile>
         <CppCompile Include="src\Main.cpp">
             <Form>FormMain</Form>
             <FormType>dfm</FormType>
@@ -201,13 +215,15 @@
             <BuildOrder>4</BuildOrder>
         </CppCompile>
         <CppCompile Include="src\TabbedMain.cpp">
-            <Form>m_TabbedForm</Form>
+            <Form>FormTabbed</Form>
             <FormType>dfm</FormType>
             <DependentOn>src\TabbedMain.h</DependentOn>
             <BuildOrder>5</BuildOrder>
         </CppCompile>
-        <FormResources Include="src\Main.dfm"/>
         <FormResources Include="src\TabbedMain.dfm"/>
+        <FormResources Include="src\Main.dfm"/>
+        <FormResources Include="src\frame\First.dfm"/>
+        <FormResources Include="src\frame\Second.dfm"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

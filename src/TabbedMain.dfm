@@ -1,4 +1,4 @@
-object m_TabbedForm: Tm_TabbedForm
+object FormTabbed: TFormTabbed
   Left = 0
   Top = 0
   Caption = 'SAMPLE'

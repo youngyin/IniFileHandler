@@ -1,22 +1,22 @@
 //---------------------------------------------------------------------------
 
-#ifndef TabbedMainH
-#define TabbedMainH
+#ifndef SecondH
+#define SecondH
 //---------------------------------------------------------------------------
 #include <System.Classes.hpp>
 #include <Vcl.Controls.hpp>
 #include <Vcl.StdCtrls.hpp>
 #include <Vcl.Forms.hpp>
 //---------------------------------------------------------------------------
-class TFormTabbed : public TForm
+class TFrameSecond : public TFrame
 {
 __published:	// IDE-managed Components
+	TLabel *LblSecond;
 private:	// User declarations
-    void __fastcall fnChangeTab(TObject* Sender);
 public:		// User declarations
-	__fastcall TFormTabbed(TComponent* Owner);
+	__fastcall TFrameSecond(TComponent* Owner);
 };
 //---------------------------------------------------------------------------
-extern PACKAGE TFormTabbed *FormTabbed;
+extern PACKAGE TFrameSecond *FrameSecond;
 //---------------------------------------------------------------------------
 #endif

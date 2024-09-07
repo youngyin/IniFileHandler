@@ -4,8 +4,10 @@
 #pragma hdrstop
 #include <tchar.h>
 //---------------------------------------------------------------------------
+USEFORM("src\TabbedMain.cpp", FormTabbed);
 USEFORM("src\Main.cpp", FormMain);
-USEFORM("src\TabbedMain.cpp", m_TabbedForm);
+USEFORM("src\frame\First.cpp", FrameFirst); /* TFrame: File Type */
+USEFORM("src\frame\Second.cpp", FrameSecond); /* TFrame: File Type */
 //---------------------------------------------------------------------------
 int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 {
@@ -14,7 +16,7 @@ int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 		Application->Initialize();
 		Application->MainFormOnTaskBar = true;
 		//Application->CreateForm(__classid(TFormMain), &FormMain);
-		Application->CreateForm(__classid(Tm_TabbedForm), &m_TabbedForm);
+		Application->CreateForm(__classid(TFormTabbed), &FormTabbed);
 		Application->Run();
 	}
 	catch (Exception &exception)
