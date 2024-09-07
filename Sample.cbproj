@@ -200,7 +200,14 @@
             <DependentOn>src\scheduler\TLogThread.h</DependentOn>
             <BuildOrder>4</BuildOrder>
         </CppCompile>
+        <CppCompile Include="src\TabbedMain.cpp">
+            <Form>m_TabbedForm</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>src\TabbedMain.h</DependentOn>
+            <BuildOrder>5</BuildOrder>
+        </CppCompile>
         <FormResources Include="src\Main.dfm"/>
+        <FormResources Include="src\TabbedMain.dfm"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
