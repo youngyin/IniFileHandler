@@ -1,4 +1,4 @@
-//---------------------------------------------------------------------------
+ï»¿//---------------------------------------------------------------------------
 
 #include <System.hpp>
 #pragma hdrstop
@@ -28,19 +28,19 @@ __fastcall TFileMoverThread::TFileMoverThread(bool CreateSuspended)
 void __fastcall TFileMoverThread::Execute()
 {
 	while (!Terminated) {
-		Sleep(1*60*1000); // 1ºĞ ´ë±â (¹Ğ¸®ÃÊ)
+		Sleep(1*60*1000); // 1ë¶„ ëŒ€ê¸° (ë°€ë¦¬ì´ˆ)
 
-        // ÆÄÀÏ ÀÌµ¿ ÀÛ¾÷
-		String sourcePath = "C:/Users/youngyin/Downloads/mydata/sample.ini"; // ¿øº» °æ·Î
-        String destPath = "C:/Users/youngyin/Downloads/mydata/old/sample.ini";  // ´ë»ó °æ·Î
+        // íŒŒì¼ ì´ë™ ì‘ì—…
+		String sourcePath = "C:/Users/youngyin/Downloads/mydata/sample.ini"; // ì›ë³¸ ê²½ë¡œ
+        String destPath = "C:/Users/youngyin/Downloads/mydata/old/sample.ini";  // ëŒ€ìƒ ê²½ë¡œ
 
 		if (RenameFile(sourcePath, destPath)) {
             Synchronize([=]() {
-                ShowMessage("ÆÄÀÏ ÀÌµ¿ ¼º°ø!");
+                ShowMessage("íŒŒì¼ ì´ë™ ì„±ê³µ!");
             });
         } else {
             Synchronize([=]() {
-                ShowMessage("ÆÄÀÏ ÀÌµ¿ ½ÇÆĞ!");
+                ShowMessage("íŒŒì¼ ì´ë™ ì‹¤íŒ¨!");
             });
         }
     }
