@@ -11,5 +11,6 @@ object FormTabbed: TFormTabbed
   Font.Name = 'Segoe UI'
   Font.Style = []
   OnCreate = FormCreate
+  OnDestroy = FormDestroy
   TextHeight = 15
 end

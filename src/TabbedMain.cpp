@@ -46,8 +46,14 @@ void __fastcall TFormTabbed::InitComponet()
     m_pTabControl->Tabs->Add("second_Tab");
 
 	// add frame
-	m_frameVector.push_back(new TFrameFirst(this, "frameFist"));
-	m_frameVector.push_back(new TFrameSecond(this, "frameSecond"));
+	TFrame *frameFirst = new TFrameFirst(this, "frameFist");
+	TFrame *frameSecond = new TFrameSecond(this, "frameSecond");
+
+	m_frameVector.push_back(frameFirst);
+	m_frameVector.push_back(frameSecond);
+
+	frameFirst = nullptr;
+	frameSecond = nullptr;
 
 	/**
 	커스텀한 프레임의 경우, 여러번 선언하여 재사용이 가능함.
@@ -87,5 +93,28 @@ void __fastcall TFormTabbed::fnChangeTab(TObject* Sender)
         m_frameVector[selectedIndex]->Visible = true; // 선택된 프레임 보이기
     }
 }
+//---------------------------------------------------------------------------
+
+/**
+FormCreate: 폼이 생성될 때 호출됩니다. 여기에서 초기화 작업을 수행할 수 있습니다.
+FormShow: 폼이 화면에 표시될 때 호출됩니다. UI 관련 초기화 작업을 수행할 수 있습니다.
+FormCloseQuery: 사용자가 폼을 닫으려고 할 때 호출됩니다. 이 이벤트에서 CanClose 플래그를 통해 폼의 종료 여부를 제어할 수 있습니다.
+FormClose: 폼이 닫힐 때 호출됩니다. 이곳에서 리소스를 정리하거나 최종적인 작업을 수행할 수 있습니다.
+FormDestroy: 폼이 파괴될 때 호출됩니다. 여기에서 동적으로 할당된 메모리나 리소스를 해제해야 합니다.
+*/
+void __fastcall TFormTabbed::FormDestroy(TObject *Sender)
+{
+	for (size_t i = 0; i < m_frameVector.size(); ++i) {
+        if (m_frameVector[i] != nullptr) {
+			delete m_frameVector[i];
+			m_frameVector[i] = nullptr;
+        }
+    }
+	m_frameVector.clear();
+
+	delete m_pTabControl;
+	m_pTabControl = nullptr;
+}
+
 //---------------------------------------------------------------------------
 
