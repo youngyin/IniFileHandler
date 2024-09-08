@@ -14,6 +14,7 @@
 //전영인 클라스
 #include "scheduler/TFileMoverThread.h"
 #include "scheduler/TLogThread.h"
+#include "ThreadTest.h"
 
 //---------------------------------------------------------------------------
 class TFormMain : public TForm
@@ -31,6 +32,7 @@ __published:	// IDE-managed Components
 	TSpinEdit *SpinEditInterval;
 	TButton *BtnStopMoveThread;
 	TButton *BtnResumeMoveThread;
+	TFrameForThread *FrameForThread1;
 	void __fastcall btnSaveClick(TObject *Sender);
 	void __fastcall btnOpenFolderVclClick(TObject *Sender);
 	void __fastcall BtnOpenFileClick(TObject *Sender);
