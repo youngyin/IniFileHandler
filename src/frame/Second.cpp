@@ -12,5 +12,10 @@ TFrameSecond* FrameSecond;
 __fastcall TFrameSecond::TFrameSecond(TComponent* Owner) : TFrame(Owner)
 {
 }
+
+__fastcall TFrameSecond::TFrameSecond(TComponent* Owner, const String &strName) : TFrame(Owner)
+{
+    this->Name = strName;
+}
 //---------------------------------------------------------------------------
 

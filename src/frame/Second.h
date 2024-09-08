@@ -15,6 +15,7 @@ __published:	// IDE-managed Components
 private:	// User declarations
 public:		// User declarations
 	__fastcall TFrameSecond(TComponent* Owner);
+    __fastcall TFrameSecond(TComponent* Owner, const String &strName);
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TFrameSecond *FrameSecond;

@@ -14,5 +14,9 @@ __fastcall TFrameFirst::TFrameFirst(TComponent* Owner) : TFrame(Owner)
 
 }
 
+__fastcall TFrameFirst::TFrameFirst(TComponent* Owner, const String &strName) : TFrame(Owner)
+{
+    this->Name = strName;
+}
 //---------------------------------------------------------------------------
 
