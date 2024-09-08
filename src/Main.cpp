@@ -1,4 +1,4 @@
-//---------------------------------------------------------------------------
+ï»¿//---------------------------------------------------------------------------
 
 #include <vcl.h>
 #include <System.IniFiles.hpp>
@@ -32,10 +32,10 @@ void TFormMain::initThread(){
 
 void TFormMain::initStyleComponet(){
 	/**
-	ssNone: ½ºÅ©·Ñ ¹Ù ¾øÀ½
-	ssVertical: ¼öÁ÷ ½ºÅ©·Ñ ¹Ù¸¸ Ç¥½Ã
-	ssHorizontal: ¼öÆò ½ºÅ©·Ñ ¹Ù¸¸ Ç¥½Ã
-	ssBoth: ¼öÁ÷ ¹× ¼öÆò ½ºÅ©·Ñ ¹Ù ¸ğµÎ Ç¥½Ã
+	ssNone: ìŠ¤í¬ë¡¤ ë°” ì—†ìŒ
+	ssVertical: ìˆ˜ì§ ìŠ¤í¬ë¡¤ ë°”ë§Œ í‘œì‹œ
+	ssHorizontal: ìˆ˜í‰ ìŠ¤í¬ë¡¤ ë°”ë§Œ í‘œì‹œ
+	ssBoth: ìˆ˜ì§ ë° ìˆ˜í‰ ìŠ¤í¬ë¡¤ ë°” ëª¨ë‘ í‘œì‹œ
 	*/
 	MmResult->ScrollBars = System::Uitypes::TScrollStyle::ssBoth;
 	MmResultMove->ScrollBars = System::Uitypes::TScrollStyle::ssBoth;
@@ -44,38 +44,38 @@ void TFormMain::initStyleComponet(){
 //---------------------------------------------------------------------------
 void __fastcall TFormMain::btnSaveClick(TObject *Sender)
 {
-	UnicodeString strFolderPath = EdtFolderPath->Text; // »ç¿ëÀÚ ÀÔ·Â°ªÀ» °¡Á®¿È
+	UnicodeString strFolderPath = EdtFolderPath->Text; // ì‚¬ìš©ì ì…ë ¥ê°’ì„ ê°€ì ¸ì˜´
 
-    // °æ·Î À¯È¿¼º Ã¼Å©
+    // ê²½ë¡œ ìœ íš¨ì„± ì²´í¬
 	if (!TDirectory::Exists(strFolderPath)) {
-		ShowMessage("À¯È¿ÇÏÁö ¾ÊÀº Æú´õ °æ·ÎÀÔ´Ï´Ù.");
+		ShowMessage("ìœ íš¨í•˜ì§€ ì•Šì€ í´ë” ê²½ë¡œì…ë‹ˆë‹¤.");
 		return;
 	}
 
-	UnicodeString strFilePath = TPath::Combine(strFolderPath, "sample.ini");  //ÆÄÀÏ ÀÌ¸§ ¹× °æ·Î »ı¼º
+	UnicodeString strFilePath = TPath::Combine(strFolderPath, "sample.ini");  //íŒŒì¼ ì´ë¦„ ë° ê²½ë¡œ ìƒì„±
 	TIniFile* pIniFile = new TIniFile(strFilePath);
 	try {
 		UnicodeString strSection = "Settings";
 		UnicodeString strTestString = "TestString";
 
-		// INI ÆÄÀÏ¿¡ °ª ¾²±â
+		// INI íŒŒì¼ì— ê°’ ì“°ê¸°
 		pIniFile->WriteBool(strSection, "testFalse", false);
 		pIniFile->WriteBool(strSection, "testTrue", true);
 		pIniFile->WriteDate(strSection, "testDate", TDateTime::CurrentDateTime());
 		pIniFile->WriteDateTime(strSection, "testDateTime", TDateTime::CurrentDateTime());
 		pIniFile->WriteTime(strSection, "testTime", TDateTime::CurrentDateTime());
-		pIniFile->WriteFloat(strSection, "testFloat", 2.13111999999999999999999); //¹İ¿Ã¸²Ã³¸®µÊ.
+		pIniFile->WriteFloat(strSection, "testFloat", 2.13111999999999999999999); //ë°˜ì˜¬ë¦¼ì²˜ë¦¬ë¨.
 		pIniFile->WriteString(strSection, "testString", strTestString);
 
 
-        ShowMessage("INI ÆÄÀÏÀÌ ¼º°øÀûÀ¸·Î ÀúÀåµÇ¾ú½À´Ï´Ù.");
+        ShowMessage("INI íŒŒì¼ì´ ì„±ê³µì ìœ¼ë¡œ ì €ì¥ë˜ì—ˆìŠµë‹ˆë‹¤.");
 
     } catch (const Exception &e) {
-        ShowMessage("¿À·ù ¹ß»ı: " + e.Message);
+        ShowMessage("ì˜¤ë¥˜ ë°œìƒ: " + e.Message);
 
 	}
 
-	delete pIniFile; // Ç×»ó ¸Ş¸ğ¸® ÇØÁ¦
+	delete pIniFile; // í•­ìƒ ë©”ëª¨ë¦¬ í•´ì œ
 	pIniFile = nullptr;
 }
 //---------------------------------------------------------------------------
@@ -83,22 +83,22 @@ void __fastcall TFormMain::btnSaveClick(TObject *Sender)
 
 void __fastcall TFormMain::btnOpenFolderVclClick(TObject *Sender)
 {
-    // Windows API¸¦ »ç¿ëÇÏ¿© Æú´õ ¼±ÅÃ ´ÙÀÌ¾ó·Î±× »ı¼º
+    // Windows APIë¥¼ ì‚¬ìš©í•˜ì—¬ í´ë” ì„ íƒ ë‹¤ì´ì–¼ë¡œê·¸ ìƒì„±
     BROWSEINFO bi = {0};
-    bi.lpszTitle = L"Æú´õ¸¦ ¼±ÅÃÇÏ¼¼¿ä"; // ´ÙÀÌ¾ó·Î±× Á¦¸ñ
+    bi.lpszTitle = L"í´ë”ë¥¼ ì„ íƒí•˜ì„¸ìš”"; // ë‹¤ì´ì–¼ë¡œê·¸ ì œëª©
 
-    // Æú´õ ¼±ÅÃ ´ëÈ­ »óÀÚ ¿­±â
+    // í´ë” ì„ íƒ ëŒ€í™” ìƒì ì—´ê¸°
     LPITEMIDLIST pidl = SHBrowseForFolder(&bi);
     if (pidl != NULL)
     {
         TCHAR path[MAX_PATH];
-        // ¼±ÅÃµÈ Æú´õÀÇ °æ·Î °¡Á®¿À±â
+        // ì„ íƒëœ í´ë”ì˜ ê²½ë¡œ ê°€ì ¸ì˜¤ê¸°
         if (SHGetPathFromIDList(pidl, path))
         {
-            // ¼±ÅÃµÈ °æ·Î¸¦ TEdit¿¡ Ç¥½Ã
+            // ì„ íƒëœ ê²½ë¡œë¥¼ TEditì— í‘œì‹œ
             EdtFolderPath->Text = path;
         }
-        CoTaskMemFree(pidl); // ¸Ş¸ğ¸® ÇØÁ¦
+        CoTaskMemFree(pidl); // ë©”ëª¨ë¦¬ í•´ì œ
     }
 }
 //---------------------------------------------------------------------------
@@ -125,22 +125,22 @@ void __fastcall TFormMain::BtnReadClick(TObject *Sender)
     LblStatus->Caption = "";
 	if (EdtFilePath->Text.IsEmpty())
 	{
-		ShowMessage("ÆÄÀÏ °æ·Î°¡ ºñ¾î ÀÖ½À´Ï´Ù.");
+		ShowMessage("íŒŒì¼ ê²½ë¡œê°€ ë¹„ì–´ ìˆìŠµë‹ˆë‹¤.");
         return;
     }
 
     TStringList *FileContent = new TStringList();
 	try
 	{
-		LblStatus->Caption = "ÆÄÀÏÀ» ÀĞ´Â Áß...";
+		LblStatus->Caption = "íŒŒì¼ì„ ì½ëŠ” ì¤‘...";
         FileContent->LoadFromFile(EdtFilePath->Text);
 		MmResult->Lines->Assign(FileContent);
 		LblStatus->Caption = "ccomplete!!";
     }
 	catch (const Exception &e)
     {
-        LblStatus->Caption = "¿À·ù ¹ß»ı: " + e.Message;
-		ShowMessage("ÆÄÀÏÀ» ÀĞ´Â µ¥ ¿À·ù°¡ ¹ß»ıÇß½À´Ï´Ù: " + e.Message);
+        LblStatus->Caption = "ì˜¤ë¥˜ ë°œìƒ: " + e.Message;
+		ShowMessage("íŒŒì¼ì„ ì½ëŠ” ë° ì˜¤ë¥˜ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤: " + e.Message);
     }
 
 	delete FileContent;
@@ -155,7 +155,7 @@ void __fastcall TFormMain::BtnResumeMoveThreadClick(TObject *Sender)
 
 	if (spinnerValue <= 0)
     {
-        ShowMessage("½ºÇÇ³ÊÀÇ °ªÀÌ 0º¸´Ù Ä¿¾ß ÇÕ´Ï´Ù.");
+        ShowMessage("ìŠ¤í”¼ë„ˆì˜ ê°’ì´ 0ë³´ë‹¤ ì»¤ì•¼ í•©ë‹ˆë‹¤.");
         return;
     }
 
@@ -175,7 +175,7 @@ void __fastcall TFormMain::BtnResumeMoveThreadClick(TObject *Sender)
     {
 		delete m_logThread;
 		m_logThread = nullptr;
-        ShowMessage("½º·¹µå ½ÃÀÛ Áß ¿À·ù ¹ß»ı: " + e.Message);
+        ShowMessage("ìŠ¤ë ˆë“œ ì‹œì‘ ì¤‘ ì˜¤ë¥˜ ë°œìƒ: " + e.Message);
     }
 }
 //---------------------------------------------------------------------------
