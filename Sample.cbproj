@@ -204,11 +204,22 @@
             <DependentOn>src\frame\Second.h</DependentOn>
             <BuildOrder>7</BuildOrder>
         </CppCompile>
+        <CppCompile Include="src\frame\ThreadTest.cpp">
+            <Form>FrameForThread</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+            <DependentOn>src\frame\ThreadTest.h</DependentOn>
+            <BuildOrder>10</BuildOrder>
+        </CppCompile>
         <CppCompile Include="src\Main.cpp">
             <Form>FormMain</Form>
             <FormType>dfm</FormType>
             <DependentOn>src\Main.h</DependentOn>
             <BuildOrder>2</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="src\scheduler\CustomThread.cpp">
+            <DependentOn>src\scheduler\CustomThread.h</DependentOn>
+            <BuildOrder>9</BuildOrder>
         </CppCompile>
         <CppCompile Include="src\scheduler\TFileMoverThread.cpp">
             <DependentOn>src\scheduler\TFileMoverThread.h</DependentOn>
@@ -235,6 +246,7 @@
         <FormResources Include="src\Main.dfm"/>
         <FormResources Include="src\frame\First.dfm"/>
         <FormResources Include="src\frame\Second.dfm"/>
+        <FormResources Include="src\frame\ThreadTest.dfm"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
