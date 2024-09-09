@@ -94,8 +94,8 @@
         <Icon_MainIcon>$(BDS)\bin\cbuilder_PROJECTICON.ico</Icon_MainIcon>
         <UWP_CppLogo44>$(BDS)\bin\Artwork\Windows\UWP\cppreg_UwpDefault_44.png</UWP_CppLogo44>
         <UWP_CppLogo150>$(BDS)\bin\Artwork\Windows\UWP\cppreg_UwpDefault_150.png</UWP_CppLogo150>
-        <IncludePath>src\util\;src\component\TabFrame\;src\frame\;src\scheduler\;src\;sampleApp\;sampleApp\src\;$(IncludePath)</IncludePath>
-        <ILINK_LibraryPath>src\util\;src\component\TabFrame\;src\frame\;src\scheduler\;src\;sampleApp\;sampleApp\src\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+        <IncludePath>src\dialog\;src\util\;src\component\TabFrame\;src\frame\;src\scheduler\;src\;sampleApp\;sampleApp\src\;$(IncludePath)</IncludePath>
+        <ILINK_LibraryPath>src\dialog\;src\util\;src\component\TabFrame\;src\frame\;src\scheduler\;src\;sampleApp\;sampleApp\src\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
         <SanitizedProjectName>Sample</SanitizedProjectName>
         <BCC_EnableCodePaging>UTF-8</BCC_EnableCodePaging>
     </PropertyGroup>
@@ -190,6 +190,12 @@
             <BuildOrder>1</BuildOrder>
             <PCH>true</PCH>
         </PCHCompile>
+        <CppCompile Include="src\dialog\Setting.cpp">
+            <Form>OKRightDlg</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>src\dialog\Setting.h</DependentOn>
+            <BuildOrder>11</BuildOrder>
+        </CppCompile>
         <CppCompile Include="src\frame\FrameIpu.cpp">
             <Form>FrameIpuNet</Form>
             <FormType>dfm</FormType>
@@ -229,12 +235,6 @@
             <DependentOn>src\scheduler\TLogThread.h</DependentOn>
             <BuildOrder>4</BuildOrder>
         </CppCompile>
-        <CppCompile Include="src\TabbedMain.cpp">
-            <Form>FormTabbed</Form>
-            <FormType>dfm</FormType>
-            <DependentOn>src\TabbedMain.h</DependentOn>
-            <BuildOrder>5</BuildOrder>
-        </CppCompile>
         <CppCompile Include="src\TabPage.cpp">
             <Form>FormTabView</Form>
             <FormType>dfm</FormType>
@@ -246,11 +246,11 @@
             <BuildOrder>11</BuildOrder>
         </CppCompile>
         <FormResources Include="src\TabPage.dfm"/>
-        <FormResources Include="src\TabbedMain.dfm"/>
         <FormResources Include="src\Main.dfm"/>
         <FormResources Include="src\frame\ThreadTest.dfm"/>
         <FormResources Include="src\frame\FrameIpu.dfm"/>
         <FormResources Include="src\frame\FrameRemote.dfm"/>
+        <FormResources Include="src\dialog\Setting.dfm"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

@@ -11,7 +11,10 @@
 #include <Vcl.ComCtrls.hpp>
 #include <Vcl.Grids.hpp>
 #include <Vcl.ValEdit.hpp>
-#include "FrameLabelEdit.h"
+#include <System.IniFiles.hpp>
+
+#include "src\dialog\Setting.h"
+
 //---------------------------------------------------------------------------
 class TFrameIpuNet : public TFrame
 {
@@ -39,8 +42,11 @@ class TFrameIpuNet : public TFrame
 	TLabel *m_lblKey3;
 	TEdit *m_edtLastSlot;
 	TButton *m_BtnApply;
+	void __fastcall m_BtnApplyClick(TObject *Sender);
   private: // User declarations
-    void __fastcall loadFileValue();
+  	//TOKRightDlg *settingDialog;
+	void __fastcall loadFileValue();
+    void __fastcall initDialog();
   public: // User declarations
     __fastcall TFrameIpuNet(TComponent* Owner);
 };

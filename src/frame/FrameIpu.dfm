@@ -436,6 +436,7 @@ object FrameIpuNet: TFrameIpuNet
         Align = alClient
         Caption = #48320#44221
         TabOrder = 6
+        OnClick = m_BtnApplyClick
         ExplicitLeft = 326
         ExplicitTop = 2
         ExplicitWidth = 75

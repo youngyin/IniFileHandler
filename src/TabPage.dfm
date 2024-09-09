@@ -30,6 +30,8 @@ object FormTabView: TFormTabView
         Height = 411
         Align = alClient
         TabOrder = 0
+        ExplicitLeft = -136
+        ExplicitTop = 40
         ExplicitWidth = 616
         ExplicitHeight = 411
         inherited m_gbConfig: TGroupBox

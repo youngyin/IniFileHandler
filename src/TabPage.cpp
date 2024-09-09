@@ -26,7 +26,8 @@ __fastcall TFormTabView::TFormTabView(TComponent* Owner)
 //---------------------------------------------------------------------------
 void __fastcall TFormTabView::N1Click(TObject *Sender)
 {
-//
+	// Setting ... 클릭시
+
 }
 //---------------------------------------------------------------------------
 
