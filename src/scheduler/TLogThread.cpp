@@ -1,38 +1,35 @@
-#include <System.SysUtils.hpp>
+ï»¿#include <System.SysUtils.hpp>
 #include "TLogThread.h"
 #pragma package(smart_init)
 
 __fastcall TLogThread::TLogThread(TMemo *memo, int interval)
-    : TThread(true), Memo(memo), ShouldStop(false)
+	: TThread(true), Memo(memo), ShouldStop(false), Interval(interval)
 {
 }
 
 void TLogThread::Start()
 {
-    ShouldStop = false; // ¸ØÃã ÇÃ·¡±× ÃÊ±âÈ­
-    TThread::Start(); // ½º·¹µå ½ÃÀÛ
+    ShouldStop = false; // ë©ˆì¶¤ í”Œëž˜ê·¸ ì´ˆê¸°í™”
+    TThread::Start(); // ìŠ¤ë ˆë“œ ì‹œìž‘
 }
 
 void __fastcall TLogThread::Execute()
 {
     while (!Terminated && !ShouldStop)
     {
-        // ·Î±× ¸Þ½ÃÁö »ý¼º
-        String logMessage = FormatDateTime("yyyy-mm-dd hh:nn:ss", Now()) + " - ·Î±× ¸Þ½ÃÁö";
-
-        // ¸Þ¸ð¿¡ Ãß°¡
-		Synchronize([this, logMessage]() {
+		Queue([this]() {
+			String logMessage = FormatDateTime("yyyy-mm-dd hh:nn:ss", Now()) + " - ë¡œê·¸ ë©”ì‹œì§€";
 			Memo->Lines->Add(logMessage);
 		});
 
-        Sleep(Interval); // ÁÖ¾îÁø °£°Ý¸¸Å­ ´ë±â
+        Sleep(Interval);
     }
 }
 
 void TLogThread::Stop()
 {
-	ShouldStop = true; // ¸ØÃß±â ÇÃ·¡±× ¼³Á¤
-	Synchronize([this]() {
+	ShouldStop = true;
+	Queue([this]() {
     	String logMessage = FormatDateTime("yyyy-mm-dd hh:nn:ss", Now()) + " - Thread has been stopped.";
 		Memo->Lines->Add(logMessage);
 	});
