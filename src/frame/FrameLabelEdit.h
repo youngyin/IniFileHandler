@@ -1,23 +1,25 @@
-//---------------------------------------------------------------------------
+﻿//---------------------------------------------------------------------------
 
-#ifndef SecondH
-#define SecondH
+#ifndef FrameLabelEditH
+#define FrameLabelEditH
 //---------------------------------------------------------------------------
 #include <System.Classes.hpp>
 #include <Vcl.Controls.hpp>
 #include <Vcl.StdCtrls.hpp>
 #include <Vcl.Forms.hpp>
+#include <Vcl.ExtCtrls.hpp>
 //---------------------------------------------------------------------------
-class TFrameSecond : public TFrame
+class TFrameForLabelEdit : public TFrame
 {
 __published:	// IDE-managed Components
-	TLabel *LblSecond;
+	TGridPanel *GridPanel1;
+	TLabel *m_lblName;
+	TEdit *m_edtValue;
 private:	// User declarations
 public:		// User declarations
-	__fastcall TFrameSecond(TComponent* Owner);
-    __fastcall TFrameSecond(TComponent* Owner, const String &strName);
+	__fastcall TFrameForLabelEdit(TComponent* Owner);
 };
 //---------------------------------------------------------------------------
-extern PACKAGE TFrameSecond *FrameSecond;
+extern PACKAGE TFrameForLabelEdit *FrameForLabelEdit;
 //---------------------------------------------------------------------------
 #endif

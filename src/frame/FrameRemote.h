@@ -1,25 +1,21 @@
-//---------------------------------------------------------------------------
+﻿//---------------------------------------------------------------------------
 
-#ifndef TabbedMainH
-#define TabbedMainH
+#ifndef FrameRemoteH
+#define FrameRemoteH
 //---------------------------------------------------------------------------
 #include <System.Classes.hpp>
 #include <Vcl.Controls.hpp>
 #include <Vcl.StdCtrls.hpp>
 #include <Vcl.Forms.hpp>
 //---------------------------------------------------------------------------
-class TFormTabbed : public TForm
+class TFrameForRemote : public TFrame
 {
 __published:	// IDE-managed Components
-	void __fastcall FormCreate(TObject *Sender);
-	void __fastcall FormDestroy(TObject *Sender);
 private:	// User declarations
-    void __fastcall InitComponet();
-    void __fastcall fnChangeTab(TObject* Sender);
 public:		// User declarations
-	__fastcall TFormTabbed(TComponent* Owner);
+	__fastcall TFrameForRemote(TComponent* Owner);
 };
 //---------------------------------------------------------------------------
-extern PACKAGE TFormTabbed *FormTabbed;
+extern PACKAGE TFrameForRemote *FrameForRemote;
 //---------------------------------------------------------------------------
 #endif

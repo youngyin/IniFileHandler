@@ -1,22 +1,16 @@
-//---------------------------------------------------------------------------
+﻿//---------------------------------------------------------------------------
 
 #include <vcl.h>
 #pragma hdrstop
 
-#include "First.h"
+#include "FrameLabelEdit.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
-TFrameFirst* FrameFirst;
+TFrameForLabelEdit *FrameForLabelEdit;
 //---------------------------------------------------------------------------
-__fastcall TFrameFirst::TFrameFirst(TComponent* Owner) : TFrame(Owner)
+__fastcall TFrameForLabelEdit::TFrameForLabelEdit(TComponent* Owner)
+	: TFrame(Owner)
 {
-
-}
-
-__fastcall TFrameFirst::TFrameFirst(TComponent* Owner, const String &strName) : TFrame(Owner)
-{
-    this->Name = strName;
 }
 //---------------------------------------------------------------------------
-

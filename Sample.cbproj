@@ -94,8 +94,8 @@
         <Icon_MainIcon>$(BDS)\bin\cbuilder_PROJECTICON.ico</Icon_MainIcon>
         <UWP_CppLogo44>$(BDS)\bin\Artwork\Windows\UWP\cppreg_UwpDefault_44.png</UWP_CppLogo44>
         <UWP_CppLogo150>$(BDS)\bin\Artwork\Windows\UWP\cppreg_UwpDefault_150.png</UWP_CppLogo150>
-        <IncludePath>src\component\TabFrame\;src\frame\;src\scheduler\;src\;sampleApp\;sampleApp\src\;$(IncludePath)</IncludePath>
-        <ILINK_LibraryPath>src\component\TabFrame\;src\frame\;src\scheduler\;src\;sampleApp\;sampleApp\src\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+        <IncludePath>src\util\;src\component\TabFrame\;src\frame\;src\scheduler\;src\;sampleApp\;sampleApp\src\;$(IncludePath)</IncludePath>
+        <ILINK_LibraryPath>src\util\;src\component\TabFrame\;src\frame\;src\scheduler\;src\;sampleApp\;sampleApp\src\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
         <SanitizedProjectName>Sample</SanitizedProjectName>
         <BCC_EnableCodePaging>UTF-8</BCC_EnableCodePaging>
     </PropertyGroup>
@@ -190,19 +190,19 @@
             <BuildOrder>1</BuildOrder>
             <PCH>true</PCH>
         </PCHCompile>
-        <CppCompile Include="src\frame\First.cpp">
-            <Form>FrameFirst</Form>
+        <CppCompile Include="src\frame\FrameIpu.cpp">
+            <Form>FrameIpuNet</Form>
             <FormType>dfm</FormType>
             <DesignClass>TFrame</DesignClass>
-            <DependentOn>src\frame\First.h</DependentOn>
-            <BuildOrder>6</BuildOrder>
+            <DependentOn>src\frame\FrameIpu.h</DependentOn>
+            <BuildOrder>12</BuildOrder>
         </CppCompile>
-        <CppCompile Include="src\frame\Second.cpp">
-            <Form>FrameSecond</Form>
+        <CppCompile Include="src\frame\FrameRemote.cpp">
+            <Form>FrameForRemote</Form>
             <FormType>dfm</FormType>
             <DesignClass>TFrame</DesignClass>
-            <DependentOn>src\frame\Second.h</DependentOn>
-            <BuildOrder>7</BuildOrder>
+            <DependentOn>src\frame\FrameRemote.h</DependentOn>
+            <BuildOrder>13</BuildOrder>
         </CppCompile>
         <CppCompile Include="src\frame\ThreadTest.cpp">
             <Form>FrameForThread</Form>
@@ -241,12 +241,16 @@
             <DependentOn>src\TabPage.h</DependentOn>
             <BuildOrder>8</BuildOrder>
         </CppCompile>
-        <FormResources Include="src\TabbedMain.dfm"/>
+        <CppCompile Include="src\util\INIFileManager.cpp">
+            <DependentOn>src\util\INIFileManager.h</DependentOn>
+            <BuildOrder>11</BuildOrder>
+        </CppCompile>
         <FormResources Include="src\TabPage.dfm"/>
+        <FormResources Include="src\TabbedMain.dfm"/>
         <FormResources Include="src\Main.dfm"/>
-        <FormResources Include="src\frame\First.dfm"/>
-        <FormResources Include="src\frame\Second.dfm"/>
         <FormResources Include="src\frame\ThreadTest.dfm"/>
+        <FormResources Include="src\frame\FrameIpu.dfm"/>
+        <FormResources Include="src\frame\FrameRemote.dfm"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

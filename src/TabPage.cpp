@@ -14,8 +14,8 @@
 #include "TabPage.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
-#pragma link "First"
-#pragma link "Second"
+#pragma link "FrameIpu"
+#pragma link "FrameRemote"
 #pragma resource "*.dfm"
 TFormTabView *FormTabView;
 //---------------------------------------------------------------------------
@@ -24,3 +24,9 @@ __fastcall TFormTabView::TFormTabView(TComponent* Owner)
 {
 }
 //---------------------------------------------------------------------------
+void __fastcall TFormTabView::N1Click(TObject *Sender)
+{
+//
+}
+//---------------------------------------------------------------------------
+
