@@ -9,17 +9,17 @@
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
+
 TFrameIpuNet *FrameIpuNet;
 //---------------------------------------------------------------------------
 __fastcall TFrameIpuNet::TFrameIpuNet(TComponent* Owner)
 	: TFrame(Owner)
 {
-	loadFileValue();
-	//initDialog();
+    //m_edtPath->Text = strFilePath;
+	loadFileValue(m_edtPath->Text);
 }
 
-void __fastcall TFrameIpuNet::loadFileValue(){
-	String strFilePath = "C:\\Users\\youngyin\\Downloads\\handlerResource\\init\\Init\\IPU_netconfig.ini";
+void __fastcall TFrameIpuNet::loadFileValue(String strFilePath){
     String strSection;
 
 	// [CONFIG] section 값 읽기
@@ -47,17 +47,36 @@ void __fastcall TFrameIpuNet::loadFileValue(){
 	m_edtIpOut->Text = pIniManager->Read("SLOT_A", "IP_OUT", INIFileManager::DataType::String);
 	pIniManager = nullptr; */
 }
-
-/*void __fastcall TFrameIpuNet::initDialog(){
-	settingDialog = new TOKRightDlg(this);
-} */
 //---------------------------------------------------------------------------
 
+String TFrameIpuNet::selectIniFile(TComponent* Owner){
+	String strFilePath;
+	TOpenDialog* OpenDialog = new TOpenDialog(Owner);
+	OpenDialog->Filter = "INI Files (*.ini)|*.ini";
+	OpenDialog->Title = "Open a File";
 
 
-void __fastcall TFrameIpuNet::m_BtnApplyClick(TObject *Sender)
+	if (OpenDialog->Execute()) {
+		strFilePath = OpenDialog->FileName;
+	}
+
+	delete OpenDialog;
+	OpenDialog = nullptr;
+
+	return strFilePath;
+}
+
+
+
+void __fastcall TFrameIpuNet::btnFindClick(TObject *Sender)
 {
-	//settingDialog::Show();
+	m_edtPath->Text = selectIniFile(this);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFrameIpuNet::m_btnLoadClick(TObject *Sender)
+{
+    loadFileValue(m_edtPath->Text);
 }
 //---------------------------------------------------------------------------
 

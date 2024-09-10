@@ -12,8 +12,7 @@
 #include <Vcl.Grids.hpp>
 #include <Vcl.ValEdit.hpp>
 #include <System.IniFiles.hpp>
-
-#include "src\dialog\Setting.h"
+#include <Vcl.Mask.hpp>
 
 //---------------------------------------------------------------------------
 class TFrameIpuNet : public TFrame
@@ -21,32 +20,27 @@ class TFrameIpuNet : public TFrame
   __published: // IDE-managed Components
     TGroupBox* m_gbConfig;
     TGroupBox* m_gbSlotA;
-	TGridPanel *m_gpSlotA;
-    TLabel* m_lblKey4;
-    TEdit* m_edtInterfaceIn;
-    TLabel* m_lblKey5;
-    TEdit* m_edtIpIn;
-    TLabel* m_lblKey6;
-    TEdit* m_edtInterfaceOut;
-	TLabel *m_lblKey7;
-    TEdit* m_edtIpOut;
-	TLabel *m_lblKey8;
-    TEdit* m_edtInterfaceCam1;
-	TLabel *m_lblKey9;
-    TEdit* m_edtIpCam1;
-	TGridPanel *m_gpConfig;
-	TLabel *m_lblKey1;
-	TEdit *m_edtDefaultSlot;
-	TLabel *m_lblKey2;
-	TEdit *m_edtLastset;
-	TLabel *m_lblKey3;
-	TEdit *m_edtLastSlot;
-	TButton *m_BtnApply;
-	void __fastcall m_BtnApplyClick(TObject *Sender);
+	TLabeledEdit *m_edtDefaultSlot;
+	TLabeledEdit *m_edtLastset;
+	TLabeledEdit *m_edtLastSlot;
+	TLabeledEdit *m_edtInterfaceIn;
+	TLabeledEdit *m_edtIpIn;
+	TLabeledEdit *m_edtInterfaceOut;
+	TLabeledEdit *m_edtIpOut;
+	TLabeledEdit *m_edtInterfaceCam1;
+	TLabeledEdit *m_edtIpCam1;
+	TButton *m_btnApply;
+	TButton *btnFind;
+	TLabeledEdit *m_edtPath;
+	TButton *m_btnLoad;
+	void __fastcall btnFindClick(TObject *Sender);
+	void __fastcall m_btnLoadClick(TObject *Sender);
+
   private: // User declarations
-  	//TOKRightDlg *settingDialog;
-	void __fastcall loadFileValue();
-    void __fastcall initDialog();
+	void __fastcall loadFileValue(String strFilePath);
+	void __fastcall initDialog();
+    String selectIniFile(TComponent* Owner);
+
   public: // User declarations
     __fastcall TFrameIpuNet(TComponent* Owner);
 };
