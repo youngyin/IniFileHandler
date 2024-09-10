@@ -2,8 +2,8 @@ object FormTabView: TFormTabView
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 441
-  ClientWidth = 1019
+  ClientHeight = 631
+  ClientWidth = 580
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -15,19 +15,21 @@ object FormTabView: TFormTabView
   object m_pageControl: TPageControl
     Left = 0
     Top = 0
-    Width = 1019
-    Height = 441
+    Width = 580
+    Height = 631
     ActivePage = m_tabIpu
     Align = alClient
     TabOrder = 0
+    ExplicitWidth = 1019
+    ExplicitHeight = 441
     object m_tabIpu: TTabSheet
       Caption = 'IPU'
       ImageIndex = 1
       inline FrameIpuNet1: TFrameIpuNet
         Left = 0
         Top = 0
-        Width = 1011
-        Height = 411
+        Width = 572
+        Height = 601
         Align = alClient
         TabOrder = 0
         ExplicitWidth = 1011
@@ -90,8 +92,31 @@ object FormTabView: TFormTabView
             ExplicitHeight = 21
           end
         end
+        inherited btnFind: TButton
+          OnClick = FrameIpuNet1btnFindClick
+        end
         inherited m_edtPath: TLabeledEdit
           StyleElements = [seFont, seClient, seBorder]
+        end
+        inherited m_gbNetWorkInfo: TGroupBox
+          inherited m_edtNetWorkInfo1: TLabeledEdit
+            StyleElements = [seFont, seClient, seBorder]
+          end
+          inherited m_edtNetWorkInfo2: TLabeledEdit
+            StyleElements = [seFont, seClient, seBorder]
+          end
+          inherited m_edtNetWorkInfo3: TLabeledEdit
+            StyleElements = [seFont, seClient, seBorder]
+          end
+          inherited m_edtNetWorkInfo5: TLabeledEdit
+            StyleElements = [seFont, seClient, seBorder]
+          end
+          inherited m_edtNetWorkInfo6: TLabeledEdit
+            StyleElements = [seFont, seClient, seBorder]
+          end
+          inherited m_edtNetWorkInfo4: TLabeledEdit
+            StyleElements = [seFont, seClient, seBorder]
+          end
         end
       end
     end

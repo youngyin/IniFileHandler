@@ -2,7 +2,7 @@ object FrameIpuNet: TFrameIpuNet
   Left = 0
   Top = 0
   Width = 991
-  Height = 400
+  Height = 648
   TabOrder = 0
   object m_gbConfig: TGroupBox
     Left = 24
@@ -180,5 +180,91 @@ object FrameIpuNet: TFrameIpuNet
     Caption = 'LOAD'
     TabOrder = 5
     OnClick = m_btnLoadClick
+  end
+  object m_gbNetWorkInfo: TGroupBox
+    Left = 24
+    Top = 400
+    Width = 506
+    Height = 217
+    Caption = '[CURRENT NETWORK INFO]'
+    TabOrder = 6
+    object m_edtNetWorkInfo1: TLabeledEdit
+      Left = 157
+      Top = 23
+      Width = 300
+      Height = 23
+      EditLabel.Width = 87
+      EditLabel.Height = 23
+      EditLabel.Caption = 'ADAPTER NAME'
+      LabelPosition = lpLeft
+      LabelSpacing = 10
+      TabOrder = 0
+      Text = ''
+    end
+    object m_edtNetWorkInfo2: TLabeledEdit
+      Left = 157
+      Top = 52
+      Width = 300
+      Height = 23
+      EditLabel.Width = 72
+      EditLabel.Height = 23
+      EditLabel.Caption = 'DESCRIPTION'
+      LabelPosition = lpLeft
+      LabelSpacing = 10
+      TabOrder = 1
+      Text = ''
+    end
+    object m_edtNetWorkInfo3: TLabeledEdit
+      Left = 157
+      Top = 81
+      Width = 300
+      Height = 23
+      EditLabel.Width = 62
+      EditLabel.Height = 23
+      EditLabel.Caption = 'IP ADDRESS'
+      LabelPosition = lpLeft
+      LabelSpacing = 10
+      TabOrder = 2
+      Text = ''
+    end
+    object m_edtNetWorkInfo5: TLabeledEdit
+      Left = 157
+      Top = 139
+      Width = 300
+      Height = 23
+      EditLabel.Width = 42
+      EditLabel.Height = 23
+      EditLabel.Caption = 'IPMASK'
+      LabelPosition = lpLeft
+      LabelSpacing = 10
+      TabOrder = 3
+      Text = ''
+    end
+    object m_edtNetWorkInfo6: TLabeledEdit
+      Left = 157
+      Top = 168
+      Width = 300
+      Height = 23
+      EditLabel.Width = 71
+      EditLabel.Height = 23
+      EditLabel.Caption = 'DHCPSERVER'
+      LabelPosition = lpLeft
+      LabelSpacing = 10
+      TabOrder = 4
+      Text = ''
+    end
+    object m_edtNetWorkInfo4: TLabeledEdit
+      Left = 157
+      Top = 110
+      Width = 300
+      Height = 23
+      EditLabel.Width = 52
+      EditLabel.Height = 23
+      EditLabel.Caption = 'GATEWAY'
+      LabelPosition = lpLeft
+      LabelSpacing = 10
+      TabOrder = 5
+      Text = ''
+    end
   end
 end

@@ -5,6 +5,11 @@
 
 #include "FrameIpu.h"
 
+#include <vcl.h>
+#include <WinSock2.h>
+#include <Iphlpapi.h>
+#pragma comment(lib, "Iphlpapi.lib")
+
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
@@ -41,12 +46,12 @@ void TFrameIpuNet::readFileValues(String strFilePath, ConfigValues &configValues
 
 void TFrameIpuNet::displayValues(const ConfigValues &configValues) {
     // 편집 필드에 할당
-    m_edtDefaultSlot->Text = configValues.defaultSlot;
-    m_edtLastSlot->Text = configValues.lastSlot;
+	m_edtDefaultSlot->Text = configValues.defaultSlot;
+	m_edtLastSlot->Text = configValues.lastSlot;
     m_edtLastset->Text = configValues.lastSet;
-    m_edtInterfaceIn->Text = configValues.interfaceIn;
+	m_edtInterfaceIn->Text = configValues.interfaceIn;
     m_edtIpIn->Text = configValues.ipIn;
-    m_edtInterfaceOut->Text = configValues.interfaceOut;
+	m_edtInterfaceOut->Text = configValues.interfaceOut;
     m_edtIpOut->Text = configValues.ipOut;
     m_edtInterfaceCam1->Text = configValues.interfaceCam1;
     m_edtIpCam1->Text = configValues.ipCam1;
@@ -81,12 +86,13 @@ void __fastcall TFrameIpuNet::m_btnLoadClick(TObject *Sender)
 {
 	ConfigValues configValues;
 	readFileValues(m_edtPath->Text, configValues);
-    displayValues(configValues);
+	displayValues(configValues);
+    GetNetworkAdapters();
 }
 
 //---------------------------------------------------------------------------
 void TFrameIpuNet::getDataFromUI(ConfigValues &configValues) {
-    configValues.defaultSlot = m_edtDefaultSlot->Text;
+	configValues.defaultSlot = m_edtDefaultSlot->Text;
     configValues.lastSlot = m_edtLastSlot->Text;
     configValues.lastSet = m_edtLastset->Text;
     configValues.interfaceIn = m_edtInterfaceIn->Text;
@@ -125,4 +131,48 @@ void __fastcall TFrameIpuNet::m_btnApplyClick(TObject *Sender)
 	writeData(m_edtPath->Text, configValues);
 }
 //---------------------------------------------------------------------------
+
+/*
+struct _IP_ADAPTER_INFO* Next;
+DWORD ComboIndex;
+char AdapterName[MAX_ADAPTER_NAME_LENGTH + 4];
+char Description[MAX_ADAPTER_DESCRIPTION_LENGTH + 4];
+UINT AddressLength;
+BYTE Address[MAX_ADAPTER_ADDRESS_LENGTH];
+DWORD Index;
+UINT Type;
+UINT DhcpEnabled;
+PIP_ADDR_STRING CurrentIpAddress;
+IP_ADDR_STRING IpAddressList;
+IP_ADDR_STRING GatewayList;
+IP_ADDR_STRING DhcpServer;
+BOOL HaveWins;
+IP_ADDR_STRING PrimaryWinsServer;
+IP_ADDR_STRING SecondaryWinsServer;
+time_t LeaseObtained;
+time_t LeaseExpires;
+*/
+
+void TFrameIpuNet::GetNetworkAdapters()
+{
+	DWORD dwSize = 0;
+	GetAdaptersInfo(NULL, &dwSize);  // Get required size
+	IP_ADAPTER_INFO *pAdapterInfo = (IP_ADAPTER_INFO *)malloc(dwSize);
+	if (GetAdaptersInfo(pAdapterInfo, &dwSize) == NO_ERROR)
+	{
+		IP_ADAPTER_INFO *pAdapter = pAdapterInfo;
+		while (pAdapter)
+		{
+			m_edtNetWorkInfo1->Text = AnsiString(pAdapter->AdapterName);//Adapter Name
+			m_edtNetWorkInfo2->Text = AnsiString(pAdapter->Description);//Description
+			m_edtNetWorkInfo3->Text = AnsiString(pAdapter->IpAddressList.IpAddress.String);//IP Address
+			m_edtNetWorkInfo4->Text = AnsiString(pAdapter->GatewayList.IpAddress.String);//GatewayList.IpAddress
+			m_edtNetWorkInfo5->Text = AnsiString(pAdapter->GatewayList.IpMask.String);//GatewayList.IpMask
+			m_edtNetWorkInfo6->Text = AnsiString(pAdapter->DhcpServer.IpAddress.String);//DhcpServer
+
+			pAdapter = pAdapter->Next;
+        }
+    }
+	free(pAdapterInfo);
+}
 

@@ -36,6 +36,13 @@ class TFrameIpuNet : public TFrame
 	TButton *btnFind;
 	TLabeledEdit *m_edtPath;
 	TButton *m_btnLoad;
+	TGroupBox *m_gbNetWorkInfo;
+	TLabeledEdit *m_edtNetWorkInfo1;
+	TLabeledEdit *m_edtNetWorkInfo2;
+	TLabeledEdit *m_edtNetWorkInfo3;
+	TLabeledEdit *m_edtNetWorkInfo5;
+	TLabeledEdit *m_edtNetWorkInfo6;
+	TLabeledEdit *m_edtNetWorkInfo4;
 	void __fastcall btnFindClick(TObject *Sender);
 	void __fastcall m_btnLoadClick(TObject *Sender);
 	void __fastcall m_btnApplyClick(TObject *Sender);
@@ -54,8 +61,9 @@ class TFrameIpuNet : public TFrame
 	};
 	void displayValues(const ConfigValues &configValues);
 	void readFileValues(String strFilePath, ConfigValues &configValues);
-    void __fastcall writeData(String strFilePath, ConfigValues &configValues);
+	void __fastcall writeData(String strFilePath, ConfigValues &configValues);
 	void getDataFromUI(ConfigValues &configValues);
+    void GetNetworkAdapters();
 	String selectIniFile(TComponent* Owner);
 
   public: // User declarations
