@@ -129,18 +129,14 @@ object FrameForThread: TFrameForThread
       AlignWithMargins = True
       Left = 241
       Top = 207
-      Width = 231
-      Height = 96
+      Width = 12
+      Height = 15
       Align = alClient
       Alignment = taCenter
       BiDiMode = bdLeftToRight
       Caption = #52488
       ParentBiDiMode = False
       Layout = tlCenter
-      ExplicitLeft = 324
-      ExplicitTop = 145
-      ExplicitWidth = 12
-      ExplicitHeight = 15
     end
   end
 end

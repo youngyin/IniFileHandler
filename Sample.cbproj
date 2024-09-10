@@ -191,7 +191,7 @@
             <PCH>true</PCH>
         </PCHCompile>
         <CppCompile Include="src\dialog\Setting.cpp">
-            <Form>OKRightDlg</Form>
+            <Form>DlgSetting</Form>
             <FormType>dfm</FormType>
             <DependentOn>src\dialog\Setting.h</DependentOn>
             <BuildOrder>11</BuildOrder>
@@ -245,12 +245,12 @@
             <DependentOn>src\util\INIFileManager.h</DependentOn>
             <BuildOrder>11</BuildOrder>
         </CppCompile>
-        <FormResources Include="src\TabPage.dfm"/>
         <FormResources Include="src\Main.dfm"/>
-        <FormResources Include="src\frame\ThreadTest.dfm"/>
-        <FormResources Include="src\frame\FrameIpu.dfm"/>
-        <FormResources Include="src\frame\FrameRemote.dfm"/>
+        <FormResources Include="src\TabPage.dfm"/>
         <FormResources Include="src\dialog\Setting.dfm"/>
+        <FormResources Include="src\frame\ThreadTest.dfm"/>
+        <FormResources Include="src\frame\FrameRemote.dfm"/>
+        <FormResources Include="src\frame\FrameIpu.dfm"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

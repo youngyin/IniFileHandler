@@ -68,14 +68,10 @@ object FrameIpuNet: TFrameIpuNet
           Value = 33.333333333333340000
         end
         item
-          Value = 33.333333333333340000
+          Value = 33.333333333333310000
         end>
       ShowCaption = False
       TabOrder = 0
-      ExplicitLeft = 96
-      ExplicitTop = 58
-      ExplicitWidth = 185
-      ExplicitHeight = 41
       object m_lblKey1: TLabel
         Left = 1
         Top = 1
@@ -84,8 +80,6 @@ object FrameIpuNet: TFrameIpuNet
         Align = alLeft
         Caption = 'DEFAULT_SLOT'
         Layout = tlCenter
-        ExplicitLeft = 14
-        ExplicitTop = 2
         ExplicitHeight = 15
       end
       object m_edtDefaultSlot: TEdit
@@ -96,9 +90,6 @@ object FrameIpuNet: TFrameIpuNet
         Height = 21
         Align = alClient
         TabOrder = 0
-        ExplicitLeft = 64
-        ExplicitTop = 1
-        ExplicitWidth = 121
         ExplicitHeight = 23
       end
       object m_lblKey2: TLabel
@@ -109,8 +100,6 @@ object FrameIpuNet: TFrameIpuNet
         Align = alLeft
         Caption = 'LASTSET'
         Layout = tlCenter
-        ExplicitLeft = 14
-        ExplicitTop = 22
         ExplicitHeight = 15
       end
       object m_edtLastset: TEdit
@@ -121,8 +110,6 @@ object FrameIpuNet: TFrameIpuNet
         Height = 20
         Align = alClient
         TabOrder = 1
-        ExplicitLeft = 204
-        ExplicitWidth = 193
         ExplicitHeight = 23
       end
       object m_lblKey3: TLabel
@@ -133,8 +120,6 @@ object FrameIpuNet: TFrameIpuNet
         Align = alLeft
         Caption = 'LASTSLOT'
         Layout = tlCenter
-        ExplicitLeft = 68
-        ExplicitTop = 72
         ExplicitHeight = 15
       end
       object m_edtLastSlot: TEdit
@@ -145,9 +130,6 @@ object FrameIpuNet: TFrameIpuNet
         Height = 21
         Align = alClient
         TabOrder = 2
-        ExplicitLeft = 240
-        ExplicitTop = 69
-        ExplicitWidth = 121
         ExplicitHeight = 23
       end
     end
@@ -274,10 +256,6 @@ object FrameIpuNet: TFrameIpuNet
       ShowCaption = False
       ShowHint = False
       TabOrder = 0
-      ExplicitLeft = 24
-      ExplicitTop = 16
-      ExplicitWidth = 386
-      ExplicitHeight = 185
       object m_lblKey4: TLabel
         Left = 1
         Top = 1
@@ -289,7 +267,6 @@ object FrameIpuNet: TFrameIpuNet
         Caption = 'INTERFACE_IN'
         ParentBiDiMode = False
         Layout = tlCenter
-        ExplicitLeft = -71
         ExplicitHeight = 15
       end
       object m_edtInterfaceIn: TEdit
@@ -300,8 +277,6 @@ object FrameIpuNet: TFrameIpuNet
         Height = 22
         Align = alClient
         TabOrder = 0
-        ExplicitLeft = 196
-        ExplicitWidth = 186
         ExplicitHeight = 21
       end
       object m_lblKey5: TLabel
@@ -312,8 +287,6 @@ object FrameIpuNet: TFrameIpuNet
         Align = alLeft
         Caption = 'IP_IN'
         Layout = tlCenter
-        ExplicitLeft = 14
-        ExplicitTop = 22
         ExplicitHeight = 15
       end
       object m_edtIpIn: TEdit
@@ -324,9 +297,6 @@ object FrameIpuNet: TFrameIpuNet
         Height = 22
         Align = alClient
         TabOrder = 1
-        ExplicitLeft = 196
-        ExplicitTop = 35
-        ExplicitWidth = 186
         ExplicitHeight = 21
       end
       object m_lblKey6: TLabel
@@ -337,8 +307,6 @@ object FrameIpuNet: TFrameIpuNet
         Align = alLeft
         Caption = 'INTERFACE_OUT'
         Layout = tlCenter
-        ExplicitLeft = 54
-        ExplicitTop = 65
         ExplicitHeight = 15
       end
       object m_edtInterfaceOut: TEdit
@@ -349,9 +317,6 @@ object FrameIpuNet: TFrameIpuNet
         Height = 23
         Align = alClient
         TabOrder = 2
-        ExplicitLeft = 196
-        ExplicitTop = 65
-        ExplicitWidth = 186
         ExplicitHeight = 21
       end
       object m_lblKey7: TLabel
@@ -362,8 +327,6 @@ object FrameIpuNet: TFrameIpuNet
         Align = alLeft
         Caption = 'IP_OUT'
         Layout = tlCenter
-        ExplicitLeft = 14
-        ExplicitTop = 75
         ExplicitHeight = 15
       end
       object m_edtIpOut: TEdit
@@ -374,9 +337,6 @@ object FrameIpuNet: TFrameIpuNet
         Height = 22
         Align = alClient
         TabOrder = 3
-        ExplicitLeft = 196
-        ExplicitTop = 96
-        ExplicitWidth = 186
         ExplicitHeight = 21
       end
       object m_lblKey8: TLabel
@@ -387,7 +347,6 @@ object FrameIpuNet: TFrameIpuNet
         Align = alLeft
         Caption = 'INTERFACE_CAM1'
         Layout = tlCenter
-        ExplicitTop = 107
         ExplicitHeight = 15
       end
       object m_edtInterfaceCam1: TEdit
@@ -398,9 +357,6 @@ object FrameIpuNet: TFrameIpuNet
         Height = 22
         Align = alClient
         TabOrder = 4
-        ExplicitLeft = 196
-        ExplicitTop = 126
-        ExplicitWidth = 186
         ExplicitHeight = 21
       end
       object m_lblKey9: TLabel
@@ -411,7 +367,6 @@ object FrameIpuNet: TFrameIpuNet
         Align = alLeft
         Caption = 'IP_CAM1'
         Layout = tlCenter
-        ExplicitTop = 134
         ExplicitHeight = 15
       end
       object m_edtIpCam1: TEdit
@@ -422,9 +377,6 @@ object FrameIpuNet: TFrameIpuNet
         Height = 22
         Align = alClient
         TabOrder = 5
-        ExplicitLeft = 196
-        ExplicitTop = 157
-        ExplicitWidth = 186
         ExplicitHeight = 21
       end
       object m_BtnApply: TButton
@@ -437,10 +389,6 @@ object FrameIpuNet: TFrameIpuNet
         Caption = #48320#44221
         TabOrder = 6
         OnClick = m_BtnApplyClick
-        ExplicitLeft = 326
-        ExplicitTop = 2
-        ExplicitWidth = 75
-        ExplicitHeight = 25
       end
     end
   end

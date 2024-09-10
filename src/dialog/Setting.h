@@ -13,7 +13,7 @@
 #include <Winapi.Windows.hpp>
 #include <System.hpp>
 //----------------------------------------------------------------------------
-class TOKRightDlg : public TForm
+class TDlgSetting : public TForm
 {
 __published:
 	TButton *OKBtn;
@@ -21,9 +21,9 @@ __published:
 	TBevel *Bevel1;
 private:
 public:
-	virtual __fastcall TOKRightDlg(TComponent* AOwner);
+	virtual __fastcall TDlgSetting(TComponent* AOwner);
 };
 //----------------------------------------------------------------------------
-extern PACKAGE TOKRightDlg *OKRightDlg;
+extern PACKAGE TDlgSetting *DlgSetting;
 //----------------------------------------------------------------------------
 #endif    

@@ -5,10 +5,11 @@
 #include "Setting.h"
 //---------------------------------------------------------------------
 #pragma resource "*.dfm"
-TOKRightDlg *OKRightDlg;
+TDlgSetting *DlgSetting;
 //--------------------------------------------------------------------- 
-__fastcall TOKRightDlg::TOKRightDlg(TComponent* AOwner)
+__fastcall TDlgSetting::TDlgSetting(TComponent* AOwner)
 	: TForm(AOwner)
 {
 }
-//--------------------------------------------------------------------- 
+//---------------------------------------------------------------------
+

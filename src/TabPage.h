@@ -8,9 +8,12 @@
 #include <Vcl.StdCtrls.hpp>
 #include <Vcl.Forms.hpp>
 #include <Vcl.ComCtrls.hpp>
-#include "FrameIpu.h"
 #include <Vcl.Menus.hpp>
+
+// custom class
+#include "FrameIpu.h"
 #include "FrameRemote.h"
+#include "src\dialog\Setting.h"
 //---------------------------------------------------------------------------
 class TFormTabView : public TForm
 {
@@ -23,8 +26,11 @@ __published:	// IDE-managed Components
 	TMenuItem *Setting1;
 	TMenuItem *N1;
 	TFrameForRemote *m_frameForRemote;
+	TTabSheet *m_tabFtp;
+	TTabSheet *m_tabLane;
 	void __fastcall N1Click(TObject *Sender);
 private:	// User declarations
+	TDlgSetting *m_pDigSetting;
 public:		// User declarations
 	__fastcall TFormTabView(TComponent* Owner);
 };

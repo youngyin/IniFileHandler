@@ -14,12 +14,12 @@
 class INIFileManager {
 public:
     enum class DataType {
-        Bool,
-        Date,
+		Bool,
         DateTime,
-        Float,
-        String
-    };
+		Float,
+		String,
+        Int
+	};
 
 private:
 	TIniFile* m_pIniFile;
@@ -35,9 +35,10 @@ public:
 	void Write(const String& section, const String& key, const TDateTime& value);
 	void Write(const String& section, const String& key, float value);
 	void Write(const String& section, const String& key, const String& value);
-    void Write(const String& section, const String& key, const int value);
+	void Write(const String& section, const String& key, const int value);
 
 	/** READ */
+	Variant Read(const String& section, const String& key, const DataType dataType);
 };
 
 #endif // INIFILEMANAGER_H

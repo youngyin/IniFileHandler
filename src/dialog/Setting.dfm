@@ -1,4 +1,4 @@
-object OKRightDlg: TOKRightDlg
+object DlgSetting: TDlgSetting
   Left = 227
   Top = 108
   BorderStyle = bsDialog

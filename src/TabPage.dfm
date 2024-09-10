@@ -30,8 +30,6 @@ object FormTabView: TFormTabView
         Height = 411
         Align = alClient
         TabOrder = 0
-        ExplicitLeft = -136
-        ExplicitTop = 40
         ExplicitWidth = 616
         ExplicitHeight = 411
         inherited m_gbConfig: TGroupBox
@@ -68,41 +66,23 @@ object FormTabView: TFormTabView
                 Row = 2
               end>
             StyleElements = [seFont, seClient, seBorder]
-            ExplicitLeft = 12
-            ExplicitTop = 27
-            ExplicitWidth = 401
-            ExplicitHeight = 82
             inherited m_lblKey1: TLabel
               StyleElements = [seFont, seClient, seBorder]
-              ExplicitLeft = 1
-              ExplicitTop = 1
             end
             inherited m_edtDefaultSlot: TEdit
               StyleElements = [seFont, seClient, seBorder]
-              ExplicitLeft = 118
-              ExplicitTop = 4
-              ExplicitWidth = 279
             end
             inherited m_lblKey2: TLabel
               StyleElements = [seFont, seClient, seBorder]
-              ExplicitLeft = 1
-              ExplicitTop = 28
             end
             inherited m_edtLastset: TEdit
               StyleElements = [seFont, seClient, seBorder]
-              ExplicitLeft = 118
-              ExplicitWidth = 279
             end
             inherited m_lblKey3: TLabel
               StyleElements = [seFont, seClient, seBorder]
-              ExplicitLeft = 1
-              ExplicitTop = 54
             end
             inherited m_edtLastSlot: TEdit
               StyleElements = [seFont, seClient, seBorder]
-              ExplicitLeft = 118
-              ExplicitTop = 57
-              ExplicitWidth = 279
             end
           end
         end
@@ -182,105 +162,71 @@ object FormTabView: TFormTabView
                 Row = 1
               end>
             StyleElements = [seFont, seClient, seBorder]
-            ExplicitLeft = 12
-            ExplicitTop = 27
-            ExplicitWidth = 401
-            ExplicitHeight = 171
+            ExplicitLeft = 11
+            ExplicitTop = 26
+            ExplicitWidth = 403
+            ExplicitHeight = 173
             inherited m_lblKey4: TLabel
-              Height = 29
               StyleElements = [seFont, seClient, seBorder]
-              ExplicitLeft = 1
             end
             inherited m_edtInterfaceIn: TEdit
-              Left = 98
-              Width = 229
-              Height = 23
               StyleElements = [seFont, seClient, seBorder]
-              ExplicitLeft = 118
-              ExplicitWidth = 279
+              ExplicitLeft = 98
+              ExplicitWidth = 229
             end
             inherited m_lblKey5: TLabel
-              Top = 30
               StyleElements = [seFont, seClient, seBorder]
-              ExplicitLeft = 1
-              ExplicitTop = 29
+              ExplicitTop = 30
             end
             inherited m_edtIpIn: TEdit
-              Left = 98
-              Top = 33
-              Width = 229
               StyleElements = [seFont, seClient, seBorder]
-              ExplicitLeft = 118
-              ExplicitTop = 32
-              ExplicitWidth = 279
+              ExplicitLeft = 98
+              ExplicitTop = 33
+              ExplicitWidth = 229
             end
             inherited m_lblKey6: TLabel
-              Top = 58
               StyleElements = [seFont, seClient, seBorder]
-              ExplicitLeft = 1
-              ExplicitTop = 57
+              ExplicitTop = 58
             end
             inherited m_edtInterfaceOut: TEdit
-              Left = 98
-              Top = 61
-              Width = 229
               StyleElements = [seFont, seClient, seBorder]
-              ExplicitLeft = 118
-              ExplicitTop = 60
-              ExplicitWidth = 279
+              ExplicitLeft = 98
+              ExplicitTop = 61
+              ExplicitWidth = 229
             end
             inherited m_lblKey7: TLabel
-              Top = 87
               StyleElements = [seFont, seClient, seBorder]
-              ExplicitLeft = 1
-              ExplicitTop = 86
+              ExplicitTop = 87
             end
             inherited m_edtIpOut: TEdit
-              Left = 98
-              Top = 90
-              Width = 229
               StyleElements = [seFont, seClient, seBorder]
-              ExplicitLeft = 118
-              ExplicitTop = 89
-              ExplicitWidth = 279
+              ExplicitLeft = 98
+              ExplicitTop = 90
+              ExplicitWidth = 229
             end
             inherited m_lblKey8: TLabel
-              Top = 115
-              Height = 29
               StyleElements = [seFont, seClient, seBorder]
-              ExplicitTop = 114
+              ExplicitTop = 115
             end
             inherited m_edtInterfaceCam1: TEdit
-              Left = 98
-              Top = 118
-              Width = 229
-              Height = 23
               StyleElements = [seFont, seClient, seBorder]
-              ExplicitLeft = 118
-              ExplicitTop = 117
-              ExplicitWidth = 279
+              ExplicitLeft = 98
+              ExplicitTop = 118
+              ExplicitWidth = 229
             end
             inherited m_lblKey9: TLabel
-              Top = 144
               StyleElements = [seFont, seClient, seBorder]
-              ExplicitTop = 142
+              ExplicitTop = 144
             end
             inherited m_edtIpCam1: TEdit
-              Left = 98
-              Top = 147
-              Width = 229
               StyleElements = [seFont, seClient, seBorder]
-              ExplicitLeft = 118
-              ExplicitTop = 145
-              ExplicitWidth = 279
+              ExplicitLeft = 98
+              ExplicitTop = 147
+              ExplicitWidth = 229
             end
             inherited m_BtnApply: TButton
-              Left = 333
-              Top = 33
-              ExplicitLeft = 331
-              ExplicitTop = 32
-              ExplicitWidth = 66
-              ExplicitHeight = 22
+              ExplicitLeft = 333
+              ExplicitTop = 33
             end
           end
         end
@@ -298,6 +244,14 @@ object FormTabView: TFormTabView
         ExplicitLeft = -24
         ExplicitTop = -69
       end
+    end
+    object m_tabFtp: TTabSheet
+      Caption = 'FTP'
+      ImageIndex = 2
+    end
+    object m_tabLane: TTabSheet
+      Caption = 'LANE'
+      ImageIndex = 3
     end
   end
   object m_mainMenu: TMainMenu

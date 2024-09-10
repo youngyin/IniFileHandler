@@ -4,6 +4,7 @@
 #pragma hdrstop
 
 #include "FrameIpu.h"
+//#include "src\util\INIFileManager.h"
 
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
@@ -37,8 +38,14 @@ void __fastcall TFrameIpuNet::loadFileValue(){
 	m_edtInterfaceCam1->Text = pIniFile->ReadString(strSection, "INTERFACE_CAM1", "");
 	m_edtIpCam1->Text = pIniFile->ReadString(strSection, "IP_CAM1", "");
 
-	delete m_pIniFile;
-	m_pIniFile = nullptr;
+	delete pIniFile;
+	pIniFile = nullptr;
+
+	/*INIFileManager *pIniManager;
+	pIniManager = new INIFileManager(strFilePath);
+	m_edtLastset->Text = DateTimeToStr(pIniManager->Read("CONFIG", "LASTSET", INIFileManager::DataType::DateTime));
+	m_edtIpOut->Text = pIniManager->Read("SLOT_A", "IP_OUT", INIFileManager::DataType::String);
+	pIniManager = nullptr; */
 }
 
 /*void __fastcall TFrameIpuNet::initDialog(){
