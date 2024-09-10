@@ -73,7 +73,13 @@ String TFrameIpuNet::selectIniFile(TComponent* Owner){
 
 void __fastcall TFrameIpuNet::btnFindClick(TObject *Sender)
 {
+    // find file
 	m_edtPath->Text = selectIniFile(this);
+
+	// load data
+    ConfigValues configValues;
+	readFileValues(m_edtPath->Text, configValues);
+    displayValues(configValues);
 }
 //---------------------------------------------------------------------------
 
