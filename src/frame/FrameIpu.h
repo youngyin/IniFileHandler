@@ -14,6 +14,9 @@
 #include <System.IniFiles.hpp>
 #include <Vcl.Mask.hpp>
 
+// custom class
+#include "src\util\INIFileManager.h"
+
 //---------------------------------------------------------------------------
 class TFrameIpuNet : public TFrame
 {

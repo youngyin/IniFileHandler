@@ -4,48 +4,49 @@
 #pragma hdrstop
 
 #include "FrameIpu.h"
-//#include "src\util\INIFileManager.h"
 
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
 
 TFrameIpuNet *FrameIpuNet;
+
 //---------------------------------------------------------------------------
 __fastcall TFrameIpuNet::TFrameIpuNet(TComponent* Owner)
 	: TFrame(Owner)
 {
-    //m_edtPath->Text = strFilePath;
 	loadFileValue(m_edtPath->Text);
 }
 
 void __fastcall TFrameIpuNet::loadFileValue(String strFilePath){
-    String strSection;
-
-	// [CONFIG] section 값 읽기
-	strSection = "CONFIG";
-	TIniFile* pIniFile = new TIniFile(strFilePath);
-	m_edtDefaultSlot->Text = pIniFile->ReadString(strSection, "DEFAULT_SLOT", "");
-	m_edtLastSlot->Text = pIniFile->ReadString(strSection, "LASTSLOT", "");
-	m_edtLastset->Text = pIniFile->ReadString(strSection, "LASTSET", "");
-
-	// [SLOT_A] section 값 읽기
-	strSection = "SLOT_A";
-	m_edtInterfaceIn->Text = pIniFile->ReadString(strSection, "INTERFACE_IN", "");
-	m_edtIpIn->Text = pIniFile->ReadString(strSection, "IP_IN", "");
-	m_edtInterfaceOut->Text = pIniFile->ReadString(strSection, "INTERFACE_OUT", "");
-	m_edtIpOut->Text = pIniFile->ReadString(strSection, "IP_OUT", "");
-	m_edtInterfaceCam1->Text = pIniFile->ReadString(strSection, "INTERFACE_CAM1", "");
-	m_edtIpCam1->Text = pIniFile->ReadString(strSection, "IP_CAM1", "");
-
-	delete pIniFile;
-	pIniFile = nullptr;
-
-	/*INIFileManager *pIniManager;
+    INIFileManager *pIniManager;
 	pIniManager = new INIFileManager(strFilePath);
-	m_edtLastset->Text = DateTimeToStr(pIniManager->Read("CONFIG", "LASTSET", INIFileManager::DataType::DateTime));
-	m_edtIpOut->Text = pIniManager->Read("SLOT_A", "IP_OUT", INIFileManager::DataType::String);
-	pIniManager = nullptr; */
+
+	// CONFIG 섹션의 값 읽기
+	String strDefaultSlot = pIniManager->Read("CONFIG", "DEFAULT_SLOT", INIFileManager::DataType::String);
+	String strLastSlot = pIniManager->Read("CONFIG", "LASTSLOT", INIFileManager::DataType::String);
+	String strLastSet = pIniManager->Read("CONFIG", "LASTSET", INIFileManager::DataType::String);
+
+	// SLOT_A 섹션의 값 읽기
+	String strInterfaceIn = pIniManager->Read("SLOT_A", "INTERFACE_IN", INIFileManager::DataType::String);
+	String strIpIn = pIniManager->Read("SLOT_A", "IP_IN", INIFileManager::DataType::String);
+	String strInterfaceOut = pIniManager->Read("SLOT_A", "INTERFACE_OUT", INIFileManager::DataType::String);
+	String strIpOut = pIniManager->Read("SLOT_A", "IP_OUT", INIFileManager::DataType::String);
+	String strInterfaceCam1 = pIniManager->Read("SLOT_A", "INTERFACE_CAM1", INIFileManager::DataType::String);
+	String strIpCam1 = pIniManager->Read("SLOT_A", "IP_CAM1", INIFileManager::DataType::String);
+
+	pIniManager = nullptr;
+
+	// 편집 필드에 할당
+	m_edtDefaultSlot->Text = strDefaultSlot;
+	m_edtLastSlot->Text = strLastSlot;
+	m_edtLastset->Text = strLastSet;
+	m_edtInterfaceIn->Text = strInterfaceIn;
+	m_edtIpIn->Text = strIpIn;
+	m_edtInterfaceOut->Text = strInterfaceOut;
+	m_edtIpOut->Text = strIpOut;
+	m_edtInterfaceCam1->Text = strInterfaceCam1;
+	m_edtIpCam1->Text = strIpCam1;
 }
 //---------------------------------------------------------------------------
 
