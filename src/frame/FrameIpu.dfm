@@ -144,6 +144,7 @@ object FrameIpuNet: TFrameIpuNet
     Height = 25
     Caption = 'APPLY'
     TabOrder = 2
+    OnClick = m_btnApplyClick
   end
   object btnFind: TButton
     Left = 293

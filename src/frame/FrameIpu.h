@@ -38,14 +38,30 @@ class TFrameIpuNet : public TFrame
 	TButton *m_btnLoad;
 	void __fastcall btnFindClick(TObject *Sender);
 	void __fastcall m_btnLoadClick(TObject *Sender);
+	void __fastcall m_btnApplyClick(TObject *Sender);
 
   private: // User declarations
-	void __fastcall loadFileValue(String strFilePath);
-	void __fastcall initDialog();
-    String selectIniFile(TComponent* Owner);
+    struct ConfigValues {
+		String defaultSlot;
+		String lastSlot;
+		String lastSet;
+		String interfaceIn;
+		String ipIn;
+		String interfaceOut;
+		String ipOut;
+		String interfaceCam1;
+		String ipCam1;
+	};
+	void displayValues(const ConfigValues &configValues);
+	void readFileValues(String strFilePath, ConfigValues &configValues);
+    void __fastcall writeData(String strFilePath, ConfigValues &configValues);
+	void getDataFromUI(ConfigValues &configValues);
+	String selectIniFile(TComponent* Owner);
 
   public: // User declarations
-    __fastcall TFrameIpuNet(TComponent* Owner);
+
+	__fastcall TFrameIpuNet(TComponent* Owner);
+
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TFrameIpuNet* FrameIpuNet;
