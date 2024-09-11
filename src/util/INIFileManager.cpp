@@ -58,7 +58,7 @@ Variant INIFileManager::Read(const String& section, const String& key, const Dat
 			case DataType::Bool:
 				return m_pIniFile->ReadBool(section, key, false);
 			case DataType::DateTime:
-				return m_pIniFile->ReadDateTime(section, key, TDateTime::CurrentDateTime());
+				return m_pIniFile->ReadDateTime(section, key, 0);
 			default:
 				throw Exception("Unsupported type");
         }

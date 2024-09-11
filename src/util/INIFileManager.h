@@ -38,7 +38,7 @@ public:
 	void Write(const String& section, const String& key, const int value);
 
 	/** READ */
-	Variant Read(const String& section, const String& key, const DataType dataType);
+	Variant Read(const String& section, const String& key, const DataType dataType = DataType::String);
 };
 
 #endif // INIFILEMANAGER_H
