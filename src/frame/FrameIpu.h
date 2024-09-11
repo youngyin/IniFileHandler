@@ -11,11 +11,10 @@
 #include <Vcl.ComCtrls.hpp>
 #include <Vcl.Grids.hpp>
 #include <Vcl.ValEdit.hpp>
-#include <System.IniFiles.hpp>
 #include <Vcl.Mask.hpp>
 
 // custom class
-#include "src\util\INIFileManager.h"
+#include "src\data\IpuConfig.h"
 
 //---------------------------------------------------------------------------
 class TFrameIpuNet : public TFrame
@@ -33,7 +32,7 @@ class TFrameIpuNet : public TFrame
 	TLabeledEdit *m_edtInterfaceCam1;
 	TLabeledEdit *m_edtIpCam1;
 	TButton *m_btnApply;
-	TButton *btnFind;
+	TButton *m_btnFind;
 	TLabeledEdit *m_edtPath;
 	TButton *m_btnLoad;
 	TGroupBox *m_gbNetWorkInfo;
@@ -43,28 +42,18 @@ class TFrameIpuNet : public TFrame
 	TLabeledEdit *m_edtNetWorkInfo5;
 	TLabeledEdit *m_edtNetWorkInfo6;
 	TLabeledEdit *m_edtNetWorkInfo4;
-	void __fastcall btnFindClick(TObject *Sender);
+	void __fastcall m_btnFindClick(TObject *Sender);
 	void __fastcall m_btnLoadClick(TObject *Sender);
 	void __fastcall m_btnApplyClick(TObject *Sender);
 
   private: // User declarations
-    struct ConfigValues {
-		String defaultSlot;
-		String lastSlot;
-		String lastSet;
-		String interfaceIn;
-		String ipIn;
-		String interfaceOut;
-		String ipOut;
-		String interfaceCam1;
-		String ipCam1;
-	};
-	void displayValues(const ConfigValues &configValues);
-	void readFileValues(String strFilePath, ConfigValues &configValues);
-	void __fastcall writeData(String strFilePath, ConfigValues &configValues);
-	void getDataFromUI(ConfigValues &configValues);
+	void displayValues(const IpuConfig &configValues);
+	void readFileValues(String strFilePath, IpuConfig &configValues);
+	void __fastcall writeData(String strFilePath, IpuConfig &configValues);
+	void changeDataFromUI(IpuConfig &configValues);
     void GetNetworkAdapters();
 	String selectIniFile(TComponent* Owner);
+    void loadValues();
 
   public: // User declarations
 

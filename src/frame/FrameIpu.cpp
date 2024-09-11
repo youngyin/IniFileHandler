@@ -8,6 +8,8 @@
 #include <vcl.h>
 #include <WinSock2.h>
 #include <Iphlpapi.h>
+#include <Dialogs.hpp>
+#include <System.UITypes.hpp>
 #pragma comment(lib, "Iphlpapi.lib")
 
 //---------------------------------------------------------------------------
@@ -20,41 +22,25 @@ TFrameIpuNet *FrameIpuNet;
 __fastcall TFrameIpuNet::TFrameIpuNet(TComponent* Owner)
 	: TFrame(Owner)
 {
-	ConfigValues configValues;
-	readFileValues(m_edtPath->Text, configValues);
-    displayValues(configValues);
+    loadValues();
 }
 
-void TFrameIpuNet::readFileValues(String strFilePath, ConfigValues &configValues) {
-    INIFileManager *pIniManager = new INIFileManager(strFilePath);
-
-    // CONFIG 섹션의 값 읽기
-    configValues.defaultSlot = pIniManager->Read("CONFIG", "DEFAULT_SLOT", INIFileManager::DataType::String);
-    configValues.lastSlot = pIniManager->Read("CONFIG", "LASTSLOT", INIFileManager::DataType::String);
-    configValues.lastSet = pIniManager->Read("CONFIG", "LASTSET", INIFileManager::DataType::String);
-
-    // SLOT_A 섹션의 값 읽기
-    configValues.interfaceIn = pIniManager->Read("SLOT_A", "INTERFACE_IN", INIFileManager::DataType::String);
-    configValues.ipIn = pIniManager->Read("SLOT_A", "IP_IN", INIFileManager::DataType::String);
-    configValues.interfaceOut = pIniManager->Read("SLOT_A", "INTERFACE_OUT", INIFileManager::DataType::String);
-    configValues.ipOut = pIniManager->Read("SLOT_A", "IP_OUT", INIFileManager::DataType::String);
-    configValues.interfaceCam1 = pIniManager->Read("SLOT_A", "INTERFACE_CAM1", INIFileManager::DataType::String);
-    configValues.ipCam1 = pIniManager->Read("SLOT_A", "IP_CAM1", INIFileManager::DataType::String);
-
-	pIniManager = nullptr;
+void TFrameIpuNet::loadValues(){
+    IpuConfig m_fileConfigData;
+	m_fileConfigData.readFileValues(m_edtPath->Text);
+	displayValues(m_fileConfigData);
 }
 
-void TFrameIpuNet::displayValues(const ConfigValues &configValues) {
-    // 편집 필드에 할당
-	m_edtDefaultSlot->Text = configValues.defaultSlot;
-	m_edtLastSlot->Text = configValues.lastSlot;
-    m_edtLastset->Text = configValues.lastSet;
-	m_edtInterfaceIn->Text = configValues.interfaceIn;
-    m_edtIpIn->Text = configValues.ipIn;
-	m_edtInterfaceOut->Text = configValues.interfaceOut;
-    m_edtIpOut->Text = configValues.ipOut;
-    m_edtInterfaceCam1->Text = configValues.interfaceCam1;
-    m_edtIpCam1->Text = configValues.ipCam1;
+void TFrameIpuNet::displayValues(const IpuConfig &configValues) {
+	m_edtDefaultSlot->Text = configValues.defaultSlot.get();
+	m_edtLastSlot->Text = configValues.lastSlot.get();
+	m_edtLastset->Text = configValues.lastSet.get();
+	m_edtInterfaceIn->Text = configValues.interfaceIn.get();
+	m_edtIpIn->Text = configValues.ipIn.get();
+	m_edtInterfaceOut->Text = configValues.interfaceOut.get();
+	m_edtIpOut->Text = configValues.ipOut.get();
+	m_edtInterfaceCam1->Text = configValues.interfaceCam1.get();
+    m_edtIpCam1->Text = configValues.ipCam1.get();
 }
 //---------------------------------------------------------------------------
 
@@ -76,65 +62,70 @@ String TFrameIpuNet::selectIniFile(TComponent* Owner){
 }
 
 
-void __fastcall TFrameIpuNet::btnFindClick(TObject *Sender)
+void __fastcall TFrameIpuNet::m_btnFindClick(TObject *Sender)
 {
     // find file
 	m_edtPath->Text = selectIniFile(this);
 
 	// load data
-    ConfigValues configValues;
-	readFileValues(m_edtPath->Text, configValues);
-    displayValues(configValues);
+	loadValues();
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TFrameIpuNet::m_btnLoadClick(TObject *Sender)
 {
-	ConfigValues configValues;
-	readFileValues(m_edtPath->Text, configValues);
-	displayValues(configValues);
+	loadValues();
     GetNetworkAdapters();
 }
 
 //---------------------------------------------------------------------------
-void TFrameIpuNet::getDataFromUI(ConfigValues &configValues) {
-	configValues.defaultSlot = m_edtDefaultSlot->Text;
-    configValues.lastSlot = m_edtLastSlot->Text;
-    configValues.lastSet = m_edtLastset->Text;
-    configValues.interfaceIn = m_edtInterfaceIn->Text;
-    configValues.ipIn = m_edtIpIn->Text;
-    configValues.interfaceOut = m_edtInterfaceOut->Text;
-    configValues.ipOut = m_edtIpOut->Text;
-    configValues.interfaceCam1 = m_edtInterfaceCam1->Text;
-    configValues.ipCam1 = m_edtIpCam1->Text;
+void TFrameIpuNet::changeDataFromUI(IpuConfig &configValues) {
+	configValues.defaultSlot.change(m_edtDefaultSlot->Text);
+	configValues.lastSlot.change(m_edtLastSlot->Text);
+	configValues.lastSet.change(m_edtLastset->Text);
+	configValues.interfaceIn.change(m_edtInterfaceIn->Text);
+	configValues.ipIn.change(m_edtIpIn->Text);
+	configValues.interfaceOut.change(m_edtInterfaceOut->Text);
+	configValues.ipOut.change(m_edtIpOut->Text);
+	configValues.interfaceCam1.change(m_edtInterfaceCam1->Text);
+	configValues.ipCam1.change(m_edtIpCam1->Text);
 }
-
-void __fastcall TFrameIpuNet::writeData(String strFilePath, ConfigValues &configValues) {
-    // 데이터 쓰기
-    INIFileManager *pIniManager = new INIFileManager(strFilePath);
-
-    // CONFIG 섹션에 데이터 쓰기
-    pIniManager->Write("CONFIG", "DEFAULT_SLOT", configValues.defaultSlot);
-    pIniManager->Write("CONFIG", "LASTSLOT", configValues.lastSlot);
-    pIniManager->Write("CONFIG", "LASTSET", configValues.lastSet);
-
-    // SLOT_A 섹션에 데이터 쓰기
-    pIniManager->Write("SLOT_A", "INTERFACE_IN", configValues.interfaceIn);
-    pIniManager->Write("SLOT_A", "IP_IN", configValues.ipIn);
-    pIniManager->Write("SLOT_A", "INTERFACE_OUT", configValues.interfaceOut);
-    pIniManager->Write("SLOT_A", "IP_OUT", configValues.ipOut);
-    pIniManager->Write("SLOT_A", "INTERFACE_CAM1", configValues.interfaceCam1);
-    pIniManager->Write("SLOT_A", "IP_CAM1", configValues.ipCam1);
-
-    pIniManager = nullptr;
-}
-
 
 void __fastcall TFrameIpuNet::m_btnApplyClick(TObject *Sender)
 {
-	ConfigValues configValues;
-	getDataFromUI(configValues);
-	writeData(m_edtPath->Text, configValues);
+	IpuConfig m_fileConfigData;
+    m_fileConfigData.readFileValues(m_edtPath->Text);
+	changeDataFromUI(m_fileConfigData);
+
+	// 사용자에게 alert
+	String message = "";
+	if (m_fileConfigData.defaultSlot.isChange()) message += m_edtDefaultSlot->EditLabel->Caption + ", ";
+	if (m_fileConfigData.lastSlot.isChange()) message += m_edtLastSlot->EditLabel->Caption + ", ";
+	if (m_fileConfigData.lastSet.isChange()) message += m_edtLastset->EditLabel->Caption + ", ";
+	if (m_fileConfigData.interfaceIn.isChange()) message += m_edtInterfaceIn->EditLabel->Caption + ", ";
+	if (m_fileConfigData.ipIn.isChange()) message += m_edtIpIn->EditLabel->Caption + ", ";
+	if (m_fileConfigData.interfaceOut.isChange()) message += m_edtInterfaceOut->EditLabel->Caption + ", ";
+	if (m_fileConfigData.ipOut.isChange()) message += m_edtIpOut->EditLabel->Caption + ", ";
+	if (m_fileConfigData.interfaceCam1.isChange()) message += m_edtInterfaceCam1->EditLabel->Caption + ", ";
+	if (m_fileConfigData.ipCam1.isChange()) message += m_edtIpCam1->EditLabel->Caption + ", ";
+
+	// 결과 메시지 표시
+	if (message != "") {
+		message = message.SubString(1, message.Length() - 2);
+		int result = Application->MessageBox((message+"를 변경하시겠습니까?").c_str(), L"확인", MB_YESNO | MB_ICONQUESTION);
+		if (result == mrYes) {
+			m_fileConfigData.writeValues(m_edtPath->Text);
+			loadValues();
+			ShowMessage("저장되었습니다.");
+        }
+		else if (result == mrNo) {
+			//ShowMessage("값을 다시 불러옵니다.");
+            //loadValues();
+		}
+
+	} else {
+		ShowMessage("변경된 값이 없습니다.");
+	}
 }
 //---------------------------------------------------------------------------
 
@@ -181,4 +172,3 @@ void TFrameIpuNet::GetNetworkAdapters()
     }
 	free(pAdapterInfo);
 }
-

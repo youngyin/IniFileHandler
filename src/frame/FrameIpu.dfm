@@ -146,14 +146,14 @@ object FrameIpuNet: TFrameIpuNet
     TabOrder = 2
     OnClick = m_btnApplyClick
   end
-  object btnFind: TButton
+  object m_btnFind: TButton
     Left = 293
     Top = 17
     Width = 75
     Height = 25
     Caption = 'FIND'
     TabOrder = 3
-    OnClick = btnFindClick
+    OnClick = m_btnFindClick
   end
   object m_edtPath: TLabeledEdit
     Left = 87
