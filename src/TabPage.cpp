@@ -33,10 +33,3 @@ void __fastcall TFormTabView::N1Click(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TFormTabView::FrameIpuNet1btnFindClick(TObject *Sender)
-{
-	FrameIpuNet1->btnFindClick(this);
-
-}
-//---------------------------------------------------------------------------
-

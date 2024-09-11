@@ -92,9 +92,6 @@ object FormTabView: TFormTabView
             ExplicitHeight = 21
           end
         end
-        inherited btnFind: TButton
-          OnClick = FrameIpuNet1btnFindClick
-        end
         inherited m_edtPath: TLabeledEdit
           StyleElements = [seFont, seClient, seBorder]
         end

@@ -29,7 +29,6 @@ __published:	// IDE-managed Components
 	TTabSheet *m_tabFtp;
 	TTabSheet *m_tabLane;
 	void __fastcall N1Click(TObject *Sender);
-	void __fastcall FrameIpuNet1btnFindClick(TObject *Sender);
 private:	// User declarations
 	TDlgSetting *m_pDigSetting;
 public:		// User declarations
