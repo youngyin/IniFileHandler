@@ -10,6 +10,11 @@
 #include <Iphlpapi.h>
 #include <Dialogs.hpp>
 #include <System.UITypes.hpp>
+#include <vcl.h>
+#include <winsock2.h>
+#include <iphlpapi.h>
+#include <memory.h>
+#include <System.SysUtils.hpp>
 #pragma comment(lib, "Iphlpapi.lib")
 
 //---------------------------------------------------------------------------
@@ -75,7 +80,8 @@ void __fastcall TFrameIpuNet::m_btnFindClick(TObject *Sender)
 void __fastcall TFrameIpuNet::m_btnLoadClick(TObject *Sender)
 {
 	loadValues();
-    GetNetworkAdapters();
+	GetNetworkAdapters();
+    getNetworkAdapter2();
 }
 
 //---------------------------------------------------------------------------
@@ -171,4 +177,60 @@ void TFrameIpuNet::GetNetworkAdapters()
         }
     }
 	free(pAdapterInfo);
+}
+
+
+void TFrameIpuNet::getNetworkAdapter2(){
+	Memo1->Clear(); // 이전 내용을 지웁니다.
+
+    // IP_ADAPTER_ADDRESSES 구조체 사용
+    ULONG outBufLen = 15000;
+    PIP_ADAPTER_ADDRESSES pAddresses = (IP_ADAPTER_ADDRESSES*)malloc(outBufLen);
+
+    if (GetAdaptersAddresses(AF_UNSPEC, 0, NULL, pAddresses, &outBufLen) == NO_ERROR)
+    {
+        PIP_ADAPTER_ADDRESSES pCurrentAddresses = pAddresses;
+
+        while (pCurrentAddresses)
+        {
+            // 어댑터 이름 및 설명
+            String adapterName = pCurrentAddresses->AdapterName;
+            String friendlyName = pCurrentAddresses->FriendlyName;
+
+            Memo1->Lines->Add("어댑터 이름: " + friendlyName);
+            Memo1->Lines->Add("어댑터 ID: " + adapterName); //  시스템에서 각 어댑터를 식별하는 데 사용되는 문자열
+
+            // IPv4 주소 가져오기
+            for (PIP_ADAPTER_UNICAST_ADDRESS addr = pCurrentAddresses->FirstUnicastAddress; addr != NULL; addr = addr->Next)
+            {
+                if (addr->Address.lpSockaddr->sa_family == AF_INET)
+                {
+                    sockaddr_in* ipv4 = (sockaddr_in*)addr->Address.lpSockaddr;
+                    Memo1->Lines->Add("IPv4 주소: " + String(inet_ntoa(ipv4->sin_addr)));
+                }
+            }
+
+            // 게이트웨이 정보 가져오기
+            for (PIP_ADAPTER_GATEWAY_ADDRESS gateway = pCurrentAddresses->FirstGatewayAddress; gateway != NULL; gateway = gateway->Next)
+            {
+                if (gateway->Address.lpSockaddr->sa_family == AF_INET)
+                {
+                    sockaddr_in* gatewayAddr = (sockaddr_in*)gateway->Address.lpSockaddr;
+                    Memo1->Lines->Add("게이트웨이: " + String(inet_ntoa(gatewayAddr->sin_addr)));
+                }
+            }
+
+            // DHCP 서버 정보 가져오기
+            if (pCurrentAddresses->Dhcpv4Server.lpSockaddr)
+			{
+				sockaddr_in* dhcpServer = (sockaddr_in*)pCurrentAddresses->Dhcpv4Server.lpSockaddr;
+				Memo1->Lines->Add("DHCP 서버: " + String(inet_ntoa(dhcpServer->sin_addr)));
+			}
+
+            Memo1->Lines->Add("-------------------------------------------------");
+            pCurrentAddresses = pCurrentAddresses->Next;
+        }
+    }
+
+    free(pAddresses);
 }

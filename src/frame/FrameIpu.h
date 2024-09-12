@@ -42,6 +42,7 @@ class TFrameIpuNet : public TFrame
 	TLabeledEdit *m_edtNetWorkInfo5;
 	TLabeledEdit *m_edtNetWorkInfo6;
 	TLabeledEdit *m_edtNetWorkInfo4;
+	TMemo *Memo1;
 	void __fastcall m_btnFindClick(TObject *Sender);
 	void __fastcall m_btnLoadClick(TObject *Sender);
 	void __fastcall m_btnApplyClick(TObject *Sender);
@@ -53,7 +54,8 @@ class TFrameIpuNet : public TFrame
 	void changeDataFromUI(IpuConfig &configValues);
     void GetNetworkAdapters();
 	String selectIniFile(TComponent* Owner);
-    void loadValues();
+	void loadValues();
+    void getNetworkAdapter2();
 
   public: // User declarations
 

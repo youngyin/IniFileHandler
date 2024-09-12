@@ -267,4 +267,11 @@ object FrameIpuNet: TFrameIpuNet
       Text = ''
     end
   end
+  object Memo1: TMemo
+    Left = 552
+    Top = 48
+    Width = 401
+    Height = 569
+    TabOrder = 7
+  end
 end
