@@ -3,5 +3,6 @@
 #pragma hdrstop
 
 #include "CValue.h"
+
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
