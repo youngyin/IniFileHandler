@@ -7,67 +7,30 @@
 
 #include <vcl.h>
 #include <WinSock2.h>
-#include <Iphlpapi.h>
-#include <Dialogs.hpp>
-#include <System.UITypes.hpp>
-#include <vcl.h>
-#include <winsock2.h>
 #include <iphlpapi.h>
 #include <memory.h>
+#include <windows.h>
+#include <Dialogs.hpp>
+#include <System.UITypes.hpp>
 #include <System.SysUtils.hpp>
-#pragma comment(lib, "Iphlpapi.lib")
+#include <iostream>
+#include <string>
 
+#pragma comment(lib, "iphlpapi.lib")
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
 
-TFrameIpuNet *FrameIpuNet;
+TFrame_IpuNet *Frame_IpuNet;
 
 //---------------------------------------------------------------------------
-__fastcall TFrameIpuNet::TFrameIpuNet(TComponent* Owner)
+__fastcall TFrame_IpuNet::TFrame_IpuNet(TComponent* Owner)
 	: TFrame(Owner)
 {
-    loadValues();
+	loadValues();
 }
 
-void TFrameIpuNet::loadValues(){
-    IpuConfig m_fileConfigData;
-	m_fileConfigData.readFileValues(m_edtPath->Text);
-	displayValues(m_fileConfigData);
-}
-
-void TFrameIpuNet::displayValues(const IpuConfig &configValues) {
-	m_edtDefaultSlot->Text = configValues.defaultSlot.get();
-	m_edtLastSlot->Text = configValues.lastSlot.get();
-	m_edtLastset->Text = configValues.lastSet.get();
-	m_edtInterfaceIn->Text = configValues.interfaceIn.get();
-	m_edtIpIn->Text = configValues.ipIn.get();
-	m_edtInterfaceOut->Text = configValues.interfaceOut.get();
-	m_edtIpOut->Text = configValues.ipOut.get();
-	m_edtInterfaceCam1->Text = configValues.interfaceCam1.get();
-    m_edtIpCam1->Text = configValues.ipCam1.get();
-}
-//---------------------------------------------------------------------------
-
-String TFrameIpuNet::selectIniFile(TComponent* Owner){
-	String strFilePath;
-	TOpenDialog* OpenDialog = new TOpenDialog(Owner);
-	OpenDialog->Filter = "INI Files (*.ini)|*.ini";
-	OpenDialog->Title = "Open a File";
-
-
-	if (OpenDialog->Execute()) {
-		strFilePath = OpenDialog->FileName;
-	}
-
-	delete OpenDialog;
-	OpenDialog = nullptr;
-
-	return strFilePath;
-}
-
-
-void __fastcall TFrameIpuNet::m_btnFindClick(TObject *Sender)
+void __fastcall TFrame_IpuNet::m_btnFindClick(TObject *Sender)
 {
     // find file
 	m_edtPath->Text = selectIniFile(this);
@@ -75,29 +38,15 @@ void __fastcall TFrameIpuNet::m_btnFindClick(TObject *Sender)
 	// load data
 	loadValues();
 }
-//---------------------------------------------------------------------------
 
-void __fastcall TFrameIpuNet::m_btnLoadClick(TObject *Sender)
+void __fastcall TFrame_IpuNet::m_btnLoadClick(TObject *Sender)
 {
 	loadValues();
 	GetNetworkAdapters();
-    getNetworkAdapter2();
+	getNetworkAdapter2();
 }
 
-//---------------------------------------------------------------------------
-void TFrameIpuNet::changeDataFromUI(IpuConfig &configValues) {
-	configValues.defaultSlot.change(m_edtDefaultSlot->Text);
-	configValues.lastSlot.change(m_edtLastSlot->Text);
-	configValues.lastSet.change(m_edtLastset->Text);
-	configValues.interfaceIn.change(m_edtInterfaceIn->Text);
-	configValues.ipIn.change(m_edtIpIn->Text);
-	configValues.interfaceOut.change(m_edtInterfaceOut->Text);
-	configValues.ipOut.change(m_edtIpOut->Text);
-	configValues.interfaceCam1.change(m_edtInterfaceCam1->Text);
-	configValues.ipCam1.change(m_edtIpCam1->Text);
-}
-
-void __fastcall TFrameIpuNet::m_btnApplyClick(TObject *Sender)
+void __fastcall TFrame_IpuNet::m_btnApplyClick(TObject *Sender)
 {
 	IpuConfig m_fileConfigData;
     m_fileConfigData.readFileValues(m_edtPath->Text);
@@ -122,115 +71,295 @@ void __fastcall TFrameIpuNet::m_btnApplyClick(TObject *Sender)
 		if (result == mrYes) {
 			m_fileConfigData.writeValues(m_edtPath->Text);
 			loadValues();
+
+			//네트워크 설정 변경.
+			//std::string adapterName = AnsiString(m_edtInterfaceIn->Text).c_str();
+			std::string adapterName = AnsiString(m_edtInterfaceOut->Text).c_str();
+			NetworkConfigChange(adapterName);
+
 			ShowMessage("저장되었습니다.");
-        }
+		}
 		else if (result == mrNo) {
 			//ShowMessage("값을 다시 불러옵니다.");
-            //loadValues();
+			//loadValues();
 		}
 
 	} else {
 		ShowMessage("변경된 값이 없습니다.");
 	}
 }
+
 //---------------------------------------------------------------------------
 
-/*
-struct _IP_ADAPTER_INFO* Next;
-DWORD ComboIndex;
-char AdapterName[MAX_ADAPTER_NAME_LENGTH + 4];
-char Description[MAX_ADAPTER_DESCRIPTION_LENGTH + 4];
-UINT AddressLength;
-BYTE Address[MAX_ADAPTER_ADDRESS_LENGTH];
-DWORD Index;
-UINT Type;
-UINT DhcpEnabled;
-PIP_ADDR_STRING CurrentIpAddress;
-IP_ADDR_STRING IpAddressList;
-IP_ADDR_STRING GatewayList;
-IP_ADDR_STRING DhcpServer;
-BOOL HaveWins;
-IP_ADDR_STRING PrimaryWinsServer;
-IP_ADDR_STRING SecondaryWinsServer;
-time_t LeaseObtained;
-time_t LeaseExpires;
-*/
+void TFrame_IpuNet::changeDataFromUI(IpuConfig &configValues) {
+	configValues.defaultSlot.change(m_edtDefaultSlot->Text);
+	configValues.lastSlot.change(m_edtLastSlot->Text);
+	configValues.lastSet.change(m_edtLastset->Text);
+	configValues.interfaceIn.change(m_edtInterfaceIn->Text);
+	configValues.ipIn.change(m_edtIpIn->Text);
+	configValues.interfaceOut.change(m_edtInterfaceOut->Text);
+	configValues.ipOut.change(m_edtIpOut->Text);
+	configValues.interfaceCam1.change(m_edtInterfaceCam1->Text);
+	configValues.ipCam1.change(m_edtIpCam1->Text);
+}
 
-void TFrameIpuNet::GetNetworkAdapters()
-{
+void TFrame_IpuNet::GetNetworkAdapters(){
+	Memo2->Clear(); // 이전 내용을 지웁니다.
 	DWORD dwSize = 0;
 	GetAdaptersInfo(NULL, &dwSize);  // Get required size
 	IP_ADAPTER_INFO *pAdapterInfo = (IP_ADAPTER_INFO *)malloc(dwSize);
+
 	if (GetAdaptersInfo(pAdapterInfo, &dwSize) == NO_ERROR)
 	{
 		IP_ADAPTER_INFO *pAdapter = pAdapterInfo;
 		while (pAdapter)
 		{
-			m_edtNetWorkInfo1->Text = AnsiString(pAdapter->AdapterName);//Adapter Name
-			m_edtNetWorkInfo2->Text = AnsiString(pAdapter->Description);//Description
-			m_edtNetWorkInfo3->Text = AnsiString(pAdapter->IpAddressList.IpAddress.String);//IP Address
-			m_edtNetWorkInfo4->Text = AnsiString(pAdapter->GatewayList.IpAddress.String);//GatewayList.IpAddress
-			m_edtNetWorkInfo5->Text = AnsiString(pAdapter->GatewayList.IpMask.String);//GatewayList.IpMask
-			m_edtNetWorkInfo6->Text = AnsiString(pAdapter->DhcpServer.IpAddress.String);//DhcpServer
+			Memo2->Lines->Add("Adapter : " + AnsiString(pAdapter->AdapterName));
+			Memo2->Lines->Add("Description : " + AnsiString(pAdapter->Description));
+			Memo2->Lines->Add("IP Address : " + AnsiString(pAdapter->IpAddressList.IpAddress.String));
+			Memo2->Lines->Add("IP Mask : " + AnsiString(pAdapter->IpAddressList.IpMask.String));
+			Memo2->Lines->Add("GatewayList.IpAddress : " + AnsiString(pAdapter->GatewayList.IpAddress.String));
+			Memo2->Lines->Add("GatewayList.IpMask : " + AnsiString(pAdapter->GatewayList.IpMask.String));
+			Memo2->Lines->Add("DhcpServer : " + AnsiString(pAdapter->DhcpServer.IpAddress.String));
+			Memo2->Lines->Add("-------------------------------------------------");
 
 			pAdapter = pAdapter->Next;
-        }
-    }
+		}
+	}
 	free(pAdapterInfo);
 }
 
+void TFrame_IpuNet::GetNetworkAdapters(String strAdapterName){
+	//Memo2->Clear(); // 이전 내용을 지웁니다.
+	DWORD dwSize = 0;
+	GetAdaptersInfo(NULL, &dwSize);  // Get required size
+	IP_ADAPTER_INFO *pAdapterInfo = (IP_ADAPTER_INFO *)malloc(dwSize);
 
-void TFrameIpuNet::getNetworkAdapter2(){
+	if (GetAdaptersInfo(pAdapterInfo, &dwSize) == NO_ERROR)
+	{
+		IP_ADAPTER_INFO *pAdapter = pAdapterInfo;
+		while (pAdapter)
+		{
+			if(AnsiString(pAdapter->AdapterName) ==  strAdapterName)
+			{
+				m_edtNetWorkInfo1->Text = AnsiString(pAdapter->AdapterName);//Adapter Name
+				m_edtNetWorkInfo2->Text = AnsiString(pAdapter->IpAddressList.IpAddress.String);//IP Address
+				m_edtNetWorkInfo3->Text = AnsiString(pAdapter->IpAddressList.IpMask.String);//GatewayList.IpMask
+				m_edtNetWorkInfo4->Text = AnsiString(pAdapter->GatewayList.IpAddress.String);//GatewayList.IpAddress
+
+				break;
+			}
+			else
+			{
+				pAdapter = pAdapter->Next;
+            }
+		}
+	}
+	free(pAdapterInfo);
+}
+
+void TFrame_IpuNet::getNetworkAdapter2(){
 	Memo1->Clear(); // 이전 내용을 지웁니다.
 
-    // IP_ADAPTER_ADDRESSES 구조체 사용
-    ULONG outBufLen = 15000;
-    PIP_ADAPTER_ADDRESSES pAddresses = (IP_ADAPTER_ADDRESSES*)malloc(outBufLen);
+	// IP_ADAPTER_ADDRESSES 구조체 사용
+	ULONG outBufLen = 15000;
+	PIP_ADAPTER_ADDRESSES pAddresses = (IP_ADAPTER_ADDRESSES*)malloc(outBufLen);
 
-    if (GetAdaptersAddresses(AF_UNSPEC, 0, NULL, pAddresses, &outBufLen) == NO_ERROR)
-    {
-        PIP_ADAPTER_ADDRESSES pCurrentAddresses = pAddresses;
+	if (GetAdaptersAddresses(AF_UNSPEC, 0, NULL, pAddresses, &outBufLen) == NO_ERROR)
+	{
+		PIP_ADAPTER_ADDRESSES pCurrentAddresses = pAddresses;
 
-        while (pCurrentAddresses)
-        {
-            // 어댑터 이름 및 설명
-            String adapterName = pCurrentAddresses->AdapterName;
-            String friendlyName = pCurrentAddresses->FriendlyName;
+		while (pCurrentAddresses)
+		{
+			// 어댑터 이름 및 설명
+			String adapterName = pCurrentAddresses->AdapterName;
+			String friendlyName = pCurrentAddresses->FriendlyName;
+			String stripv4;
+			String strgatewayAddr;
+			String strdhcpServer;
 
-            Memo1->Lines->Add("어댑터 이름: " + friendlyName);
-            Memo1->Lines->Add("어댑터 ID: " + adapterName); //  시스템에서 각 어댑터를 식별하는 데 사용되는 문자열
+			Memo1->Lines->Add("어댑터 이름: " + friendlyName);
+			Memo1->Lines->Add("어댑터 ID: " + adapterName); //  시스템에서 각 어댑터를 식별하는 데 사용되는 문자열
 
-            // IPv4 주소 가져오기
-            for (PIP_ADAPTER_UNICAST_ADDRESS addr = pCurrentAddresses->FirstUnicastAddress; addr != NULL; addr = addr->Next)
-            {
-                if (addr->Address.lpSockaddr->sa_family == AF_INET)
-                {
-                    sockaddr_in* ipv4 = (sockaddr_in*)addr->Address.lpSockaddr;
-                    Memo1->Lines->Add("IPv4 주소: " + String(inet_ntoa(ipv4->sin_addr)));
-                }
-            }
-
-            // 게이트웨이 정보 가져오기
-            for (PIP_ADAPTER_GATEWAY_ADDRESS gateway = pCurrentAddresses->FirstGatewayAddress; gateway != NULL; gateway = gateway->Next)
-            {
-                if (gateway->Address.lpSockaddr->sa_family == AF_INET)
-                {
-                    sockaddr_in* gatewayAddr = (sockaddr_in*)gateway->Address.lpSockaddr;
-                    Memo1->Lines->Add("게이트웨이: " + String(inet_ntoa(gatewayAddr->sin_addr)));
-                }
-            }
-
-            // DHCP 서버 정보 가져오기
-            if (pCurrentAddresses->Dhcpv4Server.lpSockaddr)
+			//Slot_A Interface_in과 네트워크 이름 비교해서 데이터 가져오기
+			if(m_edtInterfaceIn->Text == friendlyName)
 			{
-				sockaddr_in* dhcpServer = (sockaddr_in*)pCurrentAddresses->Dhcpv4Server.lpSockaddr;
-				Memo1->Lines->Add("DHCP 서버: " + String(inet_ntoa(dhcpServer->sin_addr)));
+                //Adapter이름으로 IP/GateWay/SubNet 주소 가져오기.
+				GetNetworkAdapters(adapterName);
+				Memo1->Lines->Add("Found -------------------------------------------------");
+				break;
 			}
+			else
+			{
+				Memo1->Lines->Add("Finding -------------------------------------------------");
+				pCurrentAddresses = pCurrentAddresses->Next;
+            }
+		}
+	}
 
-            Memo1->Lines->Add("-------------------------------------------------");
-            pCurrentAddresses = pCurrentAddresses->Next;
+	free(pAddresses);
+}
+
+DWORD TFrame_IpuNet::GetAdapterIndexByName(const std::string& adapterName) {
+	PIP_ADAPTER_INFO pAdapterInfo = nullptr;
+	ULONG ulOutBufLen = sizeof(IP_ADAPTER_INFO);
+    DWORD dwRetVal = 0;
+
+    pAdapterInfo = (IP_ADAPTER_INFO *)malloc(ulOutBufLen);
+    if (pAdapterInfo == nullptr) {
+        std::cerr << "Error allocating memory needed to call GetAdaptersInfo" << std::endl;
+        return 0;
+    }
+
+    // Make an initial call to GetAdaptersInfo to get the necessary size into the ulOutBufLen variable
+    if (GetAdaptersInfo(pAdapterInfo, &ulOutBufLen) == ERROR_BUFFER_OVERFLOW) {
+        free(pAdapterInfo);
+        pAdapterInfo = (IP_ADAPTER_INFO *)malloc(ulOutBufLen);
+        if (pAdapterInfo == nullptr) {
+            std::cerr << "Error allocating memory needed to call GetAdaptersInfo" << std::endl;
+            return 0;
         }
     }
 
-    free(pAddresses);
+    // Make a second call to GetAdaptersInfo to get the actual data we want
+    if ((dwRetVal = GetAdaptersInfo(pAdapterInfo, &ulOutBufLen)) == NO_ERROR) {
+        PIP_ADAPTER_INFO pAdapter = pAdapterInfo;
+        while (pAdapter) {
+            if (adapterName == pAdapter->AdapterName) {
+                DWORD index = pAdapter->Index;
+                free(pAdapterInfo);
+                return index;
+            }
+            pAdapter = pAdapter->Next;
+        }
+    } else {
+        std::cerr << "GetAdaptersInfo failed with error: " << dwRetVal << std::endl;
+    }
+
+    if (pAdapterInfo)
+        free(pAdapterInfo);
+
+    return 0; // Return 0 if adapter not found
 }
+
+void TFrame_IpuNet::SetIPAddress(const std::string& adapterName, const std::string& ipAddress, const std::string& subnetMask) {
+    ULONG nteContext = 0;
+    ULONG nteInstance = 0;
+    DWORD dwRetVal;
+
+    // Get the adapter index
+	DWORD adapterIndex = GetAdapterIndexByName(adapterName);
+    if (adapterIndex == 0) {
+        std::cerr << "Adapter not found: " << adapterName << std::endl;
+        return;
+    }
+
+    // Set the IP address
+	dwRetVal = AddIPAddress(
+		inet_addr(ipAddress.c_str()),
+        inet_addr(subnetMask.c_str()),
+		adapterIndex,
+		&nteContext,
+        &nteInstance
+	);
+
+	// Set the GateWay address
+	std::string newGateway = "192.168.1.1";
+	dwRetVal = ChangeGateway(newGateway, adapterIndex);
+
+    //관리자 권한으로 실행해야 동작 함.
+	if (dwRetVal != NO_ERROR) {
+		String strMsg = "AddIPAddress failed with error: ";
+		ShowMessage(strMsg);
+	} else {
+		ShowMessage("IP address added successfully.");
+    }
+}
+
+DWORD TFrame_IpuNet::ChangeGateway(const std::string& gatewayAddress, const DWORD interfaceIndex) {
+	MIB_IPFORWARDROW row;
+    DWORD dwRetVal = 0;
+    ZeroMemory(&row, sizeof(MIB_IPFORWARDROW));
+
+    row.dwForwardDest = 0;
+	row.dwForwardMask = 0;
+    row.dwForwardPolicy = 0;
+    row.dwForwardNextHop = inet_addr(gatewayAddress.c_str());
+	row.dwForwardIfIndex = interfaceIndex;
+    row.dwForwardType = 3; // MIB_IPROUTE_TYPE_INDIRECT
+    row.dwForwardProto = 3; // MIB_IPPROTO_NETMGMT
+    row.dwForwardAge = 0;
+    row.dwForwardNextHopAS = 0;
+	row.dwForwardMetric1 = 1;
+
+	dwRetVal = CreateIpForwardEntry(&row);
+	if (dwRetVal != NO_ERROR) {
+	    String strMsg = "ChangeGateway failed with error: ";
+		ShowMessage(strMsg);
+		//return true;
+	} else {
+		ShowMessage("ChangeGateway successfully.");
+    }
+
+	return dwRetVal;
+}
+
+bool TFrame_IpuNet::NetworkConfigChange(const std::string& adapterName) {
+	//std::string adapterName = AnsiString(m_edtInterfaceIn->Text).c_str();
+	std::string ipAddress = "192.168.1.107"; // 설정할 IP 주소
+	std::string subnetMask = "255.255.255.0"; // 서브넷 마스크
+	std::string gateway = "192.168.1.1"; // 게이트웨이 주소
+
+	std::string command = "interface ip set address name=\"" + adapterName + "\" static " + ipAddress + " " + subnetMask + " " + gateway;
+
+    if (ExecuteNetshCommand(command)) {
+        std::cout << "IP address set successfully." << std::endl;
+    } else {
+        std::cerr << "Failed to set IP address." << std::endl;
+        return 1;
+    }
+
+    return 0;
+}
+
+bool TFrame_IpuNet::ExecuteNetshCommand(const std::string& command) {
+	std::string fullCommand = "netsh " + command;
+    int result = system(fullCommand.c_str());
+    return (result == 0);
+}
+
+void TFrame_IpuNet::loadValues(){
+	IpuConfig m_fileConfigData;
+	m_fileConfigData.readFileValues(m_edtPath->Text);
+	displayValues(m_fileConfigData);
+}
+
+void TFrame_IpuNet::displayValues(const IpuConfig &configValues) {
+	m_edtDefaultSlot->Text = configValues.defaultSlot.get();
+	m_edtLastSlot->Text = configValues.lastSlot.get();
+	m_edtLastset->Text = configValues.lastSet.get();
+	m_edtInterfaceIn->Text = configValues.interfaceIn.get();
+	m_edtIpIn->Text = configValues.ipIn.get();
+	m_edtInterfaceOut->Text = configValues.interfaceOut.get();
+	m_edtIpOut->Text = configValues.ipOut.get();
+	m_edtInterfaceCam1->Text = configValues.interfaceCam1.get();
+    m_edtIpCam1->Text = configValues.ipCam1.get();
+}
+
+String TFrame_IpuNet::selectIniFile(TComponent* Owner){
+	String strFilePath;
+	TOpenDialog* OpenDialog = new TOpenDialog(Owner);
+	OpenDialog->Filter = "INI Files (*.ini)|*.ini";
+	OpenDialog->Title = "Open a File";
+
+
+	if (OpenDialog->Execute()) {
+		strFilePath = OpenDialog->FileName;
+	}
+
+	delete OpenDialog;
+	OpenDialog = nullptr;
+
+	return strFilePath;
+}
+

@@ -1,50 +1,81 @@
 ﻿[m_gbSlotA]
-Coordinates=393,10,68,51
+Coordinates=393,10,77,58
 
 [m_gbConfig]
-Coordinates=231,10,74,51
+Coordinates=231,10,84,58
 
 [m_btnLoad]
-Coordinates=10,146,69,51
+Coordinates=10,146,79,58
 
 [m_edtLastset]
-Coordinates=225,78,80,51
+Coordinates=225,78,92,58
 
 [m_btnApply]
-Coordinates=10,78,73,51
+Coordinates=10,78,82,58
 
 [m_edtInterfaceIn]
-Coordinates=110,10,96,51
+Coordinates=110,10,111,58
 
 [btnFind]
 Coordinates=325,10,52,51
 
 [m_edtLastSlot]
-Coordinates=260,146,85,51
+Coordinates=260,146,97,58
 
 [m_edtDefaultSlot]
-Coordinates=102,78,99,51
+Coordinates=102,78,113,58
 
 []
-Coordinates=415,216,82,33
+Coordinates=539,155,91,36
 
 [m_edtIpIn]
-Coordinates=10,214,62,51
+Coordinates=10,214,72,58
 Visible=True
 
 [m_edtInterfaceOut]
-Coordinates=327,78,105,51
+Coordinates=327,78,121,58
 Visible=True
 
 [m_edtIpOut]
-Coordinates=186,146,71,51
+Coordinates=186,146,81,58
 
 [m_edtInterfaceCam1]
-Coordinates=367,146,115,51
+Coordinates=367,146,134,58
 
 [m_edtIpCam1]
-Coordinates=99,146,81,51
+Coordinates=99,146,95,58
 
 [m_edtPath]
-Coordinates=10,10,78,51
+Coordinates=10,10,76,58
+
+[Memo1]
+Coordinates=395,1,64,58
+
+[m_btnFind]
+Coordinates=83,1,75,58
+
+[m_edtNetWorkInfo2]
+Coordinates=177,1,129,58
+
+[m_edtNetWorkInfo3]
+Coordinates=653,78,129,58
+
+[m_edtNetWorkInfo5]
+Coordinates=653,1,129,58
+
+[m_edtNetWorkInfo6]
+Coordinates=653,155,129,58
+
+[m_gbNetWorkInfo]
+Coordinates=653,232,118,58
+
+[m_edtNetWorkInfo4]
+Coordinates=486,78,129,58
+
+[Memo2]
+Coordinates=0,0,64,58
+
+[m_edtNetWorkInfo1]
+Coordinates=486,1,129,58
+Visible=True
 

@@ -1,7 +1,7 @@
-object FrameIpuNet: TFrameIpuNet
+object Frame_IpuNet: TFrame_IpuNet
   Left = 0
   Top = 0
-  Width = 991
+  Width = 1031
   Height = 648
   TabOrder = 0
   object m_gbConfig: TGroupBox
@@ -271,7 +271,16 @@ object FrameIpuNet: TFrameIpuNet
     Left = 552
     Top = 48
     Width = 401
-    Height = 569
+    Height = 273
+    ScrollBars = ssVertical
     TabOrder = 7
+  end
+  object Memo2: TMemo
+    Left = 552
+    Top = 327
+    Width = 401
+    Height = 290
+    ScrollBars = ssVertical
+    TabOrder = 8
   end
 end

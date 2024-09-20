@@ -3,6 +3,8 @@
 #pragma hdrstop
 
 #include "INIFileManager.h"
+#include <vcl.h>
+
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 
@@ -61,7 +63,8 @@ Variant INIFileManager::Read(const String& section, const String& key, const Dat
 				return m_pIniFile->ReadDateTime(section, key, 0);
 			default:
 				throw Exception("Unsupported type");
-        }
-    }
+		}
+	}
+
 
 
