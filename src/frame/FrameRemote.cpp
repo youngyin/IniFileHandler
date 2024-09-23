@@ -163,20 +163,22 @@ void TFrame_ConfigSetting::changeDataFromUI(IpuConfig &configValues) {
 	configValues.ipOut.change(strExIPText);
 }
 
+//네트워크 설정 변경 함수
 bool TFrame_ConfigSetting::NetworkConfigChange(const std::string& adapterName, const std::string& ipAddress, const std::string& subnetMask, const std::string& gateway) {
 
 	std::string command = "interface ip set address name=\"" + adapterName + "\" static " + ipAddress + " " + subnetMask + " " + gateway;
 
-    if (ExecuteNetshCommand(command)) {
-        std::cout << "IP address set successfully." << std::endl;
-    } else {
-        std::cerr << "Failed to set IP address." << std::endl;
-        return 1;
-    }
+	if (ExecuteNetshCommand(command)) {
+		std::cout << "IP address set successfully." << std::endl;
+	} else {
+		std::cerr << "Failed to set IP address." << std::endl;
+		return 1;
+	}
 
-    return 0;
+	return 0;
 }
 
+//네트워크 설정 변경 쉘 스크립트 동작 함수
 bool TFrame_ConfigSetting::ExecuteNetshCommand(const std::string& command) {
 	std::string fullCommand = "netsh " + command;
     int result = system(fullCommand.c_str());
