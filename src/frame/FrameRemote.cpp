@@ -116,19 +116,45 @@ void TFrame_ConfigSetting::displayValues_IPU(const IpuConfig &configValues) {
 //---------------------------------------------------------------------------
 
 void TFrame_ConfigSetting::displayValues_LANE(const LaneConfig &configValues){
-    //SYSTEM
+	//Real로 읽은 값을 Show 값으로 치환 후 Add된 것과 같은게 있으면 해당 부분을 CurSel한다.
+	int nIndex = 0;
+	//SYSTEM
 	m_EditOneIPU->Text = configValues.nOneipuOnly.get();
+	nIndex = m_cbOneipu->Items->IndexOf(ChangeValue_RealToShow(configValues.nOneipuOnly.get(), SectionUnitType::DATA));
+	m_cbOneipu->ItemIndex = nIndex;
+
 	m_EditAxisWeight->Text = configValues.nAxisWeight.get();
+	nIndex = m_cbAxisWeight->Items->IndexOf(ChangeValue_RealToShow(configValues.nAxisWeight.get(), SectionUnitType::DATA));
+	m_cbAxisWeight->ItemIndex = nIndex;
+
 	m_EditOpType->Text = configValues.nOpType.get();
+	nIndex = m_cbOpType->Items->IndexOf(ChangeValue_RealToShow(configValues.nOpType.get(), SectionUnitType::OPTYPE));
+	m_cbOpType->ItemIndex = nIndex;
+
 	m_EditSystemType->Text = configValues.nSystemType.get();
+	nIndex = m_cbSystemType->Items->IndexOf(ChangeValue_RealToShow(configValues.nSystemType.get(), SectionUnitType::SYSTEMTYPE));
+	m_cbSystemType->ItemIndex = nIndex;
 
 	m_EditPosition->Text = configValues.strPostion.get();
+	nIndex = m_cbPosition->Items->IndexOf(ChangeValue_RealToShow(configValues.strPostion.get(), SectionUnitType::POSITION));
+	m_cbPosition->ItemIndex = nIndex;
+
 	m_EditTriggerType->Text = configValues.nTriggerType.get();
+	nIndex = m_cbTriggerType->Items->IndexOf(ChangeValue_RealToShow(configValues.nTriggerType.get(), SectionUnitType::TRIGGERTYPE));
+	m_cbTriggerType->ItemIndex = nIndex;
 
 	//HIPASS
 	m_EditComType->Text = configValues.strComType.get();
+	nIndex = m_cbComType->Items->IndexOf(ChangeValue_RealToShow(configValues.strComType.get(), SectionUnitType::COMU));
+	m_cbComType->ItemIndex = nIndex;
+
 	m_EditComPort->Text = configValues.strPort.get();
+	nIndex = m_cbPort->Items->IndexOf(ChangeValue_RealToShow(configValues.strPort.get(), SectionUnitType::COMU));
+	m_cbPort->ItemIndex = nIndex;
+
 	m_EditComBaudRate->Text = configValues.nBaudRate.get();
+	nIndex = m_cbBaudRate->Items->IndexOf(ChangeValue_RealToShow(configValues.nBaudRate.get(), SectionUnitType::COMU));
+	m_cbBaudRate->ItemIndex = nIndex;
 
 	//MIS(재인식서버)
 	m_EditImgServerIP->Text = configValues.strImageServer.get();
@@ -138,6 +164,50 @@ void TFrame_ConfigSetting::displayValues_LANE(const LaneConfig &configValues){
 	m_EditMCServerIP->Text = configValues.strMCImageServer.get();
 	m_EditMCPort->Text = configValues.strMCImagePort.get();
 }
+
+Variant TFrame_ConfigSetting::ChangeValue_RealToShow(const String strValue, const SectionUnitType Unit) {
+	Variant strRetunValue = strValue;
+
+	switch(Unit)
+	{
+		case SectionUnitType::DATA:
+			if(strValue == REAL_DATA_O) { return strRetunValue = SHOW_DATA_O;}
+			else if(strValue == REAL_DATA_X) { return strRetunValue = SHOW_DATA_X;}
+			break;
+		case SectionUnitType::OPTYPE:
+			if(strValue == REAL_OPTYPE_22) { return strRetunValue = SHOW_OPTYPE_22;}
+			else if(strValue == REAL_OPTYPE_21) { return strRetunValue = SHOW_OPTYPE_21;}
+			else if(strValue == REAL_OPTYPE_11) { return strRetunValue = SHOW_OPTYPE_11;}
+			else if(strValue == REAL_OPTYPE_10) { return strRetunValue = SHOW_OPTYPE_10;}
+			else if(strValue == REAL_OPTYPE_15) { return strRetunValue = SHOW_OPTYPE_15;}
+			else if(strValue == REAL_OPTYPE_18) { return strRetunValue = SHOW_OPTYPE_18;}
+			break;
+		case SectionUnitType::SYSTEMTYPE:
+			if(strValue == REAL_SYSTEMTYPE_O) { return strRetunValue = SHOW_SYSTEMTYPE_O;}
+			else if(strValue == REAL_SYSTEMTYPE_I) { return strRetunValue = SHOW_SYSTEMTYPE_I;}
+			else if(strValue == REAL_SYSTEMTYPE_U) { return strRetunValue = SHOW_SYSTEMTYPE_U;}
+			else if(strValue == REAL_SYSTEMTYPE_D) { return strRetunValue = SHOW_SYSTEMTYPE_D;}
+			break;
+		case SectionUnitType::TRIGGERTYPE:
+			if(strValue == REAL_TRIGGERTYPE_1) { return strRetunValue = SHOW_TRIGGERTYPE_1;}
+			else if(strValue == REAL_TRIGGERTYPE_99) { return strRetunValue = SHOW_TRIGGERTYPE_99;}
+			break;
+		case SectionUnitType::COMU:
+			if(strValue == REAL_COMU_SERIAL) { return strRetunValue = SHOW_COMU_SERIAL;}
+			else if(strValue == REAL_COMU_TCPIP) { return strRetunValue = SHOW_COMU_TCPIP;}
+			break;
+		case SectionUnitType::POSITION:
+			if(strValue == REAL_POSITION_FRONT) { return strRetunValue = SHOW_POSITION_FRONT;}
+			else if(strValue == REAL_POSITION_REAR) { return strRetunValue = SHOW_POSITION_REAR;}
+			break;
+		default:
+            strRetunValue = "Not Exist";
+            break;
+	}
+
+	return strRetunValue;
+}
+
 
 
 std::vector<std::string> TFrame_ConfigSetting::SplitString(const std::string& str, char delimiter)
@@ -207,6 +277,9 @@ void TFrame_ConfigSetting::InitComboBox(){
 	m_cbOpType->Items->Add("Hipass 신형");//22
 	m_cbOpType->Items->Add("Hipass 구형");//21
 	m_cbOpType->Items->Add("TCS/무인정산기");//11
+	m_cbOpType->Items->Add("TCS");//10
+	m_cbOpType->Items->Add("UTC tcs");//15
+	m_cbOpType->Items->Add("MINJA tcs");//18
 
 	//차로타입
 	m_cbSystemType->Items->Add("폐쇄식 출구");//"O"

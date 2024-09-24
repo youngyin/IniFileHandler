@@ -83,33 +83,8 @@ Variant LaneConfig::ChangeValue_ShowToReal(String strValue) {
 	else if(strValue == SHOW_TRIGGERTYPE_1) { return strRetunValue = REAL_TRIGGERTYPE_1;}
 	else if(strValue == SHOW_TRIGGERTYPE_99) { return strRetunValue = REAL_TRIGGERTYPE_99;}
 
-	else if(strValue == SHOW_TRIGGERTYPE_SERIAL) { return strRetunValue = REAL_TRIGGERTYPE_SERIAL;}
-	else if(strValue == SHOW_TRIGGERTYPE_TCPIP) { return strRetunValue = REAL_TRIGGERTYPE_TCPIP;}
+	else if(strValue == SHOW_COMU_SERIAL) { return strRetunValue = REAL_COMU_SERIAL;}
+	else if(strValue == SHOW_COMU_TCPIP) { return strRetunValue = REAL_COMU_TCPIP;}
 
 	return strRetunValue;
 }
-
-Variant LaneConfig::ChangeValue_RealToShow(const String strValue) {
-	Variant strRetunValue = strValue;
-
-	if(strValue == REAL_DATA_O) { return strRetunValue = SHOW_DATA_O;}
-	else if(strValue == REAL_DATA_X) { return strRetunValue = SHOW_DATA_X;}
-
-	else if(strValue == REAL_OPTYPE_22) { return strRetunValue = SHOW_OPTYPE_22;}
-	else if(strValue == REAL_OPTYPE_21) { return strRetunValue = SHOW_OPTYPE_21;}
-	else if(strValue == REAL_OPTYPE_11) { return strRetunValue = SHOW_OPTYPE_11;}
-
-	else if(strValue == REAL_SYSTEMTYPE_O) { return strRetunValue = SHOW_SYSTEMTYPE_O;}
-	else if(strValue == REAL_SYSTEMTYPE_I) { return strRetunValue = SHOW_SYSTEMTYPE_I;}
-	else if(strValue == REAL_SYSTEMTYPE_U) { return strRetunValue = SHOW_SYSTEMTYPE_U;}
-	else if(strValue == REAL_SYSTEMTYPE_D) { return strRetunValue = SHOW_SYSTEMTYPE_D;}
-
-	else if(strValue == REAL_TRIGGERTYPE_1) { return strRetunValue = SHOW_TRIGGERTYPE_1;}
-	else if(strValue == REAL_TRIGGERTYPE_99) { return strRetunValue = SHOW_TRIGGERTYPE_99;}
-
-	else if(strValue == REAL_TRIGGERTYPE_SERIAL) { return strRetunValue = SHOW_TRIGGERTYPE_SERIAL;}
-	else if(strValue == REAL_TRIGGERTYPE_TCPIP) { return strRetunValue = SHOW_TRIGGERTYPE_TCPIP;}
-
-	return strRetunValue;
-}
-

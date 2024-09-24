@@ -52,7 +52,6 @@ public :
 	void readFileValues(String strFilePath);
 	void __fastcall writeValues(String strFilePath);
 	Variant ChangeValue_ShowToReal(String strValue);
-	Variant ChangeValue_RealToShow(String strValue);
 private:
 	CValue<int> nTestOneipuOnly; //확정영상- O,X
 };

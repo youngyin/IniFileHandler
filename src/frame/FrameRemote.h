@@ -21,6 +21,16 @@ enum class FileUnitType{
     FTP
 };
 
+enum class SectionUnitType{
+	DATA,
+	OPTYPE,
+	SYSTEMTYPE,
+	POSITION,
+	TRIGGERTYPE,
+	COMU
+};
+
+
 class TFrame_ConfigSetting : public TFrame
 {
 __published:	// IDE-managed Components
@@ -117,6 +127,8 @@ private:	// User declarations
 	void changeDataFromUI(IpuConfig &configValues);
 	bool NetworkConfigChange(const std::string& adapterName, const std::string& ipAddress, const std::string& subnetMask, const std::string& gateway);
 	bool ExecuteNetshCommand(const std::string& command);
+
+	Variant ChangeValue_RealToShow(const String strValue, const SectionUnitType Unit);
 public:		// User declarations
 	__fastcall TFrame_ConfigSetting(TComponent* Owner);
 };
