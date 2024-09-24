@@ -18,24 +18,15 @@ TFrame_ConfigSetting *Frame_ConfigSetting;
 __fastcall TFrame_ConfigSetting::TFrame_ConfigSetting(TComponent* Owner)
 	: TFrame(Owner)
 {
-
+    InitComboBox();
 }
 
-void __fastcall TFrame_ConfigSetting::m_btnIpuFileLoadClick(TObject *Sender)
-{
-    // find file
-	String strFilePath = selectIniFile(this);
-
-	// load data
-	loadValues(strFilePath);
-}
 
 String TFrame_ConfigSetting::selectIniFile(TComponent* Owner){
 	String strFilePath;
 	TOpenDialog* OpenDialog = new TOpenDialog(Owner);
 	OpenDialog->Filter = "INI Files (*.ini)|*.ini";
 	OpenDialog->Title = "Open a File";
-
 
 	if (OpenDialog->Execute()) {
 		strFilePath = OpenDialog->FileName;
@@ -48,12 +39,29 @@ String TFrame_ConfigSetting::selectIniFile(TComponent* Owner){
 }
 
 //---------------------------------------------------------------------------
-void TFrame_ConfigSetting::loadValues(const String &strFilePath){
-	IpuConfig m_fileConfigData;
+void TFrame_ConfigSetting::loadValues(const String &strFilePath, const FileUnitType nSelectType){
+	IpuConfig Ipu_fileConfigData;
+	LaneConfig Lane_fileConfigData;
+
 	String strPath = strFilePath;
 
-	m_fileConfigData.readFileValues(strPath);
-	displayValues(m_fileConfigData);
+	switch(nSelectType)
+	{
+		case FileUnitType::IPU:
+			Ipu_fileConfigData.readFileValues(strPath);
+            displayValues_IPU(Ipu_fileConfigData);
+			break;
+		case FileUnitType::LANE:
+			Lane_fileConfigData.readFileValues(strPath);
+			displayValues_LANE(Lane_fileConfigData);
+			break;
+		case FileUnitType::REMOTE:
+			break;
+		case FileUnitType::FTP:
+			break;
+		default:
+			break;
+    }
 
 	m_strFilePath = strFilePath;
 }
@@ -61,7 +69,7 @@ void TFrame_ConfigSetting::loadValues(const String &strFilePath){
 //---------------------------------------------------------------------------
 
 
-void TFrame_ConfigSetting::displayValues(const IpuConfig &configValues) {
+void TFrame_ConfigSetting::displayValues_IPU(const IpuConfig &configValues) {
 	//configValues.defaultSlot.get();
 	//configValues.lastSlot.get();
 	//configValues.lastSet.get();
@@ -107,6 +115,30 @@ void TFrame_ConfigSetting::displayValues(const IpuConfig &configValues) {
 
 //---------------------------------------------------------------------------
 
+void TFrame_ConfigSetting::displayValues_LANE(const LaneConfig &configValues){
+    //SYSTEM
+	m_EditOneIPU->Text = configValues.nOneipuOnly.get();
+	m_EditAxisWeight->Text = configValues.nAxisWeight.get();
+	m_EditOpType->Text = configValues.nOpType.get();
+	m_EditSystemType->Text = configValues.nSystemType.get();
+
+	m_EditPosition->Text = configValues.strPostion.get();
+	m_EditTriggerType->Text = configValues.nTriggerType.get();
+
+	//HIPASS
+	m_EditComType->Text = configValues.strComType.get();
+	m_EditComPort->Text = configValues.strPort.get();
+	m_EditComBaudRate->Text = configValues.nBaudRate.get();
+
+	//MIS(재인식서버)
+	m_EditImgServerIP->Text = configValues.strImageServer.get();
+	m_EditImgServerPort->Text = configValues.strImagePort.get();
+
+	//MIS(주제어기 서버)
+	m_EditMCServerIP->Text = configValues.strMCImageServer.get();
+	m_EditMCPort->Text = configValues.strMCImagePort.get();
+}
+
 
 std::vector<std::string> TFrame_ConfigSetting::SplitString(const std::string& str, char delimiter)
 {
@@ -131,8 +163,8 @@ void __fastcall TFrame_ConfigSetting::m_btnIpuFileSaveClick(TObject *Sender)
 
 	int result = Application->MessageBox((message+" 하시겠습니까?").c_str(), L"확인", MB_YESNO | MB_ICONQUESTION);
 	if (result == mrYes) {
-		m_fileConfigData.writeValues(m_strFilePath);
-		loadValues(m_strFilePath);
+		m_fileConfigData.writeValues(m_strFilePath);//쓰기
+		loadValues(m_strFilePath, FileUnitType::IPU);//쓰기 완료 후 읽기
 
 		//네트워크 설정 변경.
 		//std::string adapterName = AnsiString(m_edtInterfaceIn->Text).c_str();
@@ -155,12 +187,64 @@ void __fastcall TFrame_ConfigSetting::m_btnIpuFileSaveClick(TObject *Sender)
 }
 
 void TFrame_ConfigSetting::changeDataFromUI(IpuConfig &configValues) {
-
 	String strExIPText = m_Ex_IPAddress->Text + "/" + m_Ex_SubNetAddress->Text + "/" + m_Ex_GateWayAddress->Text;
 	String strInIPText = m_In_IPAddress->Text + "/" + m_In_SubNetAddress->Text + "/" + m_In_GateWayAddress->Text;
 
 	configValues.ipIn.change(strInIPText);
 	configValues.ipOut.change(strExIPText);
+}
+
+void TFrame_ConfigSetting::InitComboBox(){
+	//확정영상
+	m_cbOneipu->Items->Add("O");//0
+	m_cbOneipu->Items->Add("X");//1
+
+	//축중자료
+	m_cbAxisWeight->Items->Add("O");//1
+	m_cbAxisWeight->Items->Add("X");//0
+
+	//인터페이스 설정
+	m_cbOpType->Items->Add("Hipass 신형");//22
+	m_cbOpType->Items->Add("Hipass 구형");//21
+	m_cbOpType->Items->Add("TCS/무인정산기");//11
+
+	//차로타입
+	m_cbSystemType->Items->Add("폐쇄식 출구");//"O"
+	m_cbSystemType->Items->Add("폐쇄식 입구");//"I"
+	m_cbSystemType->Items->Add("개방식 상행");//"U"
+	m_cbSystemType->Items->Add("개방식 하행");//"D"
+
+	//전/후면
+	m_cbPosition->Items->Add("전면");//"FRONT"
+	m_cbPosition->Items->Add("후면");//"REAR"
+
+	//검지
+	m_cbTriggerType->Items->Add("트리거 검지");//1
+	m_cbTriggerType->Items->Add("동영상 검지");//99
+
+	//통신방식
+	m_cbComType->Items->Add("SERIAL");//"SERIAL"
+	m_cbComType->Items->Add("TCP/IP");//"ETHERNET"
+
+	//포트
+	String strComName = "COM";
+	for(int a = 0; a < 10; ++a)
+	{
+		String strInputData = strComName + String(a);
+		m_cbPort->Items->Add(strInputData);//"COM1~10"
+	}
+
+	//BaudRate
+	m_cbBaudRate->Items->Add("9600");//9600
+	m_cbBaudRate->Items->Add("14400");//14400
+	m_cbBaudRate->Items->Add("19200");//19200
+	m_cbBaudRate->Items->Add("38400");//38400
+	m_cbBaudRate->Items->Add("57600");//57600
+	m_cbBaudRate->Items->Add("115200");//115200
+
+	//재인식서버
+
+    //주제어기서버
 }
 
 //네트워크 설정 변경 함수
@@ -185,5 +269,62 @@ bool TFrame_ConfigSetting::ExecuteNetshCommand(const std::string& command) {
     return (result == 0);
 }
 
+//---------------------------------------------------------------------------
+
+
+//차로설정 SECSION
+void __fastcall TFrame_ConfigSetting::m_btnLaneFileLoadClick(TObject *Sender)
+{
+	// find file
+	String strFilePath = selectIniFile(this);
+
+	// load data
+	loadValues(strFilePath, FileUnitType::LANE);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFrame_ConfigSetting::m_btnIpuFileLoadClick(TObject *Sender)
+{
+	// find file
+	String strFilePath = selectIniFile(this);
+
+	// load data
+	loadValues(strFilePath, FileUnitType::IPU);
+}
+
+
+void __fastcall TFrame_ConfigSetting::Button9Click(TObject *Sender)
+{
+   int a = 0;
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TFrame_ConfigSetting::Button8Click(TObject *Sender)
+{
+    int b = 0;
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TFrame_ConfigSetting::Button5Click(TObject *Sender)
+{
+	String message = "저장 후 적용";
+	LaneConfig m_fileConfigData;
+	m_fileConfigData.readFileValues(m_strFilePath);
+	//changeDataFromUI(m_fileConfigData);
+
+	int result = Application->MessageBox((message+" 하시겠습니까?").c_str(), L"확인", MB_YESNO | MB_ICONQUESTION);
+	if (result == mrYes) {
+		m_fileConfigData.writeValues(m_strFilePath);//쓰기
+		loadValues(m_strFilePath, FileUnitType::LANE);//쓰기 완료 후 읽기
+
+		ShowMessage("저장되었습니다(LANE).");
+	}
+	else if (result == mrNo) {
+		//ShowMessage("값을 다시 불러옵니다.");
+		//loadValues();
+	}
+}
 //---------------------------------------------------------------------------
 

@@ -11,9 +11,6 @@ Visible=True
 [Button7]
 Coordinates=362,78,59,58
 
-[Button4]
-Coordinates=293,78,59,58
-
 [Button5]
 Coordinates=10,214,59,58
 
@@ -49,4 +46,7 @@ Coordinates=10,10,79,58
 
 [GroupBox8]
 Coordinates=206,10,79,58
+
+[m_btnLaneFileLoad]
+Coordinates=293,78,59,58
 

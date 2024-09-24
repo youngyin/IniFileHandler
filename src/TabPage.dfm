@@ -135,46 +135,46 @@ object FormTabView: TFormTabView
         ExplicitHeight = 714
         inherited GroupBox6: TGroupBox
           inherited GroupBox7: TGroupBox
-            inherited Edit7: TEdit
+            inherited m_EditImgServerIP: TEdit
               StyleElements = [seFont, seClient, seBorder]
             end
-            inherited Edit8: TEdit
+            inherited m_EditImgServerPort: TEdit
               StyleElements = [seFont, seClient, seBorder]
             end
           end
           inherited GroupBox8: TGroupBox
-            inherited Edit9: TEdit
+            inherited m_EditMCServerIP: TEdit
               StyleElements = [seFont, seClient, seBorder]
             end
-            inherited Edit10: TEdit
+            inherited m_EditMCPort: TEdit
               StyleElements = [seFont, seClient, seBorder]
             end
           end
-          inherited Edit17: TEdit
+          inherited m_EditOneIPU: TEdit
             StyleElements = [seFont, seClient, seBorder]
           end
-          inherited Edit18: TEdit
+          inherited m_EditAxisWeight: TEdit
             StyleElements = [seFont, seClient, seBorder]
           end
-          inherited Edit19: TEdit
+          inherited m_EditOpType: TEdit
             StyleElements = [seFont, seClient, seBorder]
           end
-          inherited Edit20: TEdit
+          inherited m_EditSystemType: TEdit
             StyleElements = [seFont, seClient, seBorder]
           end
-          inherited Edit21: TEdit
+          inherited m_EditComPort: TEdit
             StyleElements = [seFont, seClient, seBorder]
           end
-          inherited Edit22: TEdit
+          inherited m_EditComType: TEdit
             StyleElements = [seFont, seClient, seBorder]
           end
-          inherited Edit23: TEdit
+          inherited m_EditTriggerType: TEdit
             StyleElements = [seFont, seClient, seBorder]
           end
-          inherited Edit24: TEdit
+          inherited m_EditPosition: TEdit
             StyleElements = [seFont, seClient, seBorder]
           end
-          inherited Edit25: TEdit
+          inherited m_EditComBaudRate: TEdit
             StyleElements = [seFont, seClient, seBorder]
           end
         end
@@ -231,6 +231,33 @@ object FormTabView: TFormTabView
           inherited Edit16: TEdit
             StyleElements = [seFont, seClient, seBorder]
           end
+        end
+        inherited m_cbOneipu: TComboBox
+          StyleElements = [seFont, seClient, seBorder]
+        end
+        inherited m_cbAxisWeight: TComboBox
+          StyleElements = [seFont, seClient, seBorder]
+        end
+        inherited m_cbOpType: TComboBox
+          StyleElements = [seFont, seClient, seBorder]
+        end
+        inherited m_cbSystemType: TComboBox
+          StyleElements = [seFont, seClient, seBorder]
+        end
+        inherited m_cbPosition: TComboBox
+          StyleElements = [seFont, seClient, seBorder]
+        end
+        inherited m_cbTriggerType: TComboBox
+          StyleElements = [seFont, seClient, seBorder]
+        end
+        inherited m_cbComType: TComboBox
+          StyleElements = [seFont, seClient, seBorder]
+        end
+        inherited m_cbPort: TComboBox
+          StyleElements = [seFont, seClient, seBorder]
+        end
+        inherited m_cbBaudRate: TComboBox
+          StyleElements = [seFont, seClient, seBorder]
         end
       end
     end
