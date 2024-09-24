@@ -42,6 +42,7 @@ String TFrame_ConfigSetting::selectIniFile(TComponent* Owner){
 void TFrame_ConfigSetting::loadValues(const String &strFilePath, const FileUnitType nSelectType){
 	IpuConfig Ipu_fileConfigData;
 	LaneConfig Lane_fileConfigData;
+	FtpConfig Ftp_fileConfigData;
 
 	String strPath = strFilePath;
 
@@ -58,6 +59,8 @@ void TFrame_ConfigSetting::loadValues(const String &strFilePath, const FileUnitT
 		case FileUnitType::REMOTE:
 			break;
 		case FileUnitType::FTP:
+			Ftp_fileConfigData.readFileValues(strPath);
+			displayValues_FTP(Ftp_fileConfigData);
 			break;
 		default:
 			break;
@@ -470,5 +473,61 @@ void __fastcall TFrame_ConfigSetting::m_btnLaneFileSaveClick(TObject *Sender)
 		//loadValues();
 	}
 }
+//---------------------------------------------------------------------------
+
+//FTP 설정
+
+void TFrame_ConfigSetting::displayValues_FTP(const FtpConfig &configValues){
+	//CONFIG
+	m_EditFtpServerAddress->Text = configValues.ftpServerAddress.get();
+	m_EditFtpServerPort->Text = configValues.ftpServerPort.get();
+	m_EditFtpLoginID->Text = configValues.ftpLoginID.get();
+	m_EditFtpLoginPW->Text = configValues.ftpLoginPW.get();
+}
+
+void TFrame_ConfigSetting::changeDataFromUI(FtpConfig &configValues) {
+	String strFtpServerAdress = m_EditFtpServerAddress->Text;
+	String strFtpServerPort   = m_EditFtpServerPort->Text;
+	String strFtpLoginID      = m_EditFtpLoginID->Text;
+	String strFtpLoginPW      = m_EditFtpLoginPW->Text;
+
+	configValues.ftpServerAddress.change(strFtpServerAdress);
+	configValues.ftpServerPort.change(strFtpServerPort);
+	configValues.ftpLoginID.change(strFtpLoginID);
+	configValues.ftpLoginPW.change(strFtpLoginPW);
+}
+
+
+
+void __fastcall TFrame_ConfigSetting::m_btnFtpFiledLoadClick(TObject *Sender)
+{
+	// find file
+	String strFilePath = selectIniFile(this);
+
+	// load data
+	loadValues(strFilePath, FileUnitType::FTP);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFrame_ConfigSetting::m_btnFtpFiledSaveClick(TObject *Sender)
+{
+	String message = "저장 후 적용";
+	FtpConfig m_fileConfigData;
+	m_fileConfigData.readFileValues(m_strFilePath);
+	changeDataFromUI(m_fileConfigData);
+
+	int result = Application->MessageBox((message+" 하시겠습니까?").c_str(), L"확인", MB_YESNO | MB_ICONQUESTION);
+	if (result == mrYes) {
+		m_fileConfigData.writeValues(m_strFilePath);//쓰기
+		loadValues(m_strFilePath, FileUnitType::FTP);//쓰기 완료 후 읽기
+
+		ShowMessage("저장되었습니다(FTP).");
+	}
+	else if (result == mrNo) {
+		//ShowMessage("값을 다시 불러옵니다.");
+		//loadValues();
+	}
+}
+
 //---------------------------------------------------------------------------
 
