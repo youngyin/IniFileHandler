@@ -197,9 +197,10 @@
         <None Include="src\data\CValue.h">
             <BuildOrder>13</BuildOrder>
         </None>
-        <None Include="src\data\DefineValue.h">
+        <CppCompile Include="src\data\FtpConfig.cpp">
+            <DependentOn>src\data\FtpConfig.h</DependentOn>
             <BuildOrder>14</BuildOrder>
-        </None>
+        </CppCompile>
         <CppCompile Include="src\data\IpuConfig.cpp">
             <DependentOn>src\data\IpuConfig.h</DependentOn>
             <BuildOrder>14</BuildOrder>

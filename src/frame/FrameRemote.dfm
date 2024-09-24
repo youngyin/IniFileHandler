@@ -706,7 +706,7 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
     Font.Style = []
     ParentFont = False
     TabOrder = 3
-    object Button8: TButton
+    object m_btnFtpFiledSave: TButton
       Left = 117
       Top = 215
       Width = 92
@@ -719,9 +719,9 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       Font.Style = []
       ParentFont = False
       TabOrder = 0
-      OnClick = Button8Click
+      OnClick = m_btnFtpFiledSaveClick
     end
-    object Button9: TButton
+    object m_btnFtpFiledLoad: TButton
       Left = 9
       Top = 215
       Width = 96
@@ -734,7 +734,7 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       Font.Style = []
       ParentFont = False
       TabOrder = 1
-      OnClick = Button9Click
+      OnClick = m_btnFtpFiledLoadClick
     end
     object StaticText13: TStaticText
       Left = 11
@@ -764,9 +764,9 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       ParentFont = False
       TabOrder = 3
     end
-    object Edit13: TEdit
+    object m_EditFtpServerAddress: TEdit
       Left = 71
-      Top = 32
+      Top = 35
       Width = 137
       Height = 36
       Font.Charset = DEFAULT_CHARSET
@@ -776,9 +776,8 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       Font.Style = []
       ParentFont = False
       TabOrder = 4
-      Text = 'Edit1'
     end
-    object Edit14: TEdit
+    object m_EditFtpServerPort: TEdit
       Left = 71
       Top = 77
       Width = 138
@@ -790,7 +789,6 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       Font.Style = []
       ParentFont = False
       TabOrder = 5
-      Text = 'Edit1'
     end
     object StaticText15: TStaticText
       Left = 25
@@ -806,7 +804,7 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       ParentFont = False
       TabOrder = 6
     end
-    object Edit15: TEdit
+    object m_EditFtpLoginID: TEdit
       Left = 71
       Top = 121
       Width = 138
@@ -818,7 +816,6 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       Font.Style = []
       ParentFont = False
       TabOrder = 7
-      Text = 'Edit1'
     end
     object StaticText16: TStaticText
       Left = 18
@@ -834,7 +831,7 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       ParentFont = False
       TabOrder = 8
     end
-    object Edit16: TEdit
+    object m_EditFtpLoginPW: TEdit
       Left = 71
       Top = 167
       Width = 138
@@ -846,7 +843,6 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       Font.Style = []
       ParentFont = False
       TabOrder = 9
-      Text = 'Edit1'
     end
   end
   object m_cbOneipu: TComboBox

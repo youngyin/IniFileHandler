@@ -219,16 +219,16 @@ object FormTabView: TFormTabView
           end
         end
         inherited GroupBox2: TGroupBox
-          inherited Edit13: TEdit
+          inherited m_EditFtpServerAddress: TEdit
             StyleElements = [seFont, seClient, seBorder]
           end
-          inherited Edit14: TEdit
+          inherited m_EditFtpServerPort: TEdit
             StyleElements = [seFont, seClient, seBorder]
           end
-          inherited Edit15: TEdit
+          inherited m_EditFtpLoginID: TEdit
             StyleElements = [seFont, seClient, seBorder]
           end
-          inherited Edit16: TEdit
+          inherited m_EditFtpLoginPW: TEdit
             StyleElements = [seFont, seClient, seBorder]
           end
         end

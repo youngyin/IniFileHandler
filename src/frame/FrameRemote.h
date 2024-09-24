@@ -13,6 +13,7 @@
 // custom class
 #include "src\data\IpuConfig.h"
 #include "src\data\LaneConfig.h"
+#include "src\data\FtpConfig.h"
 
 enum class FileUnitType{
 	IPU,
@@ -35,8 +36,8 @@ __published:	// IDE-managed Components
 	TButton *Button5;
 	TButton *Button6;
 	TButton *Button7;
-	TButton *Button8;
-	TButton *Button9;
+	TButton *m_btnFtpFiledSave;
+	TButton *m_btnFtpFiledLoad;
 	TGroupBox *GroupBox7;
 	TGroupBox *GroupBox8;
 	TGroupBox *GroupBox3;
@@ -66,12 +67,12 @@ __published:	// IDE-managed Components
 	TEdit *Edit12;
 	TStaticText *StaticText13;
 	TStaticText *StaticText14;
-	TEdit *Edit13;
-	TEdit *Edit14;
+	TEdit *m_EditFtpServerAddress;
+	TEdit *m_EditFtpServerPort;
 	TStaticText *StaticText15;
-	TEdit *Edit15;
+	TEdit *m_EditFtpLoginID;
 	TStaticText *StaticText16;
-	TEdit *Edit16;
+	TEdit *m_EditFtpLoginPW;
 	TStaticText *StaticText17;
 	TEdit *m_EditOneIPU;
 	TStaticText *StaticText18;
@@ -102,19 +103,21 @@ __published:	// IDE-managed Components
 	void __fastcall m_btnIpuFileLoadClick(TObject *Sender);
 	void __fastcall m_btnIpuFileSaveClick(TObject *Sender);
 	void __fastcall m_btnLaneFileLoadClick(TObject *Sender);
-	void __fastcall Button9Click(TObject *Sender);
-	void __fastcall Button8Click(TObject *Sender);
 	void __fastcall Button5Click(TObject *Sender);
+	void __fastcall m_btnFtpFiledLoadClick(TObject *Sender);
+	void __fastcall m_btnFtpFiledSaveClick(TObject *Sender);
 private:	// User declarations
 	void loadValues(const String &strFilePath, const FileUnitType nSelectType);
 	void displayValues_IPU(const IpuConfig &configValues);
 	void displayValues_LANE(const LaneConfig &configValues);
+    void displayValues_FTP(const FtpConfig &configValues);
     void InitComboBox();
 	String selectIniFile(TComponent* Owner);
 	/** String Split*/
 	std::vector<std::string> SplitString(const std::string& str, char delimiter);
 	String m_strFilePath;
 	void changeDataFromUI(IpuConfig &configValues);
+	void changeDataFromUI(FtpConfig &configValues);
 	bool NetworkConfigChange(const std::string& adapterName, const std::string& ipAddress, const std::string& subnetMask, const std::string& gateway);
 	bool ExecuteNetshCommand(const std::string& command);
 public:		// User declarations
