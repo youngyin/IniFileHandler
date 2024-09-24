@@ -64,27 +64,3 @@ void LaneConfig::readFileValues(String strFilePath) {
 
 	pIniManager = nullptr;
 }
-
-Variant LaneConfig::ChangeValue_ShowToReal(String strValue) {
-	Variant strRetunValue = strValue;
-
-	if(strValue == SHOW_DATA_O) { return strRetunValue = REAL_DATA_O;}
-	else if(strValue == SHOW_DATA_X) { return strRetunValue = REAL_DATA_X;}
-
-	else if(strValue == SHOW_OPTYPE_22) { return strRetunValue = REAL_OPTYPE_22;}
-	else if(strValue == SHOW_OPTYPE_21) { return strRetunValue = REAL_OPTYPE_21;}
-	else if(strValue == SHOW_OPTYPE_11) { return strRetunValue = REAL_OPTYPE_11;}
-
-	else if(strValue == SHOW_SYSTEMTYPE_O) { return strRetunValue = REAL_SYSTEMTYPE_O;}
-	else if(strValue == SHOW_SYSTEMTYPE_I) { return strRetunValue = REAL_SYSTEMTYPE_I;}
-	else if(strValue == SHOW_SYSTEMTYPE_U) { return strRetunValue = REAL_SYSTEMTYPE_U;}
-	else if(strValue == SHOW_SYSTEMTYPE_D) { return strRetunValue = REAL_SYSTEMTYPE_D;}
-
-	else if(strValue == SHOW_TRIGGERTYPE_1) { return strRetunValue = REAL_TRIGGERTYPE_1;}
-	else if(strValue == SHOW_TRIGGERTYPE_99) { return strRetunValue = REAL_TRIGGERTYPE_99;}
-
-	else if(strValue == SHOW_COMU_SERIAL) { return strRetunValue = REAL_COMU_SERIAL;}
-	else if(strValue == SHOW_COMU_TCPIP) { return strRetunValue = REAL_COMU_TCPIP;}
-
-	return strRetunValue;
-}

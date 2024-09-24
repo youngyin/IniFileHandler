@@ -42,7 +42,7 @@ __published:	// IDE-managed Components
 	TButton *m_btnIpuFileLoad;
 	TButton *m_btnIpuFileSave;
 	TButton *m_btnLaneFileLoad;
-	TButton *Button5;
+	TButton *m_btnLaneFileSave;
 	TButton *Button6;
 	TButton *Button7;
 	TButton *Button8;
@@ -114,7 +114,7 @@ __published:	// IDE-managed Components
 	void __fastcall m_btnLaneFileLoadClick(TObject *Sender);
 	void __fastcall Button9Click(TObject *Sender);
 	void __fastcall Button8Click(TObject *Sender);
-	void __fastcall Button5Click(TObject *Sender);
+	void __fastcall m_btnLaneFileSaveClick(TObject *Sender);
 private:	// User declarations
 	void loadValues(const String &strFilePath, const FileUnitType nSelectType);
 	void displayValues_IPU(const IpuConfig &configValues);
@@ -125,10 +125,12 @@ private:	// User declarations
 	std::vector<std::string> SplitString(const std::string& str, char delimiter);
 	String m_strFilePath;
 	void changeDataFromUI(IpuConfig &configValues);
+	void changeDataFromUI_LANE(LaneConfig &configValues);
 	bool NetworkConfigChange(const std::string& adapterName, const std::string& ipAddress, const std::string& subnetMask, const std::string& gateway);
 	bool ExecuteNetshCommand(const std::string& command);
 
 	Variant ChangeValue_RealToShow(const String strValue, const SectionUnitType Unit);
+	Variant ChangeValue_ShowToReal(const String strValue, const SectionUnitType Unit);
 public:		// User declarations
 	__fastcall TFrame_ConfigSetting(TComponent* Owner);
 };

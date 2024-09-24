@@ -208,6 +208,49 @@ Variant TFrame_ConfigSetting::ChangeValue_RealToShow(const String strValue, cons
 	return strRetunValue;
 }
 
+Variant TFrame_ConfigSetting::ChangeValue_ShowToReal(const String strValue, const SectionUnitType Unit) {
+	Variant strRetunValue = strValue;
+
+	switch(Unit)
+	{
+		case SectionUnitType::DATA:
+			if(strValue == SHOW_DATA_O) { return strRetunValue = REAL_DATA_O;}
+			else if(strValue == SHOW_DATA_X) { return strRetunValue = REAL_DATA_X;}
+			break;
+		case SectionUnitType::OPTYPE:
+			if(strValue == SHOW_OPTYPE_22) { return strRetunValue = REAL_OPTYPE_22;}
+			else if(strValue == SHOW_OPTYPE_21) { return strRetunValue = REAL_OPTYPE_21;}
+			else if(strValue == SHOW_OPTYPE_11) { return strRetunValue = REAL_OPTYPE_11;}
+			else if(strValue == SHOW_OPTYPE_10) { return strRetunValue = REAL_OPTYPE_10;}
+			else if(strValue == SHOW_OPTYPE_15) { return strRetunValue = REAL_OPTYPE_15;}
+			else if(strValue == SHOW_OPTYPE_18) { return strRetunValue = REAL_OPTYPE_18;}
+			break;
+		case SectionUnitType::SYSTEMTYPE:
+			if(strValue == SHOW_SYSTEMTYPE_O) { return strRetunValue = REAL_SYSTEMTYPE_O;}
+			else if(strValue == SHOW_SYSTEMTYPE_I) { return strRetunValue = REAL_SYSTEMTYPE_I;}
+			else if(strValue == SHOW_SYSTEMTYPE_U) { return strRetunValue = REAL_SYSTEMTYPE_U;}
+			else if(strValue == SHOW_SYSTEMTYPE_D) { return strRetunValue = REAL_SYSTEMTYPE_D;}
+			break;
+		case SectionUnitType::TRIGGERTYPE:
+			if(strValue == SHOW_TRIGGERTYPE_1) { return strRetunValue = REAL_TRIGGERTYPE_1;}
+			else if(strValue == SHOW_TRIGGERTYPE_99) { return strRetunValue = REAL_TRIGGERTYPE_99;}
+			break;
+		case SectionUnitType::COMU:
+			if(strValue == SHOW_COMU_SERIAL) { return strRetunValue = REAL_COMU_SERIAL;}
+			else if(strValue == SHOW_COMU_TCPIP) { return strRetunValue = REAL_COMU_TCPIP;}
+			break;
+		case SectionUnitType::POSITION:
+			if(strValue == SHOW_POSITION_FRONT) { return strRetunValue = REAL_POSITION_FRONT;}
+			else if(strValue == SHOW_POSITION_REAR) { return strRetunValue = REAL_POSITION_REAR;}
+			break;
+		default:
+            strRetunValue = "Not Exist";
+            break;
+	}
+
+	return strRetunValue;
+}
+
 
 
 std::vector<std::string> TFrame_ConfigSetting::SplitString(const std::string& str, char delimiter)
@@ -262,6 +305,35 @@ void TFrame_ConfigSetting::changeDataFromUI(IpuConfig &configValues) {
 
 	configValues.ipIn.change(strInIPText);
 	configValues.ipOut.change(strExIPText);
+}
+
+void TFrame_ConfigSetting::changeDataFromUI_LANE(LaneConfig &configValues) {
+	//ChangeValue_ShowToReal
+	//[SYSTEM]
+	int nSelectIndex = 0;
+	nSelectIndex = m_cbOneipu->ItemIndex;
+	configValues.nOneipuOnly.change(ChangeValue_ShowToReal(m_cbOneipu->Items->Strings[nSelectIndex], SectionUnitType::DATA));
+
+	nSelectIndex = m_cbAxisWeight->ItemIndex;
+	configValues.nAxisWeight.change(ChangeValue_ShowToReal(m_cbAxisWeight->Items->Strings[nSelectIndex], SectionUnitType::DATA));
+	/*
+	configValues.nOpType.change();
+	configValues.nSystemType.change();
+	configValues.strPostion.change();
+	configValues.nTriggerType.change();
+
+	//[HIPASS]
+	configValues.strComType.change();
+	configValues.strPort.change();
+	configValues.nBaudRate.change();
+
+	//[MIS]
+	configValues.strImageServer.change();
+	configValues.strImagePort.change();
+	configValues.strMCImageServer.change();
+	configValues.strMCImagePort.change();
+    */
+
 }
 
 void TFrame_ConfigSetting::InitComboBox(){
@@ -380,12 +452,12 @@ void __fastcall TFrame_ConfigSetting::Button8Click(TObject *Sender)
 //---------------------------------------------------------------------------
 
 
-void __fastcall TFrame_ConfigSetting::Button5Click(TObject *Sender)
+void __fastcall TFrame_ConfigSetting::m_btnLaneFileSaveClick(TObject *Sender)
 {
 	String message = "저장 후 적용";
 	LaneConfig m_fileConfigData;
 	m_fileConfigData.readFileValues(m_strFilePath);
-	//changeDataFromUI(m_fileConfigData);
+	changeDataFromUI_LANE(m_fileConfigData);
 
 	int result = Application->MessageBox((message+" 하시겠습니까?").c_str(), L"확인", MB_YESNO | MB_ICONQUESTION);
 	if (result == mrYes) {
