@@ -4,9 +4,6 @@ Coordinates=295,10,79,58
 [Button7]
 Coordinates=362,78,59,58
 
-[Button5]
-Coordinates=10,214,59,58
-
 [Button6]
 Coordinates=224,146,59,58
 
@@ -226,4 +223,7 @@ Coordinates=653,529,51,58
 
 [m_EditFtpLoginID]
 Coordinates=426,544,51,58
+
+[m_btnLaneFileSave]
+Coordinates=10,214,59,58
 

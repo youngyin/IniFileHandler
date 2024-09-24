@@ -357,7 +357,7 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       TabOrder = 20
       OnClick = m_btnLaneFileLoadClick
     end
-    object Button5: TButton
+    object m_btnLaneFileSave: TButton
       Left = 635
       Top = 296
       Width = 108
@@ -370,7 +370,7 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       Font.Style = []
       ParentFont = False
       TabOrder = 21
-      OnClick = Button5Click
+      OnClick = m_btnLaneFileSaveClick
     end
   end
   object GroupBox1: TGroupBox
