@@ -246,8 +246,11 @@ Variant TFrame_ConfigSetting::ChangeValue_ShowToReal(const String strValue, cons
 			if(strValue == SHOW_POSITION_FRONT) { return strRetunValue = REAL_POSITION_FRONT;}
 			else if(strValue == SHOW_POSITION_REAR) { return strRetunValue = REAL_POSITION_REAR;}
 			break;
+		case SectionUnitType::ETC:
+			return strValue;
+			break;
 		default:
-            strRetunValue = "Not Exist";
+
             break;
 	}
 
@@ -314,6 +317,8 @@ void TFrame_ConfigSetting::changeDataFromUI_LANE(LaneConfig &configValues) {
 	//ChangeValue_ShowToReal
 	//[SYSTEM]
 	int nSelectIndex = 0;
+	String strValue = "NULL";
+
 	nSelectIndex = m_cbOneipu->ItemIndex;
 	configValues.nOneipuOnly.change(ChangeValue_ShowToReal(m_cbOneipu->Items->Strings[nSelectIndex], SectionUnitType::DATA));
 
@@ -337,13 +342,13 @@ void TFrame_ConfigSetting::changeDataFromUI_LANE(LaneConfig &configValues) {
 	nSelectIndex = m_cbComType->ItemIndex;
 	configValues.strComType.change(ChangeValue_ShowToReal(m_cbComType->Items->Strings[nSelectIndex], SectionUnitType::COMU));
 
-    /*
 	nSelectIndex = m_cbPort->ItemIndex;
-	configValues.strPort.change();
+	configValues.strPort.change(ChangeValue_ShowToReal(m_cbPort->Items->Strings[nSelectIndex], SectionUnitType::ETC));
+
 	nSelectIndex = m_cbBaudRate->ItemIndex;
-	configValues.nBaudRate.change();
+	configValues.nBaudRate.change(ChangeValue_ShowToReal(m_cbBaudRate->Items->Strings[nSelectIndex], SectionUnitType::ETC));
 
-
+    /*
 	//[MIS]
 	configValues.strImageServer.change();
 	configValues.strImagePort.change();
@@ -441,7 +446,7 @@ void __fastcall TFrame_ConfigSetting::m_btnLaneFileLoadClick(TObject *Sender)
 	String strFilePath = selectIniFile(this);
 
 	// load data
-	loadValues(strFilePath, FileUnitType::LANE);
+	if(!strFilePath.IsEmpty()) { loadValues(strFilePath, FileUnitType::LANE); }
 }
 //---------------------------------------------------------------------------
 
@@ -451,7 +456,16 @@ void __fastcall TFrame_ConfigSetting::m_btnIpuFileLoadClick(TObject *Sender)
 	String strFilePath = selectIniFile(this);
 
 	// load data
-	loadValues(strFilePath, FileUnitType::IPU);
+	if(!strFilePath.IsEmpty()) { loadValues(strFilePath, FileUnitType::IPU); }
+}
+
+void __fastcall TFrame_ConfigSetting::m_btnFtpFiledLoadClick(TObject *Sender)
+{
+	// find file
+	String strFilePath = selectIniFile(this);
+
+	// load data
+	if(!strFilePath.IsEmpty()) { loadValues(strFilePath, FileUnitType::FTP); }
 }
 
 void __fastcall TFrame_ConfigSetting::m_btnLaneFileSaveClick(TObject *Sender)
@@ -497,16 +511,6 @@ void TFrame_ConfigSetting::changeDataFromUI(FtpConfig &configValues) {
 	configValues.ftpLoginPW.change(strFtpLoginPW);
 }
 
-
-
-void __fastcall TFrame_ConfigSetting::m_btnFtpFiledLoadClick(TObject *Sender)
-{
-	// find file
-	String strFilePath = selectIniFile(this);
-
-	// load data
-	loadValues(strFilePath, FileUnitType::FTP);
-}
 //---------------------------------------------------------------------------
 
 void __fastcall TFrame_ConfigSetting::m_btnFtpFiledSaveClick(TObject *Sender)

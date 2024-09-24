@@ -28,7 +28,8 @@ enum class SectionUnitType{
 	SYSTEMTYPE,
 	POSITION,
 	TRIGGERTYPE,
-	COMU
+	COMU,
+	ETC
 };
 
 
