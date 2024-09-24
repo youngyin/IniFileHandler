@@ -719,7 +719,6 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       Font.Style = []
       ParentFont = False
       TabOrder = 0
-      OnClick = Button8Click
     end
     object Button9: TButton
       Left = 9
@@ -734,7 +733,6 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       Font.Style = []
       ParentFont = False
       TabOrder = 1
-      OnClick = Button9Click
     end
     object StaticText13: TStaticText
       Left = 11

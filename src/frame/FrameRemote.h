@@ -112,14 +112,12 @@ __published:	// IDE-managed Components
 	void __fastcall m_btnIpuFileLoadClick(TObject *Sender);
 	void __fastcall m_btnIpuFileSaveClick(TObject *Sender);
 	void __fastcall m_btnLaneFileLoadClick(TObject *Sender);
-	void __fastcall Button9Click(TObject *Sender);
-	void __fastcall Button8Click(TObject *Sender);
 	void __fastcall m_btnLaneFileSaveClick(TObject *Sender);
 private:	// User declarations
 	void loadValues(const String &strFilePath, const FileUnitType nSelectType);
 	void displayValues_IPU(const IpuConfig &configValues);
 	void displayValues_LANE(const LaneConfig &configValues);
-    void InitComboBox();
+	void InitComboBox();
 	String selectIniFile(TComponent* Owner);
 	/** String Split*/
 	std::vector<std::string> SplitString(const std::string& str, char delimiter);

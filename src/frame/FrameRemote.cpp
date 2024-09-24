@@ -316,16 +316,30 @@ void TFrame_ConfigSetting::changeDataFromUI_LANE(LaneConfig &configValues) {
 
 	nSelectIndex = m_cbAxisWeight->ItemIndex;
 	configValues.nAxisWeight.change(ChangeValue_ShowToReal(m_cbAxisWeight->Items->Strings[nSelectIndex], SectionUnitType::DATA));
-	/*
-	configValues.nOpType.change();
-	configValues.nSystemType.change();
-	configValues.strPostion.change();
-	configValues.nTriggerType.change();
+
+	nSelectIndex = m_cbOpType->ItemIndex;
+	configValues.nOpType.change(ChangeValue_ShowToReal(m_cbOpType->Items->Strings[nSelectIndex], SectionUnitType::OPTYPE));
+
+	nSelectIndex = m_cbSystemType->ItemIndex;
+	configValues.nSystemType.change(ChangeValue_ShowToReal(m_cbSystemType->Items->Strings[nSelectIndex], SectionUnitType::SYSTEMTYPE));
+
+	nSelectIndex = m_cbPosition->ItemIndex;
+	configValues.strPostion.change(ChangeValue_ShowToReal(m_cbPosition->Items->Strings[nSelectIndex], SectionUnitType::POSITION));
+
+	nSelectIndex = m_cbTriggerType->ItemIndex;
+	configValues.nTriggerType.change(ChangeValue_ShowToReal(m_cbTriggerType->Items->Strings[nSelectIndex], SectionUnitType::TRIGGERTYPE));
+
 
 	//[HIPASS]
-	configValues.strComType.change();
+	nSelectIndex = m_cbComType->ItemIndex;
+	configValues.strComType.change(ChangeValue_ShowToReal(m_cbComType->Items->Strings[nSelectIndex], SectionUnitType::COMU));
+
+    /*
+	nSelectIndex = m_cbPort->ItemIndex;
 	configValues.strPort.change();
+	nSelectIndex = m_cbBaudRate->ItemIndex;
 	configValues.nBaudRate.change();
+
 
 	//[MIS]
 	configValues.strImageServer.change();
@@ -436,21 +450,6 @@ void __fastcall TFrame_ConfigSetting::m_btnIpuFileLoadClick(TObject *Sender)
 	// load data
 	loadValues(strFilePath, FileUnitType::IPU);
 }
-
-
-void __fastcall TFrame_ConfigSetting::Button9Click(TObject *Sender)
-{
-   int a = 0;
-}
-//---------------------------------------------------------------------------
-
-
-void __fastcall TFrame_ConfigSetting::Button8Click(TObject *Sender)
-{
-    int b = 0;
-}
-//---------------------------------------------------------------------------
-
 
 void __fastcall TFrame_ConfigSetting::m_btnLaneFileSaveClick(TObject *Sender)
 {
