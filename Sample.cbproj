@@ -197,6 +197,9 @@
         <None Include="src\data\CValue.h">
             <BuildOrder>13</BuildOrder>
         </None>
+        <None Include="src\data\DefineValue.h">
+            <BuildOrder>14</BuildOrder>
+        </None>
         <CppCompile Include="src\data\IpuConfig.cpp">
             <DependentOn>src\data\IpuConfig.h</DependentOn>
             <BuildOrder>14</BuildOrder>
@@ -245,8 +248,8 @@
             <BuildOrder>11</BuildOrder>
         </CppCompile>
         <FormResources Include="src\frame\FrameRemote.dfm"/>
-        <FormResources Include="src\TabPage.dfm"/>
         <FormResources Include="src\frame\FrameIpu.dfm"/>
+        <FormResources Include="src\TabPage.dfm"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

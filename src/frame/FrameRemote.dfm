@@ -44,7 +44,7 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
         ParentFont = False
         TabOrder = 0
       end
-      object Edit7: TEdit
+      object m_EditImgServerIP: TEdit
         Left = 142
         Top = 40
         Width = 139
@@ -56,9 +56,8 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
         Font.Style = []
         ParentFont = False
         TabOrder = 1
-        Text = 'Edit1'
       end
-      object Edit8: TEdit
+      object m_EditImgServerPort: TEdit
         Left = 142
         Top = 77
         Width = 139
@@ -70,7 +69,6 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
         Font.Style = []
         ParentFont = False
         TabOrder = 2
-        Text = 'Edit1'
       end
       object StaticText8: TStaticText
         Left = 16
@@ -114,7 +112,7 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
         ParentFont = False
         TabOrder = 0
       end
-      object Edit9: TEdit
+      object m_EditMCServerIP: TEdit
         Left = 142
         Top = 40
         Width = 139
@@ -126,7 +124,6 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
         Font.Style = []
         ParentFont = False
         TabOrder = 1
-        Text = 'Edit1'
       end
       object StaticText10: TStaticText
         Left = 16
@@ -142,7 +139,7 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
         ParentFont = False
         TabOrder = 2
       end
-      object Edit10: TEdit
+      object m_EditMCPort: TEdit
         Left = 142
         Top = 77
         Width = 139
@@ -154,15 +151,14 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
         Font.Style = []
         ParentFont = False
         TabOrder = 3
-        Text = 'Edit1'
       end
     end
     object StaticText17: TStaticText
-      Left = 22
-      Top = 39
+      Left = 32
+      Top = 42
       Width = 84
       Height = 32
-      Caption = #54869#51221#52264#47049
+      Caption = #54869#51221#50689#49345
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -20
@@ -171,17 +167,16 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       ParentFont = False
       TabOrder = 2
     end
-    object Edit17: TEdit
-      Left = 158
-      Top = 39
+    object m_EditOneIPU: TEdit
+      Left = 182
+      Top = 22
       Width = 139
       Height = 36
       TabOrder = 3
-      Text = 'Edit1'
     end
     object StaticText18: TStaticText
-      Left = 22
-      Top = 81
+      Left = 32
+      Top = 84
       Width = 84
       Height = 32
       Caption = #52629#51473#52264#47196
@@ -193,20 +188,19 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       ParentFont = False
       TabOrder = 4
     end
-    object Edit18: TEdit
-      Left = 158
-      Top = 81
+    object m_EditAxisWeight: TEdit
+      Left = 182
+      Top = 72
       Width = 139
       Height = 36
       TabOrder = 5
-      Text = 'Edit1'
     end
     object StaticText19: TStaticText
-      Left = 22
-      Top = 123
-      Width = 89
+      Left = 32
+      Top = 126
+      Width = 149
       Height = 32
-      Caption = #52264#47196' '#53440#51077
+      Caption = #51064#53552#54168#51060#49828' '#49444#51221
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -20
@@ -215,20 +209,19 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       ParentFont = False
       TabOrder = 6
     end
-    object Edit19: TEdit
-      Left = 158
+    object m_EditOpType: TEdit
+      Left = 182
       Top = 123
       Width = 139
       Height = 36
       TabOrder = 7
-      Text = 'Edit1'
     end
     object StaticText20: TStaticText
-      Left = 22
-      Top = 165
-      Width = 109
+      Left = 32
+      Top = 164
+      Width = 84
       Height = 32
-      Caption = #51077#52636#44396' '#49444#51221
+      Caption = #52264#47196#53440#51077
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -20
@@ -237,21 +230,19 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       ParentFont = False
       TabOrder = 8
     end
-    object Edit20: TEdit
-      Left = 158
-      Top = 165
+    object m_EditSystemType: TEdit
+      Left = 182
+      Top = 171
       Width = 139
       Height = 36
       TabOrder = 9
-      Text = 'Edit1'
     end
-    object Edit21: TEdit
+    object m_EditComPort: TEdit
       Left = 477
       Top = 145
       Width = 140
       Height = 36
       TabOrder = 10
-      Text = 'Edit1'
     end
     object StaticText21: TStaticText
       Left = 351
@@ -267,13 +258,12 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       ParentFont = False
       TabOrder = 11
     end
-    object Edit22: TEdit
+    object m_EditComType: TEdit
       Left = 477
       Top = 103
       Width = 140
       Height = 36
       TabOrder = 12
-      Text = 'Edit1'
     end
     object StaticText22: TStaticText
       Left = 351
@@ -289,13 +279,12 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       ParentFont = False
       TabOrder = 13
     end
-    object Edit23: TEdit
+    object m_EditTriggerType: TEdit
       Left = 477
       Top = 61
       Width = 140
       Height = 36
       TabOrder = 14
-      Text = 'Edit1'
     end
     object StaticText23: TStaticText
       Left = 351
@@ -311,13 +300,12 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       ParentFont = False
       TabOrder = 15
     end
-    object Edit24: TEdit
+    object m_EditPosition: TEdit
       Left = 477
       Top = 19
       Width = 140
       Height = 36
       TabOrder = 16
-      Text = 'Edit1'
     end
     object StaticText24: TStaticText
       Left = 351
@@ -347,15 +335,14 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       ParentFont = False
       TabOrder = 18
     end
-    object Edit25: TEdit
+    object m_EditComBaudRate: TEdit
       Left = 477
       Top = 187
       Width = 140
       Height = 36
       TabOrder = 19
-      Text = 'Edit1'
     end
-    object Button4: TButton
+    object m_btnLaneFileLoad: TButton
       Left = 635
       Top = 248
       Width = 108
@@ -368,6 +355,7 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       Font.Style = []
       ParentFont = False
       TabOrder = 20
+      OnClick = m_btnLaneFileLoadClick
     end
     object Button5: TButton
       Left = 635
@@ -382,6 +370,7 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       Font.Style = []
       ParentFont = False
       TabOrder = 21
+      OnClick = Button5Click
     end
   end
   object GroupBox1: TGroupBox
@@ -730,6 +719,7 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       Font.Style = []
       ParentFont = False
       TabOrder = 0
+      OnClick = Button8Click
     end
     object Button9: TButton
       Left = 9
@@ -744,6 +734,7 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       Font.Style = []
       ParentFont = False
       TabOrder = 1
+      OnClick = Button9Click
     end
     object StaticText13: TStaticText
       Left = 11
@@ -857,5 +848,68 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       TabOrder = 9
       Text = 'Edit1'
     end
+  end
+  object m_cbOneipu: TComboBox
+    Left = 198
+    Top = 335
+    Width = 145
+    Height = 23
+    TabOrder = 4
+  end
+  object m_cbAxisWeight: TComboBox
+    Left = 198
+    Top = 385
+    Width = 145
+    Height = 23
+    TabOrder = 5
+  end
+  object m_cbOpType: TComboBox
+    Left = 198
+    Top = 433
+    Width = 145
+    Height = 23
+    TabOrder = 6
+  end
+  object m_cbSystemType: TComboBox
+    Left = 198
+    Top = 483
+    Width = 145
+    Height = 23
+    TabOrder = 7
+  end
+  object m_cbPosition: TComboBox
+    Left = 493
+    Top = 328
+    Width = 145
+    Height = 23
+    TabOrder = 8
+  end
+  object m_cbTriggerType: TComboBox
+    Left = 493
+    Top = 369
+    Width = 145
+    Height = 23
+    TabOrder = 9
+  end
+  object m_cbComType: TComboBox
+    Left = 493
+    Top = 411
+    Width = 145
+    Height = 23
+    TabOrder = 10
+  end
+  object m_cbPort: TComboBox
+    Left = 493
+    Top = 452
+    Width = 145
+    Height = 23
+    TabOrder = 11
+  end
+  object m_cbBaudRate: TComboBox
+    Left = 493
+    Top = 495
+    Width = 145
+    Height = 23
+    TabOrder = 12
   end
 end

@@ -12,6 +12,14 @@
 
 // custom class
 #include "src\data\IpuConfig.h"
+#include "src\data\LaneConfig.h"
+
+enum class FileUnitType{
+	IPU,
+	LANE,
+	REMOTE,
+    FTP
+};
 
 class TFrame_ConfigSetting : public TFrame
 {
@@ -23,7 +31,7 @@ __published:	// IDE-managed Components
 	TGroupBox *GroupBox1;
 	TButton *m_btnIpuFileLoad;
 	TButton *m_btnIpuFileSave;
-	TButton *Button4;
+	TButton *m_btnLaneFileLoad;
 	TButton *Button5;
 	TButton *Button6;
 	TButton *Button7;
@@ -45,13 +53,13 @@ __published:	// IDE-managed Components
 	TStaticText *StaticText6;
 	TEdit *m_Ex_GateWayAddress;
 	TStaticText *StaticText7;
-	TEdit *Edit7;
-	TEdit *Edit8;
+	TEdit *m_EditImgServerIP;
+	TEdit *m_EditImgServerPort;
 	TStaticText *StaticText8;
 	TStaticText *StaticText9;
-	TEdit *Edit9;
+	TEdit *m_EditMCServerIP;
 	TStaticText *StaticText10;
-	TEdit *Edit10;
+	TEdit *m_EditMCPort;
 	TStaticText *StaticText11;
 	TEdit *Edit11;
 	TStaticText *StaticText12;
@@ -65,35 +73,50 @@ __published:	// IDE-managed Components
 	TStaticText *StaticText16;
 	TEdit *Edit16;
 	TStaticText *StaticText17;
-	TEdit *Edit17;
+	TEdit *m_EditOneIPU;
 	TStaticText *StaticText18;
-	TEdit *Edit18;
+	TEdit *m_EditAxisWeight;
 	TStaticText *StaticText19;
-	TEdit *Edit19;
+	TEdit *m_EditOpType;
 	TStaticText *StaticText20;
-	TEdit *Edit20;
-	TEdit *Edit21;
+	TEdit *m_EditSystemType;
+	TEdit *m_EditComPort;
 	TStaticText *StaticText21;
-	TEdit *Edit22;
+	TEdit *m_EditComType;
 	TStaticText *StaticText22;
-	TEdit *Edit23;
+	TEdit *m_EditTriggerType;
 	TStaticText *StaticText23;
-	TEdit *Edit24;
+	TEdit *m_EditPosition;
 	TStaticText *StaticText24;
 	TStaticText *StaticText25;
-	TEdit *Edit25;
+	TEdit *m_EditComBaudRate;
+	TComboBox *m_cbOneipu;
+	TComboBox *m_cbAxisWeight;
+	TComboBox *m_cbOpType;
+	TComboBox *m_cbSystemType;
+	TComboBox *m_cbPosition;
+	TComboBox *m_cbTriggerType;
+	TComboBox *m_cbComType;
+	TComboBox *m_cbPort;
+	TComboBox *m_cbBaudRate;
 	void __fastcall m_btnIpuFileLoadClick(TObject *Sender);
 	void __fastcall m_btnIpuFileSaveClick(TObject *Sender);
+	void __fastcall m_btnLaneFileLoadClick(TObject *Sender);
+	void __fastcall Button9Click(TObject *Sender);
+	void __fastcall Button8Click(TObject *Sender);
+	void __fastcall Button5Click(TObject *Sender);
 private:	// User declarations
-	void loadValues(const String &strFilePath);
-	void displayValues(const IpuConfig &configValues);
+	void loadValues(const String &strFilePath, const FileUnitType nSelectType);
+	void displayValues_IPU(const IpuConfig &configValues);
+	void displayValues_LANE(const LaneConfig &configValues);
+    void InitComboBox();
 	String selectIniFile(TComponent* Owner);
 	/** String Split*/
 	std::vector<std::string> SplitString(const std::string& str, char delimiter);
 	String m_strFilePath;
 	void changeDataFromUI(IpuConfig &configValues);
 	bool NetworkConfigChange(const std::string& adapterName, const std::string& ipAddress, const std::string& subnetMask, const std::string& gateway);
-    bool ExecuteNetshCommand(const std::string& command);
+	bool ExecuteNetshCommand(const std::string& command);
 public:		// User declarations
 	__fastcall TFrame_ConfigSetting(TComponent* Owner);
 };
