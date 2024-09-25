@@ -241,11 +241,11 @@ void TFrame_ConfigSetting::displayValues_LANE(const LaneConfig &configValues){
 
 	if(configValues.nOneipuOnly.get() == REAL_DATA_O)
 	{
-		m_Label_OneIPUSelectExpaln->Caption = "전먼 + 후면 구성";
+		m_Label_OneIPUSelectExpaln->Caption = SHOW_ONEIPUSELECT_STREXPLAN_O;
 	}
 	else if(configValues.nOneipuOnly.get() == REAL_DATA_X)
 	{
-		m_Label_OneIPUSelectExpaln->Caption = "전면 or 후면 단독 구성(기본)";
+		m_Label_OneIPUSelectExpaln->Caption = SHOW_ONEIPUSELECT_STREXPLAN_X;
 	}
 
 	m_EditAxisWeight->Text = configValues.nAxisWeight.get();
@@ -754,11 +754,11 @@ void __fastcall TFrame_ConfigSetting::m_cbOneipuChange(TObject *Sender)
     String strValue = m_cbOneipu->Items->Strings[nSelectIndex];
 	if(strValue == SHOW_DATA_O)
 	{
-		m_Label_OneIPUSelectExpaln->Caption = "*설명:전면+ 후면 구성";
+		m_Label_OneIPUSelectExpaln->Caption = SHOW_ONEIPUSELECT_STREXPLAN_O;
 	}
 	else if(strValue == SHOW_DATA_X)
 	{
-		m_Label_OneIPUSelectExpaln->Caption = "*설명:전면 or 후면 단독 구성(기본)";
+		m_Label_OneIPUSelectExpaln->Caption = SHOW_ONEIPUSELECT_STREXPLAN_X;
 	}
 }
 //---------------------------------------------------------------------------

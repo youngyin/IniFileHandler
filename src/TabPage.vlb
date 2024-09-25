@@ -13,11 +13,6 @@ Coordinates=10,254,143,51
 [FrameIpuNet1.m_edtNetWorkInfo1]
 Coordinates=203,437,183,51
 
-[m_tabRemote]
-Coordinates=10,559,82,33
-Visible=True
-LayerNames=
-
 [FrameIpuNet1.m_btnApply]
 Coordinates=711,376,145,51
 
@@ -32,9 +27,6 @@ Coordinates=396,437,183,51
 
 [FrameIpuNet1.m_edtLastset]
 Coordinates=589,437,152,51
-
-[m_tabIpu]
-Coordinates=529,498,60,33
 
 [FrameIpuNet1.m_btnLoad]
 Coordinates=158,498,141,51
@@ -71,9 +63,6 @@ Coordinates=334,376,183,51
 
 [FrameIpuNet1.m_edtLastSlot]
 Coordinates=10,10,156,51
-
-[m_pageControl]
-Coordinates=309,498,89,33
 
 [FrameIpuNet1.Memo1]
 Coordinates=203,376,121,51
@@ -133,16 +122,12 @@ Coordinates=348,315,160,51
 Coordinates=176,10,156,51
 
 []
-Coordinates=1039,157,54,33
+Coordinates=309,498,89,33
+Visible=True
+LayerNames=
 
 [Module Settings]
 ModelLayerNames=
 ActiveLayerNames=
 EditingLayerName=
-
-[Frame_ConfigSetting]
-Coordinates=408,498,111,33
-
-[Frame_IpuNet]
-Coordinates=599,498,83,33
 

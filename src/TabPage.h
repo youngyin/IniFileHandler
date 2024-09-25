@@ -18,9 +18,7 @@ class TFormTabView : public TForm
 {
 __published:	// IDE-managed Components
 	TPageControl *m_pageControl;
-	TTabSheet *m_tabIpu;
 	TTabSheet *m_tabRemote;
-	TFrame_IpuNet *Frame_IpuNet;
 	TFrame_ConfigSetting *Frame_ConfigSetting;
 private:	// User declarations
 public:		// User declarations

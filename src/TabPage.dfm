@@ -1,7 +1,8 @@
 object FormTabView: TFormTabView
   Left = 0
   Top = 0
-  Caption = 'Form1'
+  AutoSize = True
+  Caption = #49444#51221#54532#47196#44536#47016
   ClientHeight = 698
   ClientWidth = 1003
   Color = clBtnFace
@@ -19,109 +20,8 @@ object FormTabView: TFormTabView
     ActivePage = m_tabRemote
     Align = alClient
     TabOrder = 0
-    object m_tabIpu: TTabSheet
-      Caption = 'IPU'
-      ImageIndex = 1
-      inline Frame_IpuNet: TFrame_IpuNet
-        Left = 0
-        Top = 0
-        Width = 995
-        Height = 668
-        Align = alClient
-        TabOrder = 0
-        ExplicitWidth = 995
-        ExplicitHeight = 668
-        inherited m_gbConfig: TGroupBox
-          inherited m_edtDefaultSlot: TLabeledEdit
-            StyleElements = [seFont, seClient, seBorder]
-          end
-          inherited m_edtLastset: TLabeledEdit
-            StyleElements = [seFont, seClient, seBorder]
-          end
-          inherited m_edtLastSlot: TLabeledEdit
-            StyleElements = [seFont, seClient, seBorder]
-          end
-        end
-        inherited m_gbSlotA: TGroupBox
-          ParentCustomHint = False
-          Ctl3D = False
-          ParentCtl3D = False
-          inherited m_edtInterfaceIn: TLabeledEdit
-            Height = 21
-            EditLabel.Height = 21
-            EditLabel.ExplicitHeight = 21
-            StyleElements = [seFont, seClient, seBorder]
-            ExplicitHeight = 21
-          end
-          inherited m_edtIpIn: TLabeledEdit
-            Height = 21
-            EditLabel.Height = 21
-            EditLabel.ExplicitHeight = 21
-            StyleElements = [seFont, seClient, seBorder]
-            ExplicitHeight = 21
-          end
-          inherited m_edtInterfaceOut: TLabeledEdit
-            Height = 21
-            EditLabel.Height = 21
-            EditLabel.ExplicitHeight = 21
-            StyleElements = [seFont, seClient, seBorder]
-            ExplicitHeight = 21
-          end
-          inherited m_edtIpOut: TLabeledEdit
-            Height = 21
-            EditLabel.Height = 21
-            EditLabel.ExplicitHeight = 21
-            StyleElements = [seFont, seClient, seBorder]
-            ExplicitHeight = 21
-          end
-          inherited m_edtInterfaceCam1: TLabeledEdit
-            Height = 21
-            EditLabel.Height = 21
-            EditLabel.ExplicitHeight = 21
-            StyleElements = [seFont, seClient, seBorder]
-            ExplicitHeight = 21
-          end
-          inherited m_edtIpCam1: TLabeledEdit
-            Height = 21
-            EditLabel.Height = 21
-            EditLabel.ExplicitHeight = 21
-            StyleElements = [seFont, seClient, seBorder]
-            ExplicitHeight = 21
-          end
-        end
-        inherited m_edtPath: TLabeledEdit
-          StyleElements = [seFont, seClient, seBorder]
-        end
-        inherited m_gbNetWorkInfo: TGroupBox
-          inherited m_edtNetWorkInfo1: TLabeledEdit
-            StyleElements = [seFont, seClient, seBorder]
-          end
-          inherited m_edtNetWorkInfo2: TLabeledEdit
-            StyleElements = [seFont, seClient, seBorder]
-          end
-          inherited m_edtNetWorkInfo3: TLabeledEdit
-            StyleElements = [seFont, seClient, seBorder]
-          end
-          inherited m_edtNetWorkInfo5: TLabeledEdit
-            StyleElements = [seFont, seClient, seBorder]
-          end
-          inherited m_edtNetWorkInfo6: TLabeledEdit
-            StyleElements = [seFont, seClient, seBorder]
-          end
-          inherited m_edtNetWorkInfo4: TLabeledEdit
-            StyleElements = [seFont, seClient, seBorder]
-          end
-        end
-        inherited Memo1: TMemo
-          StyleElements = [seFont, seClient, seBorder]
-        end
-        inherited Memo2: TMemo
-          StyleElements = [seFont, seClient, seBorder]
-        end
-      end
-    end
     object m_tabRemote: TTabSheet
-      Caption = 'REMOTE'
+      Caption = 'ConfigSetting'
       ImageIndex = 2
       inline Frame_ConfigSetting: TFrame_ConfigSetting
         Left = -4
@@ -137,6 +37,9 @@ object FormTabView: TFormTabView
         ExplicitWidth = 1078
         ExplicitHeight = 714
         inherited GroupBox6: TGroupBox
+          inherited m_Label_OneIPUSelectExpaln: TLabel
+            StyleElements = [seFont, seClient, seBorder]
+          end
           inherited GroupBox7: TGroupBox
             inherited m_EditImgServerPort: TEdit
               StyleElements = [seFont, seClient, seBorder]

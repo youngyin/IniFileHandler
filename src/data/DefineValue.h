@@ -27,6 +27,8 @@
 #define SHOW_CAMERA_DEVTYPE_REAR        "REAR"
 #define SHOW_CAMERA_DEVTYPE_NOEXIST     "NOEXIST"
 
+#define SHOW_ONEIPUSELECT_STREXPLAN_O     "*설명:전면 + 후면 구성"
+#define SHOW_ONEIPUSELECT_STREXPLAN_X     "*설명:전면 or 후면 단독 구성(기본)"
 
 
 #define REAL_DATA_O 		0
