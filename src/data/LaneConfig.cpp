@@ -23,6 +23,9 @@ void __fastcall LaneConfig::writeValues(String strFilePath) {
 	if (strPort.isChange()) pIniManager->Write("HIPASS", "PORT1", strPort.get());
 	if (nBaudRate.isChange()) pIniManager->Write("HIPASS", "BAUDRATE1", nBaudRate.get());
 
+	// CAMERA#1 섹션에 데이터 쓰기
+	if (nDevType.isChange()) pIniManager->Write("CAMERA#1", "DEVTYPE", nDevType.get());
+
     // MIS 섹션에 데이터 쓰기
 	// 재인식서버
 	if (strImageServer.isChange()) pIniManager->Write("MIS", "IMAGESERVER", strImageServer.get());
@@ -51,6 +54,9 @@ void LaneConfig::readFileValues(String strFilePath) {
 	strComType.init(pIniManager->Read("HIPASS", "COM_TYPE"));
 	strPort.init(pIniManager->Read("HIPASS", "PORT1"));
 	nBaudRate.init(pIniManager->Read("HIPASS", "BAUDRATE1"));
+
+	// CAMERA#1
+	nDevType.init(pIniManager->Read("CAMERA#1", "DEVTYPE"));
 
 	// MIS 섹션의 값 읽기
 	strImageServer.init(pIniManager->Read("MIS", "IMAGESERVER"));

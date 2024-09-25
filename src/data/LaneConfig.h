@@ -36,9 +36,10 @@ public :
 	CValue<String> strMCImageServer;
 	CValue<int> strMCImagePort;
 
+	//[CAMERA#1]
+    CValue<int> nDevType; //POSTION 설정과 동일하게 설정.
 
 	//*FTP 설정, 원격관제 설정(RemoteSetting.ini)
-
 	//[SYSTEM]
 	CValue<String> strRemoteServer;
 	CValue<int> nRemotePort;

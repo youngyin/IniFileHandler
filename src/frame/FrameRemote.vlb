@@ -1,14 +1,8 @@
 ﻿[GroupBox3]
 Coordinates=295,10,79,58
 
-[Button7]
-Coordinates=362,78,59,58
-
-[Button6]
-Coordinates=224,146,59,58
-
 []
-Coordinates=1023,386,91,36
+Coordinates=100,239,51,58
 
 [m_btnIpuFileLoad]
 Coordinates=158,78,117,58
@@ -43,9 +37,6 @@ Coordinates=293,78,128,58
 [StaticText6]
 Coordinates=337,544,79,36
 
-[m_EditImgServerIP]
-Coordinates=653,309,126,58
-
 [StaticText23]
 Coordinates=248,544,86,36
 
@@ -57,9 +48,6 @@ Coordinates=653,386,110,124
 
 [StaticText19]
 Coordinates=159,544,86,36
-
-[m_EditMCServerIP]
-Coordinates=653,155,124,58
 
 [StaticText8]
 Coordinates=70,544,79,36
@@ -81,9 +69,6 @@ Coordinates=140,77,115,124
 
 [m_cbBaudRate]
 Coordinates=544,544,103,124
-
-[m_In_SubNetAddress]
-Coordinates=0,0,140,58
 
 [m_cbOpType]
 Coordinates=472,309,101,124
@@ -108,12 +93,6 @@ Coordinates=472,155,100,58
 
 [m_EditMCPort]
 Coordinates=472,78,98,58
-
-[m_Ex_IPAddress]
-Coordinates=835,155,113,58
-
-[m_In_GateWayAddress]
-Coordinates=835,309,150,58
 
 [StaticText9]
 Coordinates=657,706,79,36
@@ -142,9 +121,6 @@ Coordinates=390,706,79,36
 [StaticText16]
 Coordinates=301,706,86,36
 
-[Edit11]
-Coordinates=100,239,51,58
-
 [StaticText18]
 Coordinates=212,706,86,36
 
@@ -153,9 +129,6 @@ Coordinates=204,382,101,124
 
 [m_cbPort]
 Coordinates=95,382,101,124
-
-[m_Ex_GateWayAddress]
-Coordinates=461,232,154,58
 
 [m_EditComBaudRate]
 Coordinates=653,78,138,58
@@ -175,20 +148,11 @@ Coordinates=313,300,101,124
 [StaticText1]
 Coordinates=1023,1,79,36
 
-[m_In_IPAddress]
-Coordinates=835,1,109,58
-
-[Edit12]
-Coordinates=485,544,51,58
-
 [StaticText4]
 Coordinates=1023,56,79,36
 
 [StaticText17]
 Coordinates=1023,111,86,36
-
-[m_Ex_SubNetAddress]
-Coordinates=653,1,144,58
 
 [StaticText22]
 Coordinates=1023,166,86,36
@@ -212,9 +176,6 @@ Visible=True
 [m_btnFtpFiledSave]
 Coordinates=359,146,59,58
 
-[m_EditFtpServerAddress]
-Coordinates=653,232,51,58
-
 [m_EditFtpServerPort]
 Coordinates=36,382,51,58
 
@@ -226,4 +187,13 @@ Coordinates=426,544,51,58
 
 [m_btnLaneFileSave]
 Coordinates=10,214,59,58
+
+[m_btnRemoteFiledLoad]
+Coordinates=224,146,59,58
+
+[m_btnRemoteFiledSave]
+Coordinates=362,78,59,58
+
+[m_EditRemoteServerPort]
+Coordinates=485,544,51,58
 

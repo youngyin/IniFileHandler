@@ -23,6 +23,11 @@
 #define SHOW_COMU_SERIAL  	"SERIAL"
 #define SHOW_COMU_TCPIP  	"TCP/IP"
 
+#define SHOW_CAMERA_DEVTYPE_FRONT       "FRONT"
+#define SHOW_CAMERA_DEVTYPE_REAR        "REAR"
+#define SHOW_CAMERA_DEVTYPE_NOEXIST     "NOEXIST"
+
+
 
 #define REAL_DATA_O 		0
 #define REAL_DATA_X 		1
@@ -47,3 +52,15 @@
 
 #define REAL_COMU_SERIAL  	"SERIAL"
 #define REAL_COMU_TCPIP  	"ETHERNET"
+
+#define REAL_CAMERA_DEVTYPE_FRONT     	1
+#define REAL_CAMERA_DEVTYPE_REAR     	2
+#define REAL_CAMERA_DEVTYPE_NOEXIST     0
+
+
+
+#define IPU_FILE_PATH			"D:\\SmartTolling\\Init\\IPU_netconfig.ini"
+#define LANE_FILE_PATH			"D:\\SmartTolling\\Init\\LaneSetting.ini"
+#define FTP_FILE_PATH			"D:\\SmartTolling\\SUpload\\FTPUpload.ini"
+#define REMOTE_FILE_PATH		"D:\\SmartTolling\\Init\\REMOTESetting.ini"
+

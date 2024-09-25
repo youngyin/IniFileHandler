@@ -128,6 +128,9 @@ object FormTabView: TFormTabView
         Top = 3
         Width = 1078
         Height = 714
+        Color = clSilver
+        ParentBackground = False
+        ParentColor = False
         TabOrder = 0
         ExplicitLeft = -4
         ExplicitTop = 3
@@ -135,18 +138,18 @@ object FormTabView: TFormTabView
         ExplicitHeight = 714
         inherited GroupBox6: TGroupBox
           inherited GroupBox7: TGroupBox
-            inherited m_EditImgServerIP: TEdit
+            inherited m_EditImgServerPort: TEdit
               StyleElements = [seFont, seClient, seBorder]
             end
-            inherited m_EditImgServerPort: TEdit
+            inherited m_MaskEditImgServerIP: TMaskEdit
               StyleElements = [seFont, seClient, seBorder]
             end
           end
           inherited GroupBox8: TGroupBox
-            inherited m_EditMCServerIP: TEdit
+            inherited m_EditMCPort: TEdit
               StyleElements = [seFont, seClient, seBorder]
             end
-            inherited m_EditMCPort: TEdit
+            inherited m_MaskEditMCServerIP: TMaskEdit
               StyleElements = [seFont, seClient, seBorder]
             end
           end
@@ -177,87 +180,87 @@ object FormTabView: TFormTabView
           inherited m_EditComBaudRate: TEdit
             StyleElements = [seFont, seClient, seBorder]
           end
-        end
-        inherited GroupBox1: TGroupBox
-          inherited Edit11: TEdit
+          inherited m_cbAxisWeight: TComboBox
             StyleElements = [seFont, seClient, seBorder]
           end
-          inherited Edit12: TEdit
+          inherited m_cbBaudRate: TComboBox
+            StyleElements = [seFont, seClient, seBorder]
+          end
+          inherited m_cbComType: TComboBox
+            StyleElements = [seFont, seClient, seBorder]
+          end
+          inherited m_cbOneipu: TComboBox
+            StyleElements = [seFont, seClient, seBorder]
+          end
+          inherited m_cbOpType: TComboBox
+            StyleElements = [seFont, seClient, seBorder]
+          end
+          inherited m_cbPort: TComboBox
+            StyleElements = [seFont, seClient, seBorder]
+          end
+          inherited m_cbPosition: TComboBox
+            StyleElements = [seFont, seClient, seBorder]
+          end
+          inherited m_cbSystemType: TComboBox
+            StyleElements = [seFont, seClient, seBorder]
+          end
+          inherited m_cbTriggerType: TComboBox
+            StyleElements = [seFont, seClient, seBorder]
+          end
+        end
+        inherited GroupBox1: TGroupBox
+          inherited m_EditRemoteServerPort: TEdit
+            StyleElements = [seFont, seClient, seBorder]
+          end
+          inherited m_MaskEditRemoteServerAddress: TMaskEdit
             StyleElements = [seFont, seClient, seBorder]
           end
         end
         inherited GroupBox3: TGroupBox
           inherited GroupBox4: TGroupBox
-            inherited m_In_GateWayAddress: TEdit
+            inherited m_In_MaskEdit_IPAddress: TMaskEdit
               StyleElements = [seFont, seClient, seBorder]
             end
-            inherited m_In_SubNetAddress: TEdit
+            inherited m_In_MaskEdit_SubNetAddress: TMaskEdit
               StyleElements = [seFont, seClient, seBorder]
             end
-            inherited m_In_IPAddress: TEdit
+            inherited m_In_MaskEdit_GateWayAddress: TMaskEdit
               StyleElements = [seFont, seClient, seBorder]
             end
           end
           inherited GroupBox5: TGroupBox
-            inherited m_Ex_IPAddress: TEdit
+            inherited m_Ex_MaskEdit_IPAddress: TMaskEdit
               StyleElements = [seFont, seClient, seBorder]
             end
-            inherited m_Ex_SubNetAddress: TEdit
+            inherited m_Ex_MaskEdit_SubNetAddress: TMaskEdit
               StyleElements = [seFont, seClient, seBorder]
             end
-            inherited m_Ex_GateWayAddress: TEdit
+            inherited m_Ex_MaskEdit_GateWayAddress: TMaskEdit
               StyleElements = [seFont, seClient, seBorder]
             end
           end
           inherited m_btnIpuFileLoad: TButton
-            Top = 182
-            ExplicitTop = 182
+            Top = 162
+            ExplicitTop = 162
           end
           inherited m_btnIpuFileSave: TButton
-            Top = 225
-            ExplicitTop = 225
+            Top = 205
+            ExplicitTop = 205
           end
         end
         inherited GroupBox2: TGroupBox
-          inherited Edit13: TEdit
+          inherited m_EditFtpServerPort: TEdit
             StyleElements = [seFont, seClient, seBorder]
           end
-          inherited Edit14: TEdit
+          inherited m_EditFtpLoginID: TEdit
             StyleElements = [seFont, seClient, seBorder]
           end
-          inherited Edit15: TEdit
+          inherited m_EditFtpLoginPW: TEdit
             StyleElements = [seFont, seClient, seBorder]
           end
-          inherited Edit16: TEdit
+          inherited m_MaskEditFtpServerAddress: TMaskEdit
             StyleElements = [seFont, seClient, seBorder]
           end
-        end
-        inherited m_cbOneipu: TComboBox
-          StyleElements = [seFont, seClient, seBorder]
-        end
-        inherited m_cbAxisWeight: TComboBox
-          StyleElements = [seFont, seClient, seBorder]
-        end
-        inherited m_cbOpType: TComboBox
-          StyleElements = [seFont, seClient, seBorder]
-        end
-        inherited m_cbSystemType: TComboBox
-          StyleElements = [seFont, seClient, seBorder]
-        end
-        inherited m_cbPosition: TComboBox
-          StyleElements = [seFont, seClient, seBorder]
-        end
-        inherited m_cbTriggerType: TComboBox
-          StyleElements = [seFont, seClient, seBorder]
-        end
-        inherited m_cbComType: TComboBox
-          StyleElements = [seFont, seClient, seBorder]
-        end
-        inherited m_cbPort: TComboBox
-          StyleElements = [seFont, seClient, seBorder]
-        end
-        inherited m_cbBaudRate: TComboBox
-          StyleElements = [seFont, seClient, seBorder]
         end
       end
     end

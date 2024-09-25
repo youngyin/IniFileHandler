@@ -7,6 +7,7 @@
 #include <Vcl.Controls.hpp>
 #include <Vcl.StdCtrls.hpp>
 #include <Vcl.Forms.hpp>
+#include <Vcl.Mask.hpp>
 //---------------------------------------------------------------------------
 #include <vector>
 
@@ -14,6 +15,9 @@
 #include "src\data\IpuConfig.h"
 #include "src\data\LaneConfig.h"
 #include "src\data\FtpConfig.h"
+#include "src\data\RemoteConfig.h"
+
+
 
 enum class FileUnitType{
 	IPU,
@@ -29,6 +33,7 @@ enum class SectionUnitType{
 	POSITION,
 	TRIGGERTYPE,
 	COMU,
+	CAMERA,
 	ETC
 };
 
@@ -45,8 +50,8 @@ __published:	// IDE-managed Components
 	TButton *m_btnIpuFileSave;
 	TButton *m_btnLaneFileLoad;
 	TButton *m_btnLaneFileSave;
-	TButton *Button6;
-	TButton *Button7;
+	TButton *m_btnRemoteFiledLoad;
+	TButton *m_btnRemoteFiledSave;
 	TButton *m_btnFtpFiledSave;
 	TButton *m_btnFtpFiledLoad;
 	TGroupBox *GroupBox7;
@@ -55,30 +60,20 @@ __published:	// IDE-managed Components
 	TStaticText *StaticText1;
 	TStaticText *StaticText2;
 	TStaticText *StaticText3;
-	TEdit *m_In_GateWayAddress;
-	TEdit *m_In_SubNetAddress;
-	TEdit *m_In_IPAddress;
 	TStaticText *StaticText4;
-	TEdit *m_Ex_IPAddress;
 	TStaticText *StaticText5;
-	TEdit *m_Ex_SubNetAddress;
 	TStaticText *StaticText6;
-	TEdit *m_Ex_GateWayAddress;
 	TStaticText *StaticText7;
-	TEdit *m_EditImgServerIP;
 	TEdit *m_EditImgServerPort;
 	TStaticText *StaticText8;
 	TStaticText *StaticText9;
-	TEdit *m_EditMCServerIP;
 	TStaticText *StaticText10;
 	TEdit *m_EditMCPort;
 	TStaticText *StaticText11;
-	TEdit *Edit11;
 	TStaticText *StaticText12;
-	TEdit *Edit12;
+	TEdit *m_EditRemoteServerPort;
 	TStaticText *StaticText13;
 	TStaticText *StaticText14;
-	TEdit *m_EditFtpServerAddress;
 	TEdit *m_EditFtpServerPort;
 	TStaticText *StaticText15;
 	TEdit *m_EditFtpLoginID;
@@ -111,30 +106,66 @@ __published:	// IDE-managed Components
 	TComboBox *m_cbComType;
 	TComboBox *m_cbPort;
 	TComboBox *m_cbBaudRate;
+	TMaskEdit *m_In_MaskEdit_IPAddress;
+	TMaskEdit *m_In_MaskEdit_SubNetAddress;
+	TMaskEdit *m_In_MaskEdit_GateWayAddress;
+	TMaskEdit *m_Ex_MaskEdit_IPAddress;
+	TMaskEdit *m_Ex_MaskEdit_SubNetAddress;
+	TMaskEdit *m_Ex_MaskEdit_GateWayAddress;
+	TMaskEdit *m_MaskEditFtpServerAddress;
+	TMaskEdit *m_MaskEditRemoteServerAddress;
+	TMaskEdit *m_MaskEditImgServerIP;
+	TMaskEdit *m_MaskEditMCServerIP;
+	TLabel *m_Label_OneIPUSelectExpaln;
 	void __fastcall m_btnIpuFileLoadClick(TObject *Sender);
 	void __fastcall m_btnIpuFileSaveClick(TObject *Sender);
 	void __fastcall m_btnLaneFileLoadClick(TObject *Sender);
 	void __fastcall m_btnLaneFileSaveClick(TObject *Sender);
 	void __fastcall m_btnFtpFiledLoadClick(TObject *Sender);
 	void __fastcall m_btnFtpFiledSaveClick(TObject *Sender);
+	void __fastcall m_btnRemoteFiledSaveClick(TObject *Sender);
+	void __fastcall m_btnRemoteFiledLoadClick(TObject *Sender);
+	void __fastcall m_cbOpTypeChange(TObject *Sender);
+	void __fastcall m_EditFtpServerPortKeyPress(TObject *Sender, System::WideChar &Key);
+	void __fastcall m_EditFtpLoginPWKeyPress(TObject *Sender, System::WideChar &Key);
+	void __fastcall m_EditRemoteServerPortKeyPress(TObject *Sender, System::WideChar &Key);
+	void __fastcall m_EditImgServerPortKeyPress(TObject *Sender, System::WideChar &Key);
+	void __fastcall m_EditMCPortKeyPress(TObject *Sender, System::WideChar &Key);
+	void __fastcall m_cbOneipuChange(TObject *Sender);
+
+
+
+
 private:	// User declarations
 	void loadValues(const String &strFilePath, const FileUnitType nSelectType);
 	void displayValues_IPU(const IpuConfig &configValues);
 	void displayValues_LANE(const LaneConfig &configValues);
 	void displayValues_FTP(const FtpConfig &configValues);
+	void displayValues_REMOTE(const RemoteConfig &configValues);
+
 	void InitComboBox();
+	void InitComboBoxStyle();
+	void InitEdit();
+	void InitLoadConfigData();
+	void InitMaskEdit();
+
 	String selectIniFile(TComponent* Owner);
 	/** String Split*/
 	std::vector<std::string> SplitString(const std::string& str, char delimiter);
-	String m_strFilePath;
+
 	void changeDataFromUI(IpuConfig &configValues);
-	void changeDataFromUI_LANE(LaneConfig &configValues);
+	void changeDataFromUI(LaneConfig &configValues);
 	void changeDataFromUI(FtpConfig &configValues);
+	void changeDataFromUI(RemoteConfig &configValues);
+
 	bool NetworkConfigChange(const std::string& adapterName, const std::string& ipAddress, const std::string& subnetMask, const std::string& gateway);
 	bool ExecuteNetshCommand(const std::string& command);
-
 	Variant ChangeValue_RealToShow(const String strValue, const SectionUnitType Unit);
 	Variant ChangeValue_ShowToReal(const String strValue, const SectionUnitType Unit);
+
+	String m_strFilePath;
+	String GetFinalFilePath() { return m_strFilePath; }
+	void SetFinalFilePath(String strFilePath) { m_strFilePath = strFilePath; }
 public:		// User declarations
 	__fastcall TFrame_ConfigSetting(TComponent* Owner);
 };

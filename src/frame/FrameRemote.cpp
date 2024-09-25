@@ -18,9 +18,123 @@ TFrame_ConfigSetting *Frame_ConfigSetting;
 __fastcall TFrame_ConfigSetting::TFrame_ConfigSetting(TComponent* Owner)
 	: TFrame(Owner)
 {
-    InitComboBox();
+	InitComboBox();
+    InitComboBoxStyle();
+	InitEdit();
+	InitMaskEdit();
 }
 
+void TFrame_ConfigSetting::InitComboBox(){
+	//확정영상
+	m_cbOneipu->Items->Add("O");//0
+	m_cbOneipu->Items->Add("X");//1
+
+	//축중자료
+	m_cbAxisWeight->Items->Add("O");//1
+	m_cbAxisWeight->Items->Add("X");//0
+
+	//인터페이스 설정
+	m_cbOpType->Items->Add("Hipass 신형");//22
+	m_cbOpType->Items->Add("Hipass 구형");//21
+	m_cbOpType->Items->Add("TCS/무인정산기");//11
+	m_cbOpType->Items->Add("TCS");//10
+	m_cbOpType->Items->Add("UTC tcs");//15
+	m_cbOpType->Items->Add("MINJA tcs");//18
+
+	//차로타입
+	m_cbSystemType->Items->Add("폐쇄식 출구");//"O"
+	m_cbSystemType->Items->Add("폐쇄식 입구");//"I"
+	m_cbSystemType->Items->Add("개방식 상행");//"U"
+	m_cbSystemType->Items->Add("개방식 하행");//"D"
+
+	//전/후면
+	m_cbPosition->Items->Add("전면");//"FRONT"
+	m_cbPosition->Items->Add("후면");//"REAR"
+
+	//검지
+	m_cbTriggerType->Items->Add("트리거 검지");//1
+	m_cbTriggerType->Items->Add("동영상 검지");//99
+
+	//통신방식
+	m_cbComType->Items->Add("SERIAL");//"SERIAL"
+	m_cbComType->Items->Add("TCP/IP");//"ETHERNET"
+
+	//포트
+	String strComName = "COM";
+	for(int a = 0; a < 10; ++a)
+	{
+		String strInputData = strComName + String(a);
+		m_cbPort->Items->Add(strInputData);//"COM1~10"
+	}
+
+	//BaudRate
+	m_cbBaudRate->Items->Add("9600");//9600
+	m_cbBaudRate->Items->Add("14400");//14400
+	m_cbBaudRate->Items->Add("19200");//19200
+	m_cbBaudRate->Items->Add("38400");//38400
+	m_cbBaudRate->Items->Add("57600");//57600
+	m_cbBaudRate->Items->Add("115200");//115200
+
+	//재인식서버
+
+    //주제어기서버
+}
+
+void TFrame_ConfigSetting::InitComboBoxStyle(){
+	//확정영상
+	m_cbOneipu->Style = csDropDownList;
+	//축중자료
+	m_cbAxisWeight->Style = csDropDownList;
+	//인터페이스 설정
+	m_cbOpType->Style = csDropDownList;
+	//차로타입
+	m_cbSystemType->Style = csDropDownList;
+	//전/후면
+	m_cbPosition->Style = csDropDownList;
+	//검지
+	m_cbTriggerType->Style = csDropDownList;
+	//통신방식
+	m_cbComType->Style = csDropDownList;
+	//포트
+	m_cbPort->Style = csDropDownList;
+	//BaudRate
+	m_cbBaudRate->Style = csDropDownList;
+}
+
+void TFrame_ConfigSetting::InitMaskEdit(){
+	m_In_MaskEdit_IPAddress->EditMask = "000.000.000.000;1;_";
+	m_In_MaskEdit_SubNetAddress->EditMask = "000.000.000.000;1;_";
+	m_In_MaskEdit_GateWayAddress->EditMask = "000.000.000.000;1;_";
+	m_Ex_MaskEdit_IPAddress->EditMask = "000.000.000.000;1;_";
+	m_Ex_MaskEdit_SubNetAddress->EditMask = "000.000.000.000;1;_";
+	m_Ex_MaskEdit_GateWayAddress->EditMask = "000.000.000.000;1;_";
+	m_MaskEditFtpServerAddress->EditMask = "000.000.000.000;1;_";
+	m_MaskEditRemoteServerAddress->EditMask = "000.000.000.000;1;_";
+	m_MaskEditImgServerIP->EditMask = "000.000.000.000;1;_";
+	m_MaskEditMCServerIP->EditMask = "000.000.000.000;1;_";
+}
+
+void TFrame_ConfigSetting::InitEdit(){
+	m_MaskEditMCServerIP->Enabled = FALSE;
+	m_EditMCPort->Enabled = FALSE;
+}
+
+void TFrame_ConfigSetting::InitLoadConfigData(){
+
+	String strFilePath;
+
+	strFilePath = "D:\\SmartTolling\\Init\\LaneSetting.ini";
+	if(!strFilePath.IsEmpty()) { loadValues(strFilePath, FileUnitType::LANE); }
+
+	strFilePath = "D:\\SmartTolling\\Init\\IPU_netconfig.ini";
+	if(!strFilePath.IsEmpty()) { loadValues(strFilePath, FileUnitType::IPU); }
+
+	strFilePath = "D:\\SmartTolling\\SUpload\\FTPUpload.ini";
+	if(!strFilePath.IsEmpty()) { loadValues(strFilePath, FileUnitType::FTP); }
+
+	strFilePath = "D:\\SmartTolling\\Init\\REMOTESetting.ini";
+	if(!strFilePath.IsEmpty()) { loadValues(strFilePath, FileUnitType::REMOTE); }
+}
 
 String TFrame_ConfigSetting::selectIniFile(TComponent* Owner){
 	String strFilePath;
@@ -43,6 +157,7 @@ void TFrame_ConfigSetting::loadValues(const String &strFilePath, const FileUnitT
 	IpuConfig Ipu_fileConfigData;
 	LaneConfig Lane_fileConfigData;
 	FtpConfig Ftp_fileConfigData;
+    RemoteConfig Remote_fileConfigData;
 
 	String strPath = strFilePath;
 
@@ -57,6 +172,8 @@ void TFrame_ConfigSetting::loadValues(const String &strFilePath, const FileUnitT
 			displayValues_LANE(Lane_fileConfigData);
 			break;
 		case FileUnitType::REMOTE:
+			Remote_fileConfigData.readFileValues(strPath);
+			displayValues_REMOTE(Remote_fileConfigData);
 			break;
 		case FileUnitType::FTP:
 			Ftp_fileConfigData.readFileValues(strPath);
@@ -66,25 +183,23 @@ void TFrame_ConfigSetting::loadValues(const String &strFilePath, const FileUnitT
 			break;
     }
 
-	m_strFilePath = strFilePath;
+	SetFinalFilePath(strFilePath);
 }
-
 //---------------------------------------------------------------------------
 
-
+//---------------------------------------------------------------------------
 void TFrame_ConfigSetting::displayValues_IPU(const IpuConfig &configValues) {
 	//configValues.defaultSlot.get();
 	//configValues.lastSlot.get();
 	//configValues.lastSet.get();
 	//configValues.interfaceIn.get();
-
-	configValues.ipIn.get();
-	configValues.ipOut.get();
-
 	//configValues.interfaceOut.get();
 	//configValues.ipOut.get();
 	//configValues.interfaceCam1.get();
 	//configValues.ipCam1.get();
+
+	configValues.ipIn.get();
+	configValues.ipOut.get();
 
 	std::vector<std::string> result_In = SplitString(AnsiString(configValues.ipIn.get()).c_str(), '/');
 
@@ -96,9 +211,9 @@ void TFrame_ConfigSetting::displayValues_IPU(const IpuConfig &configValues) {
 		a++;
 	}
 
-	m_In_IPAddress->Text = strInipAddress[0];
-	m_In_SubNetAddress->Text = strInipAddress[1];
-	if(strInipAddress[2] != ""){ m_In_GateWayAddress->Text = strInipAddress[2];}
+	m_In_MaskEdit_IPAddress->Text = strInipAddress[0];
+	m_In_MaskEdit_SubNetAddress->Text = strInipAddress[1];
+	if(strInipAddress[2] != ""){ m_In_MaskEdit_GateWayAddress->Text = strInipAddress[2];}
 
 
 	std::vector<std::string> result_Ex = SplitString(AnsiString(configValues.ipOut.get()).c_str(), '/');
@@ -111,12 +226,10 @@ void TFrame_ConfigSetting::displayValues_IPU(const IpuConfig &configValues) {
 		b++;
 	}
 
-	m_Ex_IPAddress->Text = strExipAddress[0];
-	m_Ex_SubNetAddress->Text = strExipAddress[1];
-	if(strExipAddress[2] != ""){ m_Ex_GateWayAddress->Text = strExipAddress[2];}
+	m_Ex_MaskEdit_IPAddress->Text = strExipAddress[0];
+	m_Ex_MaskEdit_SubNetAddress->Text = strExipAddress[1];
+	if(strExipAddress[2] != ""){ m_Ex_MaskEdit_GateWayAddress->Text = strExipAddress[2];}
 }
-
-//---------------------------------------------------------------------------
 
 void TFrame_ConfigSetting::displayValues_LANE(const LaneConfig &configValues){
 	//Real로 읽은 값을 Show 값으로 치환 후 Add된 것과 같은게 있으면 해당 부분을 CurSel한다.
@@ -125,6 +238,15 @@ void TFrame_ConfigSetting::displayValues_LANE(const LaneConfig &configValues){
 	m_EditOneIPU->Text = configValues.nOneipuOnly.get();
 	nIndex = m_cbOneipu->Items->IndexOf(ChangeValue_RealToShow(configValues.nOneipuOnly.get(), SectionUnitType::DATA));
 	m_cbOneipu->ItemIndex = nIndex;
+
+	if(configValues.nOneipuOnly.get() == REAL_DATA_O)
+	{
+		m_Label_OneIPUSelectExpaln->Caption = "전먼 + 후면 구성";
+	}
+	else if(configValues.nOneipuOnly.get() == REAL_DATA_X)
+	{
+		m_Label_OneIPUSelectExpaln->Caption = "전면 or 후면 단독 구성(기본)";
+	}
 
 	m_EditAxisWeight->Text = configValues.nAxisWeight.get();
 	nIndex = m_cbAxisWeight->Items->IndexOf(ChangeValue_RealToShow(configValues.nAxisWeight.get(), SectionUnitType::DATA));
@@ -160,14 +282,42 @@ void TFrame_ConfigSetting::displayValues_LANE(const LaneConfig &configValues){
 	m_cbBaudRate->ItemIndex = nIndex;
 
 	//MIS(재인식서버)
-	m_EditImgServerIP->Text = configValues.strImageServer.get();
+	m_MaskEditImgServerIP->Text = configValues.strImageServer.get();
 	m_EditImgServerPort->Text = configValues.strImagePort.get();
 
 	//MIS(주제어기 서버)
-	m_EditMCServerIP->Text = configValues.strMCImageServer.get();
+	m_MaskEditMCServerIP->Text = configValues.strMCImageServer.get();
 	m_EditMCPort->Text = configValues.strMCImagePort.get();
+
+	//"TCS/무인정산기"인 경우만 주제어기 서버 Enabled 처리 그외는 Disabled
+	if(m_EditOpType->Text == REAL_OPTYPE_11)
+	{
+		m_MaskEditMCServerIP->Enabled = TRUE;
+		m_EditMCPort->Enabled = TRUE;
+	}
+	else
+	{
+		m_MaskEditMCServerIP->Enabled = FALSE;
+        m_EditMCPort->Enabled = FALSE;
+	}
 }
 
+void TFrame_ConfigSetting::displayValues_FTP(const FtpConfig &configValues){
+	//CONFIG
+	m_MaskEditFtpServerAddress->Text = configValues.ftpServerAddress.get();
+	m_EditFtpServerPort->Text = configValues.ftpServerPort.get();
+	m_EditFtpLoginID->Text = configValues.ftpLoginID.get();
+	m_EditFtpLoginPW->Text = configValues.ftpLoginPW.get();
+}
+
+void TFrame_ConfigSetting::displayValues_REMOTE(const RemoteConfig &configValues){
+	//CONFIG
+	m_MaskEditRemoteServerAddress->Text = configValues.RemoteServerAddress.get();
+	m_EditRemoteServerPort->Text = configValues.RemoteServerPort.get();
+}
+//---------------------------------------------------------------------------
+
+//---------------------------------------------------------------------------
 Variant TFrame_ConfigSetting::ChangeValue_RealToShow(const String strValue, const SectionUnitType Unit) {
 	Variant strRetunValue = strValue;
 
@@ -246,6 +396,10 @@ Variant TFrame_ConfigSetting::ChangeValue_ShowToReal(const String strValue, cons
 			if(strValue == SHOW_POSITION_FRONT) { return strRetunValue = REAL_POSITION_FRONT;}
 			else if(strValue == SHOW_POSITION_REAR) { return strRetunValue = REAL_POSITION_REAR;}
 			break;
+		case SectionUnitType::CAMERA:
+			if(strValue == SHOW_POSITION_FRONT) { return strRetunValue = REAL_CAMERA_DEVTYPE_FRONT;}
+			else if(strValue == SHOW_POSITION_REAR) { return strRetunValue = REAL_CAMERA_DEVTYPE_REAR;}
+			break;
 		case SectionUnitType::ETC:
 			return strValue;
 			break;
@@ -256,64 +410,18 @@ Variant TFrame_ConfigSetting::ChangeValue_ShowToReal(const String strValue, cons
 
 	return strRetunValue;
 }
+//---------------------------------------------------------------------------
 
-
-
-std::vector<std::string> TFrame_ConfigSetting::SplitString(const std::string& str, char delimiter)
-{
-	std::vector<std::string> tokens;
-	std::stringstream ss(str);
-	std::string token;
-
-	while (std::getline(ss, token, delimiter))
-	{
-		tokens.push_back(token);
-	}
-
-	return tokens;
-}
-
-void __fastcall TFrame_ConfigSetting::m_btnIpuFileSaveClick(TObject *Sender)
-{
-	String message = "저장 후 적용";
-	IpuConfig m_fileConfigData;
-	m_fileConfigData.readFileValues(m_strFilePath);
-	changeDataFromUI(m_fileConfigData);
-
-	int result = Application->MessageBox((message+" 하시겠습니까?").c_str(), L"확인", MB_YESNO | MB_ICONQUESTION);
-	if (result == mrYes) {
-		m_fileConfigData.writeValues(m_strFilePath);//쓰기
-		loadValues(m_strFilePath, FileUnitType::IPU);//쓰기 완료 후 읽기
-
-		//네트워크 설정 변경.
-		//std::string adapterName = AnsiString(m_edtInterfaceIn->Text).c_str();
-		NetworkConfigChange("IN"
-		, AnsiString(m_In_IPAddress->Text).c_str()
-		, AnsiString(m_In_SubNetAddress->Text).c_str()
-		, AnsiString(m_In_GateWayAddress->Text).c_str() );
-		//std::string adapterName = AnsiString(m_edtInterfaceOut->Text).c_str();
-		NetworkConfigChange("EX"
-		, AnsiString(m_Ex_IPAddress->Text).c_str()
-		, AnsiString(m_Ex_SubNetAddress->Text).c_str()
-		, AnsiString(m_Ex_GateWayAddress->Text).c_str() );
-
-		ShowMessage("저장되었습니다.");
-	}
-	else if (result == mrNo) {
-		//ShowMessage("값을 다시 불러옵니다.");
-		//loadValues();
-	}
-}
-
+//---------------------------------------------------------------------------
 void TFrame_ConfigSetting::changeDataFromUI(IpuConfig &configValues) {
-	String strExIPText = m_Ex_IPAddress->Text + "/" + m_Ex_SubNetAddress->Text + "/" + m_Ex_GateWayAddress->Text;
-	String strInIPText = m_In_IPAddress->Text + "/" + m_In_SubNetAddress->Text + "/" + m_In_GateWayAddress->Text;
+	String strExIPText = m_Ex_MaskEdit_IPAddress->Text + "/" + m_Ex_MaskEdit_SubNetAddress->Text + "/" + m_Ex_MaskEdit_GateWayAddress->Text;
+	String strInIPText = m_In_MaskEdit_IPAddress->Text + "/" + m_In_MaskEdit_SubNetAddress->Text + "/" + m_In_MaskEdit_GateWayAddress->Text;
 
 	configValues.ipIn.change(strInIPText);
 	configValues.ipOut.change(strExIPText);
 }
 
-void TFrame_ConfigSetting::changeDataFromUI_LANE(LaneConfig &configValues) {
+void TFrame_ConfigSetting::changeDataFromUI(LaneConfig &configValues) {
 	//ChangeValue_ShowToReal
 	//[SYSTEM]
 	int nSelectIndex = 0;
@@ -333,10 +441,12 @@ void TFrame_ConfigSetting::changeDataFromUI_LANE(LaneConfig &configValues) {
 
 	nSelectIndex = m_cbPosition->ItemIndex;
 	configValues.strPostion.change(ChangeValue_ShowToReal(m_cbPosition->Items->Strings[nSelectIndex], SectionUnitType::POSITION));
+	//CAMERA
+	//Position변경 시 CAMERA#1 Section에 DevType도 같이 변경 필수
+	configValues.nDevType.change(ChangeValue_ShowToReal(m_cbPosition->Items->Strings[nSelectIndex], SectionUnitType::CAMERA));
 
 	nSelectIndex = m_cbTriggerType->ItemIndex;
 	configValues.nTriggerType.change(ChangeValue_ShowToReal(m_cbTriggerType->Items->Strings[nSelectIndex], SectionUnitType::TRIGGERTYPE));
-
 
 	//[HIPASS]
 	nSelectIndex = m_cbComType->ItemIndex;
@@ -348,72 +458,39 @@ void TFrame_ConfigSetting::changeDataFromUI_LANE(LaneConfig &configValues) {
 	nSelectIndex = m_cbBaudRate->ItemIndex;
 	configValues.nBaudRate.change(ChangeValue_ShowToReal(m_cbBaudRate->Items->Strings[nSelectIndex], SectionUnitType::ETC));
 
-    /*
 	//[MIS]
-	configValues.strImageServer.change();
-	configValues.strImagePort.change();
-	configValues.strMCImageServer.change();
-	configValues.strMCImagePort.change();
-    */
 
+	//재인식 서버
+	configValues.strImageServer.change(m_MaskEditImgServerIP->Text);
+	configValues.strImagePort.change(StrToInt(m_EditImgServerPort->Text));
+
+    //주제어기 서버
+	configValues.strMCImageServer.change(m_MaskEditMCServerIP->Text);
+	configValues.strMCImagePort.change(StrToInt(m_EditMCPort->Text));
 }
 
-void TFrame_ConfigSetting::InitComboBox(){
-	//확정영상
-	m_cbOneipu->Items->Add("O");//0
-	m_cbOneipu->Items->Add("X");//1
+void TFrame_ConfigSetting::changeDataFromUI(FtpConfig &configValues) {
+	String strFtpServerAdress = m_MaskEditFtpServerAddress->Text;
+	String strFtpServerPort   = m_EditFtpServerPort->Text;
+	String strFtpLoginID      = m_EditFtpLoginID->Text;
+	String strFtpLoginPW      = m_EditFtpLoginPW->Text;
 
-	//축중자료
-	m_cbAxisWeight->Items->Add("O");//1
-	m_cbAxisWeight->Items->Add("X");//0
-
-	//인터페이스 설정
-	m_cbOpType->Items->Add("Hipass 신형");//22
-	m_cbOpType->Items->Add("Hipass 구형");//21
-	m_cbOpType->Items->Add("TCS/무인정산기");//11
-	m_cbOpType->Items->Add("TCS");//10
-	m_cbOpType->Items->Add("UTC tcs");//15
-	m_cbOpType->Items->Add("MINJA tcs");//18
-
-	//차로타입
-	m_cbSystemType->Items->Add("폐쇄식 출구");//"O"
-	m_cbSystemType->Items->Add("폐쇄식 입구");//"I"
-	m_cbSystemType->Items->Add("개방식 상행");//"U"
-	m_cbSystemType->Items->Add("개방식 하행");//"D"
-
-	//전/후면
-	m_cbPosition->Items->Add("전면");//"FRONT"
-	m_cbPosition->Items->Add("후면");//"REAR"
-
-	//검지
-	m_cbTriggerType->Items->Add("트리거 검지");//1
-	m_cbTriggerType->Items->Add("동영상 검지");//99
-
-	//통신방식
-	m_cbComType->Items->Add("SERIAL");//"SERIAL"
-	m_cbComType->Items->Add("TCP/IP");//"ETHERNET"
-
-	//포트
-	String strComName = "COM";
-	for(int a = 0; a < 10; ++a)
-	{
-		String strInputData = strComName + String(a);
-		m_cbPort->Items->Add(strInputData);//"COM1~10"
-	}
-
-	//BaudRate
-	m_cbBaudRate->Items->Add("9600");//9600
-	m_cbBaudRate->Items->Add("14400");//14400
-	m_cbBaudRate->Items->Add("19200");//19200
-	m_cbBaudRate->Items->Add("38400");//38400
-	m_cbBaudRate->Items->Add("57600");//57600
-	m_cbBaudRate->Items->Add("115200");//115200
-
-	//재인식서버
-
-    //주제어기서버
+	configValues.ftpServerAddress.change(strFtpServerAdress);
+	configValues.ftpServerPort.change(strFtpServerPort);
+	configValues.ftpLoginID.change(strFtpLoginID);
+	configValues.ftpLoginPW.change(strFtpLoginPW);
 }
 
+void TFrame_ConfigSetting::changeDataFromUI(RemoteConfig &configValues) {
+	String strRemoteServerAddress = m_MaskEditRemoteServerAddress->Text;
+	String strRemoteServerPort = m_EditRemoteServerPort->Text;
+
+	configValues.RemoteServerAddress.change(strRemoteServerAddress);
+	configValues.RemoteServerPort.change(StrToInt(strRemoteServerPort));
+}
+//---------------------------------------------------------------------------
+
+//---------------------------------------------------------------------------
 //네트워크 설정 변경 함수
 bool TFrame_ConfigSetting::NetworkConfigChange(const std::string& adapterName, const std::string& ipAddress, const std::string& subnetMask, const std::string& gateway) {
 
@@ -428,7 +505,6 @@ bool TFrame_ConfigSetting::NetworkConfigChange(const std::string& adapterName, c
 
 	return 0;
 }
-
 //네트워크 설정 변경 쉘 스크립트 동작 함수
 bool TFrame_ConfigSetting::ExecuteNetshCommand(const std::string& command) {
 	std::string fullCommand = "netsh " + command;
@@ -436,24 +512,36 @@ bool TFrame_ConfigSetting::ExecuteNetshCommand(const std::string& command) {
     return (result == 0);
 }
 
+std::vector<std::string> TFrame_ConfigSetting::SplitString(const std::string& str, char delimiter)
+{
+	std::vector<std::string> tokens;
+	std::stringstream ss(str);
+	std::string token;
+
+	while (std::getline(ss, token, delimiter))
+	{
+		tokens.push_back(token);
+	}
+
+	return tokens;
+}
 //---------------------------------------------------------------------------
 
 
-//차로설정 SECSION
+//---------------------------------------------------------------------------
 void __fastcall TFrame_ConfigSetting::m_btnLaneFileLoadClick(TObject *Sender)
 {
 	// find file
-	String strFilePath = selectIniFile(this);
-
-	// load data
+	//String strFilePath = selectIniFile(this);
+	String strFilePath = "D:\\SmartTolling\\Init\\LaneSetting.ini";
 	if(!strFilePath.IsEmpty()) { loadValues(strFilePath, FileUnitType::LANE); }
 }
-//---------------------------------------------------------------------------
 
 void __fastcall TFrame_ConfigSetting::m_btnIpuFileLoadClick(TObject *Sender)
 {
 	// find file
-	String strFilePath = selectIniFile(this);
+	//String strFilePath = selectIniFile(this);
+	String strFilePath = "D:\\SmartTolling\\Init\\IPU_netconfig.ini";
 
 	// load data
 	if(!strFilePath.IsEmpty()) { loadValues(strFilePath, FileUnitType::IPU); }
@@ -462,68 +550,38 @@ void __fastcall TFrame_ConfigSetting::m_btnIpuFileLoadClick(TObject *Sender)
 void __fastcall TFrame_ConfigSetting::m_btnFtpFiledLoadClick(TObject *Sender)
 {
 	// find file
-	String strFilePath = selectIniFile(this);
+	//String strFilePath = selectIniFile(this);
+	String strFilePath = "D:\\SmartTolling\\SUpload\\FTPUpload.ini";
 
 	// load data
 	if(!strFilePath.IsEmpty()) { loadValues(strFilePath, FileUnitType::FTP); }
 }
 
-void __fastcall TFrame_ConfigSetting::m_btnLaneFileSaveClick(TObject *Sender)
+void __fastcall TFrame_ConfigSetting::m_btnRemoteFiledLoadClick(TObject *Sender)
 {
-	String message = "저장 후 적용";
-	LaneConfig m_fileConfigData;
-	m_fileConfigData.readFileValues(m_strFilePath);
-	changeDataFromUI_LANE(m_fileConfigData);
+	// find file
+	//String strFilePath = selectIniFile(this);
+	String strFilePath = "D:\\SmartTolling\\Init\\REMOTESetting.ini";
 
-	int result = Application->MessageBox((message+" 하시겠습니까?").c_str(), L"확인", MB_YESNO | MB_ICONQUESTION);
-	if (result == mrYes) {
-		m_fileConfigData.writeValues(m_strFilePath);//쓰기
-		loadValues(m_strFilePath, FileUnitType::LANE);//쓰기 완료 후 읽기
-
-		ShowMessage("저장되었습니다(LANE).");
-	}
-	else if (result == mrNo) {
-		//ShowMessage("값을 다시 불러옵니다.");
-		//loadValues();
-	}
+	// load data
+	if(!strFilePath.IsEmpty()) { loadValues(strFilePath, FileUnitType::REMOTE); }
 }
 //---------------------------------------------------------------------------
 
-//FTP 설정
-
-void TFrame_ConfigSetting::displayValues_FTP(const FtpConfig &configValues){
-	//CONFIG
-	m_EditFtpServerAddress->Text = configValues.ftpServerAddress.get();
-	m_EditFtpServerPort->Text = configValues.ftpServerPort.get();
-	m_EditFtpLoginID->Text = configValues.ftpLoginID.get();
-	m_EditFtpLoginPW->Text = configValues.ftpLoginPW.get();
-}
-
-void TFrame_ConfigSetting::changeDataFromUI(FtpConfig &configValues) {
-	String strFtpServerAdress = m_EditFtpServerAddress->Text;
-	String strFtpServerPort   = m_EditFtpServerPort->Text;
-	String strFtpLoginID      = m_EditFtpLoginID->Text;
-	String strFtpLoginPW      = m_EditFtpLoginPW->Text;
-
-	configValues.ftpServerAddress.change(strFtpServerAdress);
-	configValues.ftpServerPort.change(strFtpServerPort);
-	configValues.ftpLoginID.change(strFtpLoginID);
-	configValues.ftpLoginPW.change(strFtpLoginPW);
-}
-
 //---------------------------------------------------------------------------
-
 void __fastcall TFrame_ConfigSetting::m_btnFtpFiledSaveClick(TObject *Sender)
 {
 	String message = "저장 후 적용";
 	FtpConfig m_fileConfigData;
-	m_fileConfigData.readFileValues(m_strFilePath);
+	String strFilePath = FTP_FILE_PATH;
+
+	m_fileConfigData.readFileValues(strFilePath);
 	changeDataFromUI(m_fileConfigData);
 
 	int result = Application->MessageBox((message+" 하시겠습니까?").c_str(), L"확인", MB_YESNO | MB_ICONQUESTION);
 	if (result == mrYes) {
-		m_fileConfigData.writeValues(m_strFilePath);//쓰기
-		loadValues(m_strFilePath, FileUnitType::FTP);//쓰기 완료 후 읽기
+		m_fileConfigData.writeValues(strFilePath);//쓰기
+		loadValues(strFilePath, FileUnitType::FTP);//쓰기 완료 후 읽기
 
 		ShowMessage("저장되었습니다(FTP).");
 	}
@@ -533,5 +591,175 @@ void __fastcall TFrame_ConfigSetting::m_btnFtpFiledSaveClick(TObject *Sender)
 	}
 }
 
+void __fastcall TFrame_ConfigSetting::m_btnIpuFileSaveClick(TObject *Sender)
+{
+	String message = "저장 후 적용";
+	IpuConfig m_fileConfigData;
+	String strFilePath = IPU_FILE_PATH;
+
+	m_fileConfigData.readFileValues(strFilePath);
+	changeDataFromUI(m_fileConfigData);
+
+	int result = Application->MessageBox((message+" 하시겠습니까?").c_str(), L"확인", MB_YESNO | MB_ICONQUESTION);
+	if (result == mrYes) {
+		m_fileConfigData.writeValues(strFilePath);//쓰기
+		loadValues(strFilePath, FileUnitType::IPU);//쓰기 완료 후 읽기
+
+		//네트워크 설정 변경.
+		//std::string adapterName = AnsiString(m_edtInterfaceIn->Text).c_str();
+		NetworkConfigChange("IN"
+		, AnsiString(m_In_MaskEdit_IPAddress->Text).c_str()
+		, AnsiString(m_In_MaskEdit_SubNetAddress->Text).c_str()
+		, AnsiString(m_In_MaskEdit_GateWayAddress->Text).c_str() );
+		//std::string adapterName = AnsiString(m_edtInterfaceOut->Text).c_str();
+		NetworkConfigChange("EX"
+		, AnsiString(m_Ex_MaskEdit_IPAddress->Text).c_str()
+		, AnsiString(m_Ex_MaskEdit_SubNetAddress->Text).c_str()
+		, AnsiString(m_Ex_MaskEdit_GateWayAddress->Text).c_str() );
+
+		ShowMessage("저장되었습니다(IPU).");
+	}
+	else if (result == mrNo) {
+		//ShowMessage("값을 다시 불러옵니다.");
+		//loadValues();
+	}
+}
+
+void __fastcall TFrame_ConfigSetting::m_btnLaneFileSaveClick(TObject *Sender)
+{
+	String message = "저장 후 적용";
+	LaneConfig m_fileConfigData;
+	String strFilePath = LANE_FILE_PATH;
+
+	m_fileConfigData.readFileValues(strFilePath);
+	changeDataFromUI(m_fileConfigData);
+
+	int result = Application->MessageBox((message+" 하시겠습니까?").c_str(), L"확인", MB_YESNO | MB_ICONQUESTION);
+	if (result == mrYes) {
+		m_fileConfigData.writeValues(strFilePath);//쓰기
+		loadValues(strFilePath, FileUnitType::LANE);//쓰기 완료 후 읽기
+
+		ShowMessage("저장되었습니다(LANE).");
+	}
+	else if (result == mrNo) {
+		//ShowMessage("값을 다시 불러옵니다.");
+		//loadValues();
+	}
+}
+
+void __fastcall TFrame_ConfigSetting::m_btnRemoteFiledSaveClick(TObject *Sender)
+{
+	String message = "저장 후 적용";
+	RemoteConfig m_fileConfigData;
+	String strFilePath = REMOTE_FILE_PATH;
+
+	m_fileConfigData.readFileValues(strFilePath);
+	changeDataFromUI(m_fileConfigData);
+
+	int result = Application->MessageBox((message+" 하시겠습니까?").c_str(), L"확인", MB_YESNO | MB_ICONQUESTION);
+	if (result == mrYes) {
+		m_fileConfigData.writeValues(strFilePath);//쓰기
+		loadValues(strFilePath, FileUnitType::REMOTE);//쓰기 완료 후 읽기
+
+		ShowMessage("저장되었습니다(REMOTE).");
+	}
+	else if (result == mrNo) {
+		//ShowMessage("값을 다시 불러옵니다.");
+		//loadValues();
+	}
+}
+//---------------------------------------------------------------------------
+
+
+//---------------------------------------------------------------------------
+
+void __fastcall TFrame_ConfigSetting::m_cbOpTypeChange(TObject *Sender)
+{
+	int nSelectIndex = 0;
+
+	nSelectIndex = m_cbOpType->ItemIndex;
+	if(m_cbOpType->Items->Strings[nSelectIndex] == SHOW_OPTYPE_11)
+	{
+		m_MaskEditMCServerIP->Enabled = TRUE;
+		m_EditMCPort->Enabled = TRUE;
+	}
+	else
+	{
+		m_MaskEditMCServerIP->Enabled = FALSE;
+        m_EditMCPort->Enabled = FALSE;
+	}
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFrame_ConfigSetting::m_EditFtpServerPortKeyPress(TObject *Sender,
+          System::WideChar &Key)
+{
+	if (!isdigit(Key) && Key != VK_BACK && Key != '.' && Key != '-')
+	{
+		Key = 0; // 입력된 키를 무시
+		ShowMessage("숫자만 입력 가능 합니다.");
+	}
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFrame_ConfigSetting::m_EditFtpLoginPWKeyPress(TObject *Sender, System::WideChar &Key)
+
+{
+	if (!isdigit(Key) && Key != VK_BACK && Key != '.' && Key != '-')
+	{
+		Key = 0; // 입력된 키를 무시
+		ShowMessage("숫자만 입력 가능 합니다.");
+	}
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFrame_ConfigSetting::m_EditRemoteServerPortKeyPress(TObject *Sender,
+          System::WideChar &Key)
+{
+	if (!isdigit(Key) && Key != VK_BACK && Key != '.' && Key != '-')
+	{
+		Key = 0; // 입력된 키를 무시
+		ShowMessage("숫자만 입력 가능 합니다.");
+	}
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFrame_ConfigSetting::m_EditImgServerPortKeyPress(TObject *Sender,
+          System::WideChar &Key)
+{
+	if (!isdigit(Key) && Key != VK_BACK && Key != '.' && Key != '-')
+	{
+		Key = 0; // 입력된 키를 무시
+		ShowMessage("숫자만 입력 가능 합니다.");
+	}
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFrame_ConfigSetting::m_EditMCPortKeyPress(TObject *Sender, System::WideChar &Key)
+
+{
+ 	if (!isdigit(Key) && Key != VK_BACK && Key != '.' && Key != '-')
+	{
+		Key = 0; // 입력된 키를 무시
+		ShowMessage("숫자만 입력 가능 합니다.");
+	}
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFrame_ConfigSetting::m_cbOneipuChange(TObject *Sender)
+{
+	int nSelectIndex = 0;
+
+	nSelectIndex = m_cbOneipu->ItemIndex;
+    String strValue = m_cbOneipu->Items->Strings[nSelectIndex];
+	if(strValue == SHOW_DATA_O)
+	{
+		m_Label_OneIPUSelectExpaln->Caption = "*설명:전면+ 후면 구성";
+	}
+	else if(strValue == SHOW_DATA_X)
+	{
+		m_Label_OneIPUSelectExpaln->Caption = "*설명:전면 or 후면 단독 구성(기본)";
+	}
+}
 //---------------------------------------------------------------------------
 
