@@ -14,7 +14,7 @@ void __fastcall LaneConfig::writeValues(String strFilePath) {
 	if (nOneipuOnly.isChange()) pIniManager->Write("SYSTEM", "ONEIPU_ONLY", nOneipuOnly.get());
 	if (nAxisWeight.isChange()) pIniManager->Write("SYSTEM", "AXISWEIGHT", nAxisWeight.get());
 	if (nOpType.isChange()) pIniManager->Write("SYSTEM", "OP_TYPE", nOpType.get());
-	if (nSystemType.isChange()) pIniManager->Write("SYSTEM", "SYSTEMTYPE", nSystemType.get());
+	if (strSystemType.isChange()) pIniManager->Write("SYSTEM", "SYSTEMTYPE", strSystemType.get());
 	if (strPostion.isChange()) pIniManager->Write("SYSTEM", "POSITION", strPostion.get());
 	if (nTriggerType.isChange()) pIniManager->Write("SYSTEM", "TRIGGERTYPE", nTriggerType.get());
 
@@ -46,7 +46,7 @@ void LaneConfig::readFileValues(String strFilePath) {
 	nOneipuOnly.init(pIniManager->Read("SYSTEM", "ONEIPU_ONLY"));
 	nAxisWeight.init(pIniManager->Read("SYSTEM", "AXISWEIGHT"));
 	nOpType.init(pIniManager->Read("SYSTEM", "OP_TYPE"));
-	nSystemType.init(pIniManager->Read("SYSTEM", "SYSTEMTYPE"));
+	strSystemType.init(pIniManager->Read("SYSTEM", "SYSTEMTYPE"));
 	strPostion.init(pIniManager->Read("SYSTEM", "POSITION"));
 	nTriggerType.init(pIniManager->Read("SYSTEM", "TRIGGERTYPE"));
 

@@ -17,7 +17,7 @@ public :
 	CValue<int> nOneipuOnly; //확정영상- O,X
 	CValue<int> nAxisWeight; //축중차로- O,X
 	CValue<int> nOpType;     //인터페이스 설정-Hipass 신형, Hipass 구형, TCS/무인정산기(22,21,11)
-	CValue<String> nSystemType; //차로타입- 폐쇄식 출구, 폐쇄식 입구, 개방식 상행, 개방식 하행(O,I,U,D)
+	CValue<String> strSystemType; //차로타입- 폐쇄식 출구, 폐쇄식 입구, 개방식 상행, 개방식 하행(O,I,U,D)
 
 	CValue<String> strPostion; //전/후면- 전면,후면(FRONT,REAR) * CAMERA section에 devType 값도 같이 변경해야 함.
 	CValue<int> nTriggerType; //검지 - 트리거 검지, 동영상 검지(1,99)

@@ -236,7 +236,7 @@ void TFrame_ConfigSetting::displayValues_LANE(const LaneConfig &configValues){
 	int nIndex = 0;
 	//SYSTEM
 	m_EditOneIPU->Text = configValues.nOneipuOnly.get();
-	nIndex = m_cbOneipu->Items->IndexOf(ChangeValue_RealToShow(configValues.nOneipuOnly.get(), SectionUnitType::DATA));
+	nIndex = m_cbOneipu->Items->IndexOf(ChangeValue_RealToShow(IntToStr(configValues.nOneipuOnly.get()), SectionUnitType::DATA));
 	m_cbOneipu->ItemIndex = nIndex;
 
 	if(configValues.nOneipuOnly.get() == REAL_DATA_O)
@@ -249,15 +249,15 @@ void TFrame_ConfigSetting::displayValues_LANE(const LaneConfig &configValues){
 	}
 
 	m_EditAxisWeight->Text = configValues.nAxisWeight.get();
-	nIndex = m_cbAxisWeight->Items->IndexOf(ChangeValue_RealToShow(configValues.nAxisWeight.get(), SectionUnitType::DATA));
+	nIndex = m_cbAxisWeight->Items->IndexOf(ChangeValue_RealToShow(IntToStr(configValues.nAxisWeight.get()), SectionUnitType::DATA));
 	m_cbAxisWeight->ItemIndex = nIndex;
 
 	m_EditOpType->Text = configValues.nOpType.get();
-	nIndex = m_cbOpType->Items->IndexOf(ChangeValue_RealToShow(configValues.nOpType.get(), SectionUnitType::OPTYPE));
+	nIndex = m_cbOpType->Items->IndexOf(ChangeValue_RealToShow(IntToStr(configValues.nOpType.get()), SectionUnitType::OPTYPE));
 	m_cbOpType->ItemIndex = nIndex;
 
-	m_EditSystemType->Text = configValues.nSystemType.get();
-	nIndex = m_cbSystemType->Items->IndexOf(ChangeValue_RealToShow(configValues.nSystemType.get(), SectionUnitType::SYSTEMTYPE));
+	m_EditSystemType->Text = configValues.strSystemType.get();
+	nIndex = m_cbSystemType->Items->IndexOf(ChangeValue_RealToShow(configValues.strSystemType.get(), SectionUnitType::SYSTEMTYPE));
 	m_cbSystemType->ItemIndex = nIndex;
 
 	m_EditPosition->Text = configValues.strPostion.get();
@@ -265,7 +265,7 @@ void TFrame_ConfigSetting::displayValues_LANE(const LaneConfig &configValues){
 	m_cbPosition->ItemIndex = nIndex;
 
 	m_EditTriggerType->Text = configValues.nTriggerType.get();
-	nIndex = m_cbTriggerType->Items->IndexOf(ChangeValue_RealToShow(configValues.nTriggerType.get(), SectionUnitType::TRIGGERTYPE));
+	nIndex = m_cbTriggerType->Items->IndexOf(ChangeValue_RealToShow(IntToStr(configValues.nTriggerType.get()), SectionUnitType::TRIGGERTYPE));
 	m_cbTriggerType->ItemIndex = nIndex;
 
 	//HIPASS
@@ -278,7 +278,7 @@ void TFrame_ConfigSetting::displayValues_LANE(const LaneConfig &configValues){
 	m_cbPort->ItemIndex = nIndex;
 
 	m_EditComBaudRate->Text = configValues.nBaudRate.get();
-	nIndex = m_cbBaudRate->Items->IndexOf(ChangeValue_RealToShow(configValues.nBaudRate.get(), SectionUnitType::COMU));
+	nIndex = m_cbBaudRate->Items->IndexOf(ChangeValue_RealToShow(IntToStr(configValues.nBaudRate.get()), SectionUnitType::COMU));
 	m_cbBaudRate->ItemIndex = nIndex;
 
 	//MIS(재인식서버)
@@ -437,7 +437,7 @@ void TFrame_ConfigSetting::changeDataFromUI(LaneConfig &configValues) {
 	configValues.nOpType.change(ChangeValue_ShowToReal(m_cbOpType->Items->Strings[nSelectIndex], SectionUnitType::OPTYPE));
 
 	nSelectIndex = m_cbSystemType->ItemIndex;
-	configValues.nSystemType.change(ChangeValue_ShowToReal(m_cbSystemType->Items->Strings[nSelectIndex], SectionUnitType::SYSTEMTYPE));
+	configValues.strSystemType.change(ChangeValue_ShowToReal(m_cbSystemType->Items->Strings[nSelectIndex], SectionUnitType::SYSTEMTYPE));
 
 	nSelectIndex = m_cbPosition->ItemIndex;
 	configValues.strPostion.change(ChangeValue_ShowToReal(m_cbPosition->Items->Strings[nSelectIndex], SectionUnitType::POSITION));

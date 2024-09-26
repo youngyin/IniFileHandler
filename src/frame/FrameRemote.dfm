@@ -49,7 +49,7 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       object StaticText7: TStaticText
         Left = 54
         Top = 32
-        Width = 29
+        Width = 20
         Height = 32
         Caption = 'IP'
         Font.Charset = DEFAULT_CHARSET
@@ -64,7 +64,7 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
         Left = 142
         Top = 71
         Width = 139
-        Height = 39
+        Height = 36
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -20
@@ -77,7 +77,7 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       object StaticText8: TStaticText
         Left = 38
         Top = 74
-        Width = 61
+        Width = 52
         Height = 32
         Caption = 'PORT'
         Font.Charset = DEFAULT_CHARSET
@@ -142,7 +142,7 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
         Left = 137
         Top = 71
         Width = 139
-        Height = 37
+        Height = 36
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -20
@@ -162,8 +162,8 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       end
     end
     object StaticText17: TStaticText
-      Left = 27
-      Top = 42
+      Left = 11
+      Top = 34
       Width = 84
       Height = 32
       Caption = #54869#51221#50689#49345
@@ -183,8 +183,8 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       TabOrder = 3
     end
     object StaticText18: TStaticText
-      Left = 27
-      Top = 116
+      Left = 11
+      Top = 103
       Width = 84
       Height = 32
       Caption = #52629#51473#52264#47196
@@ -198,20 +198,20 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
     end
     object m_EditAxisWeight: TEdit
       Left = 317
-      Top = 72
+      Top = 98
       Width = 65
       Height = 36
       TabOrder = 5
     end
     object StaticText19: TStaticText
-      Left = 27
-      Top = 154
-      Width = 149
-      Height = 32
+      Left = 11
+      Top = 146
+      Width = 142
+      Height = 29
       Caption = #51064#53552#54168#51060#49828' '#49444#51221
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
-      Font.Height = -20
+      Font.Height = -19
       Font.Name = 'Segoe UI'
       Font.Style = []
       ParentFont = False
@@ -219,14 +219,14 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
     end
     object m_EditOpType: TEdit
       Left = 317
-      Top = 114
+      Top = 140
       Width = 65
       Height = 36
       TabOrder = 7
     end
     object StaticText20: TStaticText
-      Left = 27
-      Top = 192
+      Left = 11
+      Top = 188
       Width = 84
       Height = 32
       Caption = #52264#47196#53440#51077
@@ -240,9 +240,9 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
     end
     object m_EditSystemType: TEdit
       Left = 317
-      Top = 159
+      Top = 185
       Width = 65
-      Height = 36
+      Height = 35
       TabOrder = 9
     end
     object m_EditComPort: TEdit
@@ -382,7 +382,7 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
     end
     object m_cbAxisWeight: TComboBox
       Left = 182
-      Top = 104
+      Top = 98
       Width = 129
       Height = 36
       TabOrder = 22
@@ -410,10 +410,16 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       OnChange = m_cbOneipuChange
     end
     object m_cbOpType: TComboBox
-      Left = 144
-      Top = 192
-      Width = 167
-      Height = 36
+      Left = 159
+      Top = 143
+      Width = 152
+      Height = 33
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -19
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
       TabOrder = 26
       OnChange = m_cbOpTypeChange
     end
@@ -433,7 +439,7 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
     end
     object m_cbSystemType: TComboBox
       Left = 182
-      Top = 146
+      Top = 185
       Width = 129
       Height = 36
       TabOrder = 29
