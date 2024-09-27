@@ -3,8 +3,8 @@ object FormTabView: TFormTabView
   Top = 0
   AutoSize = True
   Caption = #49444#51221#54532#47196#44536#47016
-  ClientHeight = 679
-  ClientWidth = 1018
+  ClientHeight = 677
+  ClientWidth = 1010
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -15,8 +15,8 @@ object FormTabView: TFormTabView
   object m_pageControl: TPageControl
     Left = 0
     Top = 0
-    Width = 1018
-    Height = 679
+    Width = 1010
+    Height = 677
     ActivePage = m_tabRemote
     Align = alClient
     TabOrder = 0
@@ -123,6 +123,9 @@ object FormTabView: TFormTabView
         end
         inherited GroupBox3: TGroupBox
           inherited GroupBox4: TGroupBox
+            inherited m_Label_InNetChgExplan: TLabel
+              StyleElements = [seFont, seClient, seBorder]
+            end
             inherited m_In_MaskEdit_IPAddress: TMaskEdit
               StyleElements = [seFont, seClient, seBorder]
             end
@@ -134,6 +137,9 @@ object FormTabView: TFormTabView
             end
           end
           inherited GroupBox5: TGroupBox
+            inherited m_Label_ExNetChgExplan: TLabel
+              StyleElements = [seFont, seClient, seBorder]
+            end
             inherited m_Ex_MaskEdit_IPAddress: TMaskEdit
               StyleElements = [seFont, seClient, seBorder]
             end

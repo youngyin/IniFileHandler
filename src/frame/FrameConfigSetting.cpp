@@ -3,7 +3,7 @@
 #include <vcl.h>
 #pragma hdrstop
 
-#include "FrameRemote.h"
+#include "FrameConfigSetting.h"
 
 #include <vcl.h>
 #include <vector>
@@ -804,39 +804,6 @@ void __fastcall TFrame_ConfigSetting::m_Ex_MaskEdit_IPAddressKeyPress(TObject *S
 			Key = 0; // 잘못된 키 입력을 무시
 			ShowMessage("숫자만 입력 해주세요.");
 		}
-		/*
-		else if (Key == VK_BACK) {
-			 // 현재 텍스트 가져오기
-			AnsiString Text = edit->Text;
-			AnsiString NewText;
-			int i;
-
-			// 공백과 점(.)을 제외한 숫자만 추출
-			for (i = 1; i <= Text.Length(); i++)
-			{
-				if (Text[i] >= '0' && Text[i] <= '9')
-				{
-					NewText += Text[i];
-				}
-			}
-
-			// 추출한 숫자를 다시 IP 형식으로 변환
-			AnsiString FormattedText;
-			int len = NewText.Length();
-			for (i = 1; i <= len; i++)
-			{
-				FormattedText += NewText[i];
-				if (i % 3 == 0 && i < len)
-				{
-					FormattedText += '.';
-				}
-			}
-
-			// 포맷된 텍스트를 MaskEdit에 설정
-			edit->Text = FormattedText;
-			edit->SelStart = FormattedText.Length(); // 커서를 텍스트 끝으로 이동                 
-			}
-			*/
 	}
 }
 //---------------------------------------------------------------------------
@@ -845,12 +812,6 @@ void __fastcall TFrame_ConfigSetting::m_Ex_MaskEdit_IPAddressKeyPress(TObject *S
 bool TFrame_ConfigSetting::IsValidIP(const String &ip)
 {
     // IP 주소의 유효성을 검사하는 간단한 함수
-	/*
-	TRegEx regex("^\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$");
-	if (!regex.IsMatch(ip))
-		return false;
-	*/
-
 	const String pattern = "^\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$";
 	if (!TRegEx::IsMatch(ip, pattern))
 		return false;
@@ -879,18 +840,6 @@ bool TFrame_ConfigSetting::IsValidIP(const String &ip)
 }
 //---------------------------------------------------------------------------
 
-
-// OnKeyPress 이벤트 핸들러
-void __fastcall TFrame_ConfigSetting::EditIPKeyPress(TObject *Sender, System::WideChar &Key)
-{
-    // 숫자, 점(.) 및 백스페이스만 허용
-    if (!((Key >= '0' && Key <= '9') || Key == '.' || Key == '\b'))
-    {
-        Key = 0;
-    }
-}
-
-// OnExit 이벤트 핸들러
 bool __fastcall TFrame_ConfigSetting::IsValidIP(const AnsiString &ip)
 {
     // IP 주소를 '.'으로 분할
@@ -919,4 +868,5 @@ bool __fastcall TFrame_ConfigSetting::IsValidIP(const AnsiString &ip)
     delete parts;
     return true;
 }
+
 

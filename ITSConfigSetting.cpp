@@ -4,7 +4,7 @@
 #pragma hdrstop
 #include <tchar.h>
 //---------------------------------------------------------------------------
-USEFORM("src\frame\FrameRemote.cpp", Frame_ConfigSetting); /* TFrame: File Type */
+USEFORM("src\frame\FrameConfigSetting.cpp", Frame_ConfigSetting); /* TFrame: File Type */
 USEFORM("src\frame\FrameIpu.cpp", Frame_IpuNet); /* TFrame: File Type */
 USEFORM("src\TabPage.cpp", FormTabView);
 //---------------------------------------------------------------------------

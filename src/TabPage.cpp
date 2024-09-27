@@ -15,7 +15,7 @@
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma link "FrameIpu"
-#pragma link "FrameRemote"
+#pragma link "FrameConfigSetting"
 #pragma resource "*.dfm"
 TFormTabView *FormTabView;
 //---------------------------------------------------------------------------

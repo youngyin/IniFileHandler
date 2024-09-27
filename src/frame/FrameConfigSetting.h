@@ -1,7 +1,7 @@
 ﻿//---------------------------------------------------------------------------
 
-#ifndef FrameRemoteH
-#define FrameRemoteH
+#ifndef FrameConfigSettingH
+#define FrameConfigSettingH
 //---------------------------------------------------------------------------
 #include <System.Classes.hpp>
 #include <Vcl.Controls.hpp>
@@ -135,9 +135,6 @@ __published:	// IDE-managed Components
 	void __fastcall m_EditMCPortKeyPress(TObject *Sender, System::WideChar &Key);
 	void __fastcall m_cbOneipuChange(TObject *Sender);
 	void __fastcall m_Ex_MaskEdit_IPAddressKeyPress(TObject *Sender, System::WideChar &Key);
-
-
-	void __fastcall EditIPKeyPress(TObject *Sender, System::WideChar &Key);
 	bool __fastcall IsValidIP(const AnsiString &ip);
 
 private:	// User declarations

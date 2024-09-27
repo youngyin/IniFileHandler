@@ -12,7 +12,7 @@
 
 // custom class
 #include "FrameIpu.h"
-#include "FrameRemote.h"
+#include "FrameConfigSetting.h"
 //---------------------------------------------------------------------------
 class TFormTabView : public TForm
 {

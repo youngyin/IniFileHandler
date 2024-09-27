@@ -219,19 +219,19 @@
             <DependentOn>src\data\RemoteConfig.h</DependentOn>
             <BuildOrder>13</BuildOrder>
         </CppCompile>
+        <CppCompile Include="src\frame\FrameConfigSetting.cpp">
+            <Form>Frame_ConfigSetting</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+            <DependentOn>src\frame\FrameConfigSetting.h</DependentOn>
+            <BuildOrder>13</BuildOrder>
+        </CppCompile>
         <CppCompile Include="src\frame\FrameIpu.cpp">
             <Form>Frame_IpuNet</Form>
             <FormType>dfm</FormType>
             <DesignClass>TFrame</DesignClass>
             <DependentOn>src\frame\FrameIpu.h</DependentOn>
             <BuildOrder>12</BuildOrder>
-        </CppCompile>
-        <CppCompile Include="src\frame\FrameRemote.cpp">
-            <Form>Frame_ConfigSetting</Form>
-            <FormType>dfm</FormType>
-            <DesignClass>TFrame</DesignClass>
-            <DependentOn>src\frame\FrameRemote.h</DependentOn>
-            <BuildOrder>13</BuildOrder>
         </CppCompile>
         <CppCompile Include="src\scheduler\CustomThread.cpp">
             <DependentOn>src\scheduler\CustomThread.h</DependentOn>
@@ -255,7 +255,7 @@
             <DependentOn>src\util\INIFileManager.h</DependentOn>
             <BuildOrder>11</BuildOrder>
         </CppCompile>
-        <FormResources Include="src\frame\FrameRemote.dfm"/>
+        <FormResources Include="src\frame\FrameConfigSetting.dfm"/>
         <FormResources Include="src\frame\FrameIpu.dfm"/>
         <FormResources Include="src\TabPage.dfm"/>
         <BuildConfiguration Include="Base">
