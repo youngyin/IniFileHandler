@@ -9,6 +9,7 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <System.RegularExpressions.hpp>
 
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
@@ -102,16 +103,7 @@ void TFrame_ConfigSetting::InitComboBoxStyle(){
 }
 
 void TFrame_ConfigSetting::InitMaskEdit(){
-	m_In_MaskEdit_IPAddress->EditMask = "000.000.000.000;1;_";
-	m_In_MaskEdit_SubNetAddress->EditMask = "000.000.000.000;1;_";
-	m_In_MaskEdit_GateWayAddress->EditMask = "000.000.000.000;1;_";
-	m_Ex_MaskEdit_IPAddress->EditMask = "000.000.000.000;1;_";
-	m_Ex_MaskEdit_SubNetAddress->EditMask = "000.000.000.000;1;_";
-	m_Ex_MaskEdit_GateWayAddress->EditMask = "000.000.000.000;1;_";
-	m_MaskEditFtpServerAddress->EditMask = "000.000.000.000;1;_";
-	m_MaskEditRemoteServerAddress->EditMask = "000.000.000.000;1;_";
-	m_MaskEditImgServerIP->EditMask = "000.000.000.000;1;_";
-	m_MaskEditMCServerIP->EditMask = "000.000.000.000;1;_";
+
 }
 
 void TFrame_ConfigSetting::InitEdit(){
@@ -213,8 +205,7 @@ void TFrame_ConfigSetting::displayValues_IPU(const IpuConfig &configValues) {
 
 	m_In_MaskEdit_IPAddress->Text = strInipAddress[0];
 	m_In_MaskEdit_SubNetAddress->Text = strInipAddress[1];
-	if(strInipAddress[2] != ""){ m_In_MaskEdit_GateWayAddress->Text = strInipAddress[2];}
-
+	if(strInipAddress[2] != ""){ m_In_MaskEdit_GateWayAddress->Text = strInipAddress[2]; }
 
 	std::vector<std::string> result_Ex = SplitString(AnsiString(configValues.ipOut.get()).c_str(), '/');
 
@@ -228,12 +219,15 @@ void TFrame_ConfigSetting::displayValues_IPU(const IpuConfig &configValues) {
 
 	m_Ex_MaskEdit_IPAddress->Text = strExipAddress[0];
 	m_Ex_MaskEdit_SubNetAddress->Text = strExipAddress[1];
-	if(strExipAddress[2] != ""){ m_Ex_MaskEdit_GateWayAddress->Text = strExipAddress[2];}
+
+	if(strExipAddress[2] != ""){ m_Ex_MaskEdit_GateWayAddress->Text = strExipAddress[2]; }
 }
 
 void TFrame_ConfigSetting::displayValues_LANE(const LaneConfig &configValues){
 	//Real로 읽은 값을 Show 값으로 치환 후 Add된 것과 같은게 있으면 해당 부분을 CurSel한다.
 	int nIndex = 0;
+	String strValue;
+
 	//SYSTEM
 	m_EditOneIPU->Text = configValues.nOneipuOnly.get();
 	nIndex = m_cbOneipu->Items->IndexOf(ChangeValue_RealToShow(IntToStr(configValues.nOneipuOnly.get()), SectionUnitType::DATA));
@@ -282,12 +276,14 @@ void TFrame_ConfigSetting::displayValues_LANE(const LaneConfig &configValues){
 	m_cbBaudRate->ItemIndex = nIndex;
 
 	//MIS(재인식서버)
-	m_MaskEditImgServerIP->Text = configValues.strImageServer.get();
-	m_EditImgServerPort->Text = configValues.strImagePort.get();
+	strValue = configValues.strImageServer.get();
+	if(strValue != "readNotString" ) { m_MaskEditImgServerIP->Text = strValue; }
+	m_EditImgServerPort->Text = IntToStr(configValues.nImagePort.get());
 
 	//MIS(주제어기 서버)
-	m_MaskEditMCServerIP->Text = configValues.strMCImageServer.get();
-	m_EditMCPort->Text = configValues.strMCImagePort.get();
+	strValue = configValues.strMCImageServer.get();
+	if(strValue != "readNotString" ) { m_MaskEditMCServerIP->Text = strValue; }
+	m_EditMCPort->Text = IntToStr(configValues.nMCImagePort.get());
 
 	//"TCS/무인정산기"인 경우만 주제어기 서버 Enabled 처리 그외는 Disabled
 	if(m_EditOpType->Text == REAL_OPTYPE_11)
@@ -364,6 +360,8 @@ Variant TFrame_ConfigSetting::ChangeValue_RealToShow(const String strValue, cons
 Variant TFrame_ConfigSetting::ChangeValue_ShowToReal(const String strValue, const SectionUnitType Unit) {
 	Variant strRetunValue = strValue;
 
+    if(strValue.IsEmpty()) { return "Emtpy"; }
+
 	switch(Unit)
 	{
 		case SectionUnitType::DATA:
@@ -414,8 +412,8 @@ Variant TFrame_ConfigSetting::ChangeValue_ShowToReal(const String strValue, cons
 
 //---------------------------------------------------------------------------
 void TFrame_ConfigSetting::changeDataFromUI(IpuConfig &configValues) {
-	String strExIPText = m_Ex_MaskEdit_IPAddress->Text + "/" + m_Ex_MaskEdit_SubNetAddress->Text + "/" + m_Ex_MaskEdit_GateWayAddress->Text;
-	String strInIPText = m_In_MaskEdit_IPAddress->Text + "/" + m_In_MaskEdit_SubNetAddress->Text + "/" + m_In_MaskEdit_GateWayAddress->Text;
+	String strExIPText = "\"" + RemoveSpacesFromIP(m_Ex_MaskEdit_IPAddress->Text.Trim()) + "/" + RemoveSpacesFromIP(m_Ex_MaskEdit_SubNetAddress->Text.Trim()) + "/" + RemoveSpacesFromIP(m_Ex_MaskEdit_GateWayAddress->Text.Trim()) + "\"";
+	String strInIPText = "\"" + RemoveSpacesFromIP(m_In_MaskEdit_IPAddress->Text.Trim()) + "/" + RemoveSpacesFromIP(m_In_MaskEdit_SubNetAddress->Text.Trim()) + "/" + RemoveSpacesFromIP(m_In_MaskEdit_GateWayAddress->Text.Trim()) + "\"";
 
 	configValues.ipIn.change(strInIPText);
 	configValues.ipOut.change(strExIPText);
@@ -428,13 +426,13 @@ void TFrame_ConfigSetting::changeDataFromUI(LaneConfig &configValues) {
 	String strValue = "NULL";
 
 	nSelectIndex = m_cbOneipu->ItemIndex;
-	configValues.nOneipuOnly.change(ChangeValue_ShowToReal(m_cbOneipu->Items->Strings[nSelectIndex], SectionUnitType::DATA));
+	configValues.nOneipuOnly.change(StrToInt(ChangeValue_ShowToReal(m_cbOneipu->Items->Strings[nSelectIndex], SectionUnitType::DATA)));
 
 	nSelectIndex = m_cbAxisWeight->ItemIndex;
-	configValues.nAxisWeight.change(ChangeValue_ShowToReal(m_cbAxisWeight->Items->Strings[nSelectIndex], SectionUnitType::DATA));
+	configValues.nAxisWeight.change(StrToInt(ChangeValue_ShowToReal(m_cbAxisWeight->Items->Strings[nSelectIndex], SectionUnitType::DATA)));
 
 	nSelectIndex = m_cbOpType->ItemIndex;
-	configValues.nOpType.change(ChangeValue_ShowToReal(m_cbOpType->Items->Strings[nSelectIndex], SectionUnitType::OPTYPE));
+	configValues.nOpType.change(StrToInt(ChangeValue_ShowToReal(m_cbOpType->Items->Strings[nSelectIndex], SectionUnitType::OPTYPE)));
 
 	nSelectIndex = m_cbSystemType->ItemIndex;
 	configValues.strSystemType.change(ChangeValue_ShowToReal(m_cbSystemType->Items->Strings[nSelectIndex], SectionUnitType::SYSTEMTYPE));
@@ -443,10 +441,10 @@ void TFrame_ConfigSetting::changeDataFromUI(LaneConfig &configValues) {
 	configValues.strPostion.change(ChangeValue_ShowToReal(m_cbPosition->Items->Strings[nSelectIndex], SectionUnitType::POSITION));
 	//CAMERA
 	//Position변경 시 CAMERA#1 Section에 DevType도 같이 변경 필수
-	configValues.nDevType.change(ChangeValue_ShowToReal(m_cbPosition->Items->Strings[nSelectIndex], SectionUnitType::CAMERA));
+	configValues.nDevType.change(StrToInt(ChangeValue_ShowToReal(m_cbPosition->Items->Strings[nSelectIndex], SectionUnitType::CAMERA)));
 
 	nSelectIndex = m_cbTriggerType->ItemIndex;
-	configValues.nTriggerType.change(ChangeValue_ShowToReal(m_cbTriggerType->Items->Strings[nSelectIndex], SectionUnitType::TRIGGERTYPE));
+	configValues.nTriggerType.change(StrToInt(ChangeValue_ShowToReal(m_cbTriggerType->Items->Strings[nSelectIndex], SectionUnitType::TRIGGERTYPE)));
 
 	//[HIPASS]
 	nSelectIndex = m_cbComType->ItemIndex;
@@ -456,21 +454,20 @@ void TFrame_ConfigSetting::changeDataFromUI(LaneConfig &configValues) {
 	configValues.strPort.change(ChangeValue_ShowToReal(m_cbPort->Items->Strings[nSelectIndex], SectionUnitType::ETC));
 
 	nSelectIndex = m_cbBaudRate->ItemIndex;
-	configValues.nBaudRate.change(ChangeValue_ShowToReal(m_cbBaudRate->Items->Strings[nSelectIndex], SectionUnitType::ETC));
+	configValues.nBaudRate.change(StrToInt(ChangeValue_ShowToReal(m_cbBaudRate->Items->Strings[nSelectIndex], SectionUnitType::ETC)));
 
 	//[MIS]
-
 	//재인식 서버
-	configValues.strImageServer.change(m_MaskEditImgServerIP->Text);
-	configValues.strImagePort.change(StrToInt(m_EditImgServerPort->Text));
+	configValues.strImageServer.change(RemoveSpacesFromIP(m_MaskEditImgServerIP->Text.Trim()));
+	configValues.nImagePort.change(StrToInt(m_EditImgServerPort->Text.Trim()));
 
     //주제어기 서버
-	configValues.strMCImageServer.change(m_MaskEditMCServerIP->Text);
-	configValues.strMCImagePort.change(StrToInt(m_EditMCPort->Text));
+	configValues.strMCImageServer.change(RemoveSpacesFromIP(m_MaskEditMCServerIP->Text.Trim()));
+	configValues.nMCImagePort.change(StrToInt(m_EditMCPort->Text));
 }
 
 void TFrame_ConfigSetting::changeDataFromUI(FtpConfig &configValues) {
-	String strFtpServerAdress = m_MaskEditFtpServerAddress->Text;
+	String strFtpServerAdress = RemoveSpacesFromIP(m_MaskEditFtpServerAddress->Text.Trim());
 	String strFtpServerPort   = m_EditFtpServerPort->Text;
 	String strFtpLoginID      = m_EditFtpLoginID->Text;
 	String strFtpLoginPW      = m_EditFtpLoginPW->Text;
@@ -482,7 +479,7 @@ void TFrame_ConfigSetting::changeDataFromUI(FtpConfig &configValues) {
 }
 
 void TFrame_ConfigSetting::changeDataFromUI(RemoteConfig &configValues) {
-	String strRemoteServerAddress = m_MaskEditRemoteServerAddress->Text;
+	String strRemoteServerAddress = RemoveSpacesFromIP(m_MaskEditRemoteServerAddress->Text.Trim());
 	String strRemoteServerPort = m_EditRemoteServerPort->Text;
 
 	configValues.RemoteServerAddress.change(strRemoteServerAddress);
@@ -510,6 +507,20 @@ bool TFrame_ConfigSetting::ExecuteNetshCommand(const std::string& command) {
 	std::string fullCommand = "netsh " + command;
     int result = system(fullCommand.c_str());
     return (result == 0);
+}
+
+String TFrame_ConfigSetting::RemoveSpacesFromIP(const String &ip)
+{
+	String result;
+	for(int i =1; i <= ip.Length(); i++)
+	{
+		if(ip[i] != ' ')
+		{
+			result += ip[i];
+		}
+	}
+	if(result == "...") {result = "";}
+    return result;
 }
 
 std::vector<std::string> TFrame_ConfigSetting::SplitString(const std::string& str, char delimiter)
@@ -596,6 +607,7 @@ void __fastcall TFrame_ConfigSetting::m_btnIpuFileSaveClick(TObject *Sender)
 	String message = "저장 후 적용";
 	IpuConfig m_fileConfigData;
 	String strFilePath = IPU_FILE_PATH;
+	bool bRet = False;
 
 	m_fileConfigData.readFileValues(strFilePath);
 	changeDataFromUI(m_fileConfigData);
@@ -604,20 +616,36 @@ void __fastcall TFrame_ConfigSetting::m_btnIpuFileSaveClick(TObject *Sender)
 	if (result == mrYes) {
 		m_fileConfigData.writeValues(strFilePath);//쓰기
 		loadValues(strFilePath, FileUnitType::IPU);//쓰기 완료 후 읽기
-
+			
 		//네트워크 설정 변경.
 		//std::string adapterName = AnsiString(m_edtInterfaceIn->Text).c_str();
-		NetworkConfigChange("IN"
-		, AnsiString(m_In_MaskEdit_IPAddress->Text).c_str()
-		, AnsiString(m_In_MaskEdit_SubNetAddress->Text).c_str()
-		, AnsiString(m_In_MaskEdit_GateWayAddress->Text).c_str() );
-		//std::string adapterName = AnsiString(m_edtInterfaceOut->Text).c_str();
-		NetworkConfigChange("EX"
-		, AnsiString(m_Ex_MaskEdit_IPAddress->Text).c_str()
-		, AnsiString(m_Ex_MaskEdit_SubNetAddress->Text).c_str()
-		, AnsiString(m_Ex_MaskEdit_GateWayAddress->Text).c_str() );
+		bRet = NetworkConfigChange("IN"
+		, AnsiString(RemoveSpacesFromIP(AnsiString(m_In_MaskEdit_IPAddress->Text).c_str())).c_str()
+		, AnsiString(RemoveSpacesFromIP(AnsiString(m_In_MaskEdit_SubNetAddress->Text).c_str())).c_str()
+		, AnsiString(RemoveSpacesFromIP(AnsiString(m_In_MaskEdit_GateWayAddress->Text).c_str())).c_str() );
 
-		ShowMessage("저장되었습니다(IPU).");
+		if(bRet) {m_Label_InNetChgExplan->Caption = NETWORK_CHG_RESULT_FALIL_STR;}
+		else {m_Label_InNetChgExplan->Caption = NETWORK_CHG_RESULT_SUCCESS_STR;}
+
+		//std::string adapterName = AnsiString(m_edtInterfaceOut->Text).c_str();
+		bRet = NetworkConfigChange("EX"
+		, AnsiString(RemoveSpacesFromIP(AnsiString(m_Ex_MaskEdit_IPAddress->Text).c_str())).c_str()
+		, AnsiString(RemoveSpacesFromIP(AnsiString(m_Ex_MaskEdit_SubNetAddress->Text).c_str())).c_str()
+		, AnsiString(RemoveSpacesFromIP(AnsiString(m_Ex_MaskEdit_GateWayAddress->Text).c_str())).c_str() );
+
+		if(bRet) {m_Label_ExNetChgExplan->Caption = NETWORK_CHG_RESULT_FALIL_STR;}
+		else {m_Label_ExNetChgExplan->Caption = NETWORK_CHG_RESULT_SUCCESS_STR;}
+
+		if(bRet) 
+		{		
+			//ShowMessage("저장이 실패 되었습니다(IPU).");
+			ShowMessage("네트워크 변경 실패 및 설정 값 저장 성공(IPU).");
+		}
+		else
+		{
+			ShowMessage("네트워크 변경 성공 및 설정 값 저장 성공 (IPU).");
+		}
+
 	}
 	else if (result == mrNo) {
 		//ShowMessage("값을 다시 불러옵니다.");
@@ -762,4 +790,133 @@ void __fastcall TFrame_ConfigSetting::m_cbOneipuChange(TObject *Sender)
 	}
 }
 //---------------------------------------------------------------------------
+
+
+void __fastcall TFrame_ConfigSetting::m_Ex_MaskEdit_IPAddressKeyPress(TObject *Sender,
+          System::WideChar &Key)
+{
+    TMaskEdit *edit = dynamic_cast<TMaskEdit*>(Sender);
+	if (edit)
+	{
+		// 숫자, 점(.) 및 백스페이스만 허용
+		if (!isdigit(Key) && Key != '.' && Key != VK_BACK && Key != VK_TAB)
+		{
+			Key = 0; // 잘못된 키 입력을 무시
+			ShowMessage("숫자만 입력 해주세요.");
+		}
+		/*
+		else if (Key == VK_BACK) {
+			 // 현재 텍스트 가져오기
+			AnsiString Text = edit->Text;
+			AnsiString NewText;
+			int i;
+
+			// 공백과 점(.)을 제외한 숫자만 추출
+			for (i = 1; i <= Text.Length(); i++)
+			{
+				if (Text[i] >= '0' && Text[i] <= '9')
+				{
+					NewText += Text[i];
+				}
+			}
+
+			// 추출한 숫자를 다시 IP 형식으로 변환
+			AnsiString FormattedText;
+			int len = NewText.Length();
+			for (i = 1; i <= len; i++)
+			{
+				FormattedText += NewText[i];
+				if (i % 3 == 0 && i < len)
+				{
+					FormattedText += '.';
+				}
+			}
+
+			// 포맷된 텍스트를 MaskEdit에 설정
+			edit->Text = FormattedText;
+			edit->SelStart = FormattedText.Length(); // 커서를 텍스트 끝으로 이동                 
+			}
+			*/
+	}
+}
+//---------------------------------------------------------------------------
+
+
+bool TFrame_ConfigSetting::IsValidIP(const String &ip)
+{
+    // IP 주소의 유효성을 검사하는 간단한 함수
+	/*
+	TRegEx regex("^\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$");
+	if (!regex.IsMatch(ip))
+		return false;
+	*/
+
+	const String pattern = "^\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$";
+	if (!TRegEx::IsMatch(ip, pattern))
+		return false;
+
+    TStringList *parts = new TStringList();
+    try
+    {
+        parts->Delimiter = '.';
+        parts->DelimitedText = ip;
+        if (parts->Count != 4)
+            return false;
+
+        for (int i = 0; i < parts->Count; i++)
+        {
+            int part = StrToIntDef(parts->Strings[i], -1);
+            if (part < 0 || part > 255)
+                return false;
+        }
+    }
+    __finally
+    {
+        delete parts;
+    }
+
+    return true;
+}
+//---------------------------------------------------------------------------
+
+
+// OnKeyPress 이벤트 핸들러
+void __fastcall TFrame_ConfigSetting::EditIPKeyPress(TObject *Sender, System::WideChar &Key)
+{
+    // 숫자, 점(.) 및 백스페이스만 허용
+    if (!((Key >= '0' && Key <= '9') || Key == '.' || Key == '\b'))
+    {
+        Key = 0;
+    }
+}
+
+// OnExit 이벤트 핸들러
+bool __fastcall TFrame_ConfigSetting::IsValidIP(const AnsiString &ip)
+{
+    // IP 주소를 '.'으로 분할
+    TStringList *parts = new TStringList();
+    parts->Delimiter = '.';
+    parts->DelimitedText = ip;
+
+    // 분할된 부분이 4개인지 확인
+    if (parts->Count != 4)
+    {
+        delete parts;
+        return false;
+	}
+
+    // 각 부분이 0에서 255 사이의 숫자인지 확인
+    for (int i = 0; i < parts->Count; i++)
+    {
+        int value = StrToIntDef(parts->Strings[i], -1);
+        if (value < 0 || value > 255)
+        {
+            delete parts;
+            return false;
+        }
+    }
+
+    delete parts;
+    return true;
+}
 

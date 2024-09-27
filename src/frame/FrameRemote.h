@@ -117,6 +117,8 @@ __published:	// IDE-managed Components
 	TMaskEdit *m_MaskEditImgServerIP;
 	TMaskEdit *m_MaskEditMCServerIP;
 	TLabel *m_Label_OneIPUSelectExpaln;
+	TLabel *m_Label_InNetChgExplan;
+	TLabel *m_Label_ExNetChgExplan;
 	void __fastcall m_btnIpuFileLoadClick(TObject *Sender);
 	void __fastcall m_btnIpuFileSaveClick(TObject *Sender);
 	void __fastcall m_btnLaneFileLoadClick(TObject *Sender);
@@ -132,9 +134,11 @@ __published:	// IDE-managed Components
 	void __fastcall m_EditImgServerPortKeyPress(TObject *Sender, System::WideChar &Key);
 	void __fastcall m_EditMCPortKeyPress(TObject *Sender, System::WideChar &Key);
 	void __fastcall m_cbOneipuChange(TObject *Sender);
+	void __fastcall m_Ex_MaskEdit_IPAddressKeyPress(TObject *Sender, System::WideChar &Key);
 
 
-
+	void __fastcall EditIPKeyPress(TObject *Sender, System::WideChar &Key);
+	bool __fastcall IsValidIP(const AnsiString &ip);
 
 private:	// User declarations
 	void loadValues(const String &strFilePath, const FileUnitType nSelectType);
@@ -165,7 +169,9 @@ private:	// User declarations
 
 	String m_strFilePath;
 	String GetFinalFilePath() { return m_strFilePath; }
+    String RemoveSpacesFromIP(const String &ip);
 	void SetFinalFilePath(String strFilePath) { m_strFilePath = strFilePath; }
+	bool IsValidIP(const String &ip);
 public:		// User declarations
 	__fastcall TFrame_ConfigSetting(TComponent* Owner);
 };

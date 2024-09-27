@@ -23,10 +23,10 @@ void FtpConfig::readFileValues(String strFilePath) {
     INIFileManager *pIniManager = new INIFileManager(strFilePath);
 
 	// CONFIG 섹션의 값 읽기
-	ftpServerAddress.init(pIniManager->Read("CONFIG", "FTPServerAddress"));
-	ftpServerPort.init(pIniManager->Read("CONFIG", "FTPServerPort"));
-	ftpLoginID.init(pIniManager->Read("CONFIG", "FTPLoginID"));
-	ftpLoginPW.init(pIniManager->Read("CONFIG", "FTPLoginPW"));
+	ftpServerAddress.init(pIniManager->Read("CONFIG", "FTPServerAddress", INIFileManager::DataType::String));
+	ftpServerPort.init(pIniManager->Read("CONFIG", "FTPServerPort", INIFileManager::DataType::String));
+	ftpLoginID.init(pIniManager->Read("CONFIG", "FTPLoginID", INIFileManager::DataType::String));
+	ftpLoginPW.init(pIniManager->Read("CONFIG", "FTPLoginPW", INIFileManager::DataType::String));
 
 	pIniManager = nullptr;
 }

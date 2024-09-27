@@ -89,12 +89,14 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
         TabOrder = 2
       end
       object m_MaskEditImgServerIP: TMaskEdit
-        Left = 141
+        Left = 142
         Top = 31
-        Width = 140
+        Width = 139
         Height = 33
+        EditMask = '999.999.999.999;1;_'
+        MaxLength = 15
         TabOrder = 3
-        Text = ''
+        Text = '   .   .   .   '
       end
     end
     object GroupBox8: TGroupBox
@@ -155,10 +157,12 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       object m_MaskEditMCServerIP: TMaskEdit
         Left = 137
         Top = 32
-        Width = 138
+        Width = 139
         Height = 33
+        EditMask = '999.999.999.999;1;_'
+        MaxLength = 15
         TabOrder = 3
-        Text = ''
+        Text = '   .   .   .   '
       end
     end
     object StaticText17: TStaticText
@@ -180,6 +184,7 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       Top = 30
       Width = 65
       Height = 36
+      ReadOnly = True
       TabOrder = 3
     end
     object StaticText18: TStaticText
@@ -201,6 +206,7 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       Top = 98
       Width = 65
       Height = 36
+      ReadOnly = True
       TabOrder = 5
     end
     object StaticText19: TStaticText
@@ -222,6 +228,7 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       Top = 140
       Width = 65
       Height = 36
+      ReadOnly = True
       TabOrder = 7
     end
     object StaticText20: TStaticText
@@ -242,7 +249,8 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       Left = 317
       Top = 185
       Width = 65
-      Height = 35
+      Height = 36
+      ReadOnly = True
       TabOrder = 9
     end
     object m_EditComPort: TEdit
@@ -250,6 +258,7 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       Top = 146
       Width = 72
       Height = 36
+      ReadOnly = True
       TabOrder = 10
     end
     object StaticText21: TStaticText
@@ -271,6 +280,7 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       Top = 104
       Width = 72
       Height = 36
+      ReadOnly = True
       TabOrder = 12
     end
     object StaticText22: TStaticText
@@ -292,6 +302,7 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       Top = 62
       Width = 72
       Height = 36
+      ReadOnly = True
       TabOrder = 14
     end
     object StaticText23: TStaticText
@@ -313,6 +324,7 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       Top = 20
       Width = 72
       Height = 36
+      ReadOnly = True
       TabOrder = 16
     end
     object StaticText24: TStaticText
@@ -348,6 +360,7 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       Top = 188
       Width = 72
       Height = 36
+      ReadOnly = True
       TabOrder = 19
     end
     object m_btnLaneFileLoad: TButton
@@ -539,11 +552,13 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
     end
     object m_MaskEditRemoteServerAddress: TMaskEdit
       Left = 69
-      Top = 44
+      Top = 47
       Width = 148
       Height = 33
+      EditMask = '999.999.999.999;1;_'
+      MaxLength = 15
       TabOrder = 5
-      Text = ''
+      Text = '   .   .   .   '
     end
   end
   object GroupBox3: TGroupBox
@@ -575,9 +590,22 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       Font.Style = []
       ParentFont = False
       TabOrder = 0
+      object m_Label_InNetChgExplan: TLabel
+        Left = 22
+        Top = 172
+        Width = 73
+        Height = 23
+        Caption = #51201#50857' '#44208#44284
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clDodgerblue
+        Font.Height = -17
+        Font.Name = 'Segoe UI'
+        Font.Style = [fsBold, fsUnderline]
+        ParentFont = False
+      end
       object StaticText1: TStaticText
         Left = 48
-        Top = 48
+        Top = 31
         Width = 20
         Height = 32
         Caption = 'IP'
@@ -591,7 +619,7 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       end
       object StaticText2: TStaticText
         Left = 31
-        Top = 95
+        Top = 78
         Width = 64
         Height = 32
         Caption = #49436#48652#45367
@@ -605,7 +633,7 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       end
       object StaticText3: TStaticText
         Left = 16
-        Top = 142
+        Top = 125
         Width = 104
         Height = 32
         Caption = #44172#51060#53944#50920#51060
@@ -619,27 +647,33 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       end
       object m_In_MaskEdit_IPAddress: TMaskEdit
         Left = 135
-        Top = 48
-        Width = 151
+        Top = 31
+        Width = 148
         Height = 33
+        EditMask = '999.999.999.999;1;_'
+        MaxLength = 15
         TabOrder = 3
-        Text = ''
+        Text = '   .   .   .   '
       end
       object m_In_MaskEdit_SubNetAddress: TMaskEdit
         Left = 135
-        Top = 95
-        Width = 151
+        Top = 78
+        Width = 148
         Height = 33
+        EditMask = '999.999.999.999;1;_'
+        MaxLength = 15
         TabOrder = 4
-        Text = ''
+        Text = '   .   .   .   '
       end
       object m_In_MaskEdit_GateWayAddress: TMaskEdit
         Left = 135
-        Top = 142
-        Width = 151
+        Top = 125
+        Width = 148
         Height = 33
+        EditMask = '999.999.999.999;1;_'
+        MaxLength = 15
         TabOrder = 5
-        Text = ''
+        Text = '   .   .   .   '
       end
     end
     object GroupBox5: TGroupBox
@@ -655,9 +689,22 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       Font.Style = []
       ParentFont = False
       TabOrder = 1
+      object m_Label_ExNetChgExplan: TLabel
+        Left = 27
+        Top = 172
+        Width = 73
+        Height = 23
+        Caption = #51201#50857' '#44208#44284
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clDodgerblue
+        Font.Height = -17
+        Font.Name = 'Segoe UI'
+        Font.Style = [fsBold, fsUnderline]
+        ParentFont = False
+      end
       object StaticText4: TStaticText
         Left = 48
-        Top = 50
+        Top = 31
         Width = 20
         Height = 32
         Caption = 'IP'
@@ -671,7 +718,7 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       end
       object StaticText5: TStaticText
         Left = 32
-        Top = 96
+        Top = 77
         Width = 64
         Height = 32
         Caption = #49436#48652#45367
@@ -685,7 +732,7 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       end
       object StaticText6: TStaticText
         Left = 16
-        Top = 142
+        Top = 123
         Width = 104
         Height = 32
         Caption = #44172#51060#53944#50920#51060
@@ -698,28 +745,36 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
         TabOrder = 2
       end
       object m_Ex_MaskEdit_IPAddress: TMaskEdit
-        Left = 126
-        Top = 50
-        Width = 151
+        Left = 128
+        Top = 28
+        Width = 143
         Height = 33
+        AutoSelect = False
+        EditMask = '999.999.999.999;1;_'
+        MaxLength = 15
         TabOrder = 3
-        Text = ''
+        Text = '   .   .   .   '
+        OnKeyPress = m_Ex_MaskEdit_IPAddressKeyPress
       end
       object m_Ex_MaskEdit_SubNetAddress: TMaskEdit
-        Left = 126
-        Top = 96
-        Width = 151
+        Left = 128
+        Top = 76
+        Width = 143
         Height = 33
+        EditMask = '999.999.999.999;1;_'
+        MaxLength = 15
         TabOrder = 4
-        Text = ''
+        Text = '   .   .   .   '
       end
       object m_Ex_MaskEdit_GateWayAddress: TMaskEdit
-        Left = 126
-        Top = 142
-        Width = 151
+        Left = 128
+        Top = 123
+        Width = 143
         Height = 33
+        EditMask = '999.999.999.999;1;_'
+        MaxLength = 15
         TabOrder = 5
-        Text = ''
+        Text = '   .   .   .   '
       end
     end
     object m_btnIpuFileLoad: TButton
@@ -886,8 +941,10 @@ object Frame_ConfigSetting: TFrame_ConfigSetting
       Top = 35
       Width = 148
       Height = 33
+      EditMask = '999.999.999.999;1;_'
+      MaxLength = 15
       TabOrder = 9
-      Text = ''
+      Text = '   .   .   .   '
     end
   end
 end

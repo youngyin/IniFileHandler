@@ -21,8 +21,8 @@ void RemoteConfig::readFileValues(String strFilePath) {
     INIFileManager *pIniManager = new INIFileManager(strFilePath);
 
 	// SYSTEM 섹션의 값 읽기
-	RemoteServerAddress.init(pIniManager->Read("SYSTEM", "SERVER"));
-	RemoteServerPort.init(pIniManager->Read("SYSTEM", "PORT"));
+	RemoteServerAddress.init(pIniManager->Read("SYSTEM", "SERVER", INIFileManager::DataType::String));
+	RemoteServerPort.init(pIniManager->Read("SYSTEM", "PORT", INIFileManager::DataType::Int));
 
 	pIniManager = nullptr;
 }

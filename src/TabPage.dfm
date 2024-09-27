@@ -3,8 +3,8 @@ object FormTabView: TFormTabView
   Top = 0
   AutoSize = True
   Caption = #49444#51221#54532#47196#44536#47016
-  ClientHeight = 698
-  ClientWidth = 1003
+  ClientHeight = 679
+  ClientWidth = 1018
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -15,11 +15,13 @@ object FormTabView: TFormTabView
   object m_pageControl: TPageControl
     Left = 0
     Top = 0
-    Width = 1003
-    Height = 698
+    Width = 1018
+    Height = 679
     ActivePage = m_tabRemote
     Align = alClient
     TabOrder = 0
+    ExplicitWidth = 624
+    ExplicitHeight = 441
     object m_tabRemote: TTabSheet
       Caption = 'ConfigSetting'
       ImageIndex = 2

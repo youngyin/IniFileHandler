@@ -30,6 +30,9 @@
 #define SHOW_ONEIPUSELECT_STREXPLAN_O     "*설명:전면 + 후면 구성"
 #define SHOW_ONEIPUSELECT_STREXPLAN_X     "*설명:전면 or 후면 단독 구성(기본)"
 
+#define NETWORK_CHG_RESULT_SUCCESS_STR 			  "IP address set successfully."
+#define NETWORK_CHG_RESULT_FALIL_STR 			  "Failed to set IP address."
+
 
 #define REAL_DATA_O 		0
 #define REAL_DATA_X 		1

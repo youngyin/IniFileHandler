@@ -30,11 +30,11 @@ public :
 	//[MIS]
 	//재인식서버
 	CValue<String> strImageServer;
-	CValue<int> strImagePort;
+	CValue<int> nImagePort;
 
 	//주제어기 서버(인터페이스 설정(TCP/무인정산기 선택)에 따라서 주제어기 서버 IP/Port 수정 가능하게 해야 함.)
 	CValue<String> strMCImageServer;
-	CValue<int> strMCImagePort;
+	CValue<int> nMCImagePort;
 
 	//[CAMERA#1]
     CValue<int> nDevType; //POSTION 설정과 동일하게 설정.
